@@ -19,6 +19,16 @@ router.post('users/userPost', verifyToken, async (req, res) => {
     const user = await u.save();
     res.json(user);
 });
+//edit
+router.patch('/users/update/:id',verifyToken,async(req,res)=>{
+    let id=req.params.id;
+    let newtype=req.body.type;
+    let myquery={
+        
+    }
+
+
+})
 
 router.delete('/users/:id', verifyToken, async (req, res) => {
     let userId = req.params.id;
