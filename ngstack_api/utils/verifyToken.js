@@ -5,6 +5,7 @@ module.exports = {
         }
         jwt.verify(req.headers.ngstackauth, jwstkey.jwt, (err, data) => {
             if (err) throw err;
+
             req.body.token = data;
         })
     }
