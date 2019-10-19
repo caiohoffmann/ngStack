@@ -1,39 +1,39 @@
 const express = require('express');
 
 const replyRouter = require('./reply');
-const Comment = require('../data/comments');
+const Post = require('../data/post');
 const response = require('../utils/response');
 
 const router = express.Router();
 
-router.use('/:idComment/reply', getComment, replyRouter);
+router.use('/:idComment/replies', getComment, replyRouter);
 
-//Find the comment in the database and pass the comment object in the request body for the reply router
 function getComment(req, res, next) {
+    req.body.idComment = req.params.idComment;
     next();
 }
 
 router.get('/', async (req, res) => {
-    const comment = await Comment.find({}).exec();
+    let query = { _id: `${req.body.idPost}` };
+    const comment = await Post.find(query).exec();
     res.json(response(comment));
 });
 
 
 router.post('/', async (req, res) => {
-    let cms = new Comment({
-        "content": req.body.content
-    });
-    // let cms = new Comment({
-    //     "content": req.body.content,
-    //     "like": req.body.like,
-    //     "replies": {
-    //         "content": req.body.replies.content,
-    //         "likes": req.body.replies.likes,
-    //         "owner": req.body.replies.owner
-    //     }
-    // });
-    const saveComment = await cms.save();
-    res.json(response(saveComment));
+
+    let query = { _id: `${req.body.idPost}` };
+
+    const findPost = await Post.updateOne(query, {
+        $push: {
+            comments: {
+                "content": req.body.content,
+                "like": req.body.like,
+                "owner": req.body.owner
+            }
+        }
+    }).exec();
+    res.json(response({ msg: "Comment added succesfully" }));
 });
 
 

@@ -5,11 +5,9 @@ const Posts = new mongoose.Schema({
     tags: [String],
     date: { type: Date, default: Date.now },
     comments: [{
-        idContent: { type: String, default: mongoose.Types.ObjectId },
         content: { type: String, required: true },
         like: Number,
         replies: [{
-            idReply: { type: String, default: mongoose.Types.ObjectId },
             content: { type: String, required: true },
             likes: Number,
             owner: { type: String, required: true },
