@@ -10,12 +10,12 @@ const router = express.Router();
 const jwstkey = require('../utils/key');
 
 
-
 router.use('/:idPost/comments', getPost, commentsRouter);
 
 //Find the post in the database and pass the post object in the request body for the comment router
 function getPost(req, res, next) {
-    next();
+    const post = Post.findOne({_id: req.params.idPost});
+    res.json(post);
 }
 
 ///POSTS

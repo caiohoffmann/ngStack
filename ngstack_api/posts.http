@@ -11,14 +11,14 @@ get http://localhost:3000/posts/homes http/1.1
 ngstackauth : {{token}}
 
 ### Get Homes Paged
-get http://localhost:3000/posts/homes/1 http/1.1
+get http://localhost:3000/posts/homes/2 http/1.1
 ngstackauth : {{token}}
 
 ### Get Post By Id
 get http://localhost:3000/posts/5dab4c4d56ddc42924e634d7 http/1.1
 ngstackauth : {{token}}
 
-### Create Post
+### Create New Post
 POST http://localhost:3000/posts http/1.1
 ngstackauth : {{token}}
 Content-Type: application/json
@@ -29,11 +29,12 @@ Content-Type: application/json
     "owner":{ "name": "Ali", "badge": 123}
 }
 
-### Delete Post
+### Delete a Post
 delete http://localhost:3000/posts/5dab60dc56dfe31f58927352 http/1.1
 ngstackauth : {{token}}
 
 ###
+get http://localhost:3000/posts/1/comments http/1.1
 
 
 
