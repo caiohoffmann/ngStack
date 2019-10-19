@@ -1,5 +1,5 @@
 const express = require('express');
-
+const Post = require('../data/post');
 const commentsRouter = require('./comments');
 
 const router = express.Router();
@@ -12,21 +12,22 @@ function getPost(req, res, next) {
 }
 
 ///posts
-router.get('/posts', async (req, res) => {
+router.get('/', async (req, res) => {
     const p = await Post.find({}).exec();
     res.json(p);
 })
 
-router.post('/posts', async (req, res) => {
+router.post('/', async (req, res) => {
     const p = new Post({
         title: req.body.title,
         tags: req.body.tags,
         owner: req.body.owner,
-        date: req.body.date
     })
     const post = await p.save();
     res.json(post);
 })
+
+
 
 
 module.exports = router;
