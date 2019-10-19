@@ -10,7 +10,7 @@ const mongoose = require('mongoose');
 const jwstkey = require('./utils/key');
 const User = require('./data/user');
 const Post = require('./data/post');
-const Comment = require('./data/comments');
+
 const { verifyToken } = require('./utils/verifyToken');
 const response = require('./utils/response');
 

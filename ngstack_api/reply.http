@@ -1,0 +1,21 @@
+POST http://localhost:3000/posts/1534456/comments/156144/replies/ HTTP/1.1
+Content-Type: application/json
+
+{
+    "content" : "I think this is a good comment"
+}
+
+###
+PATCH http://localhost:3000/posts/1534456/comments/156144/replies/1233321 HTTP/1.1
+Content-Type: application/json
+
+{
+    "content" : "I think this is a better comment"
+}
+###
+DELETE http://localhost:3000/posts/1534456/comments/156144/replies/123312 HTTP/1.1
+Content-Type: application/json
+
+{
+    "content" : "I think this is a better comment"
+}

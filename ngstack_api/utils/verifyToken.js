@@ -1,3 +1,6 @@
+const jwt = require("jsonwebtoken");
+const jwstkey = require('../utils/key');
+
 module.exports = {
     verifyToken: (req, res, next) => {
         if (!req.headers.ngstackauth) {
@@ -7,6 +10,8 @@ module.exports = {
             if (err) throw err;
 
             req.body.token = data;
+            return next();
         })
+    
     }
 };
