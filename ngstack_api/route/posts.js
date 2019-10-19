@@ -71,6 +71,16 @@ router.delete('/:id', verifyToken, async (req, res) => {
     
 })
 
+router.patch('/:id', verifyToken, async (req,res)=>{
+    try{
+        const post = await Post.updateOne({_id:req.params.id},{$set:req.body});
+        const home = await Home.updateOne({_id:req.params.id},{$set:req.body});
+        res.json(Response('Updated Successfully',null));
+    }catch(err){
+        res.json(Response(null,err.errmsg));
+    }
+})
+
 
 
 

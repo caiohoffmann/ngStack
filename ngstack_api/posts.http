@@ -1,5 +1,5 @@
 @token =eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpzQGdtYWlsLmNvbSIsImlhdCI6MTU3MTUwNTkwMn0.uxHY244DCJtGGOlUSZKvoN6OYi5_VikZk0GFmQUarxI
-###Get Token
+### Get Token
 Get http://localhost:3000/test http/1.1
 
 ### Get All Posts
@@ -24,16 +24,24 @@ ngstackauth : {{token}}
 Content-Type: application/json
 
 {
-    "title":"my 10 post",
+    "title":"The new post",
     "tags":["sport", "tech"],
-    "owner":{ "name": "Ali", "badge": 123}
+    "owner":{ "name": "Mike", "badge": 5}
 }
 
 ### Delete a Post
 delete http://localhost:3000/posts/5dab60dc56dfe31f58927352 http/1.1
 ngstackauth : {{token}}
 
-###
+### Modify a Post
+PATCH http://localhost:3000/posts/5dab4bc5c3b5510290ff7460 http/1.1
+ngstackauth : {{token}}
+Content-Type: application/json
+
+{
+    "title": "My New Title"
+}
+
 
 
 
