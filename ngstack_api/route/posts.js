@@ -31,6 +31,20 @@ router.get('/posts', verifyToken, async (req, res) => {
     res.json(p);
 })
 
+//Get Homes Paged
+router.get('/homes/:page', verifyToken, async(req,res)=>{
+    const skip = (req.params.page-1)*5;
+    const p = await Home.find().skip(skip).limit(5);
+    res.json(p);
+})
+
+//Get Post by Id
+router.get('/:id', verifyToken, async(req,res)=>{
+    const p = await Post.findById({_id: req.params.id}).exec();
+    res.json(p);
+})
+
+
 //Create New Post
 router.post('/', verifyToken, async (req, res) => {
     const home = new Home({
