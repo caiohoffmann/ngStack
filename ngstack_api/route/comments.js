@@ -1,10 +1,10 @@
-// const express = require('express');
+const express = require('express');
 
 const replyRouter = require('./reply');
 const Post = require('../data/post');
 const response = require('../utils/response');
 
-// const router = express.Router();
+const router = express.Router();
 
 router.use('/:idComment/replies', getComment, replyRouter);
 
@@ -37,50 +37,50 @@ router.post('/', async (req, res) => {
 });
 
 
-// router.get('/:id_comment', async (req, res) => {
-//     let query = { _id: `${req.params.id_comment}` }
-//     const findComment = await Comment.findOne(query).exec();
-//     res.json(response(findComment));
-// });
+router.get('/:id_comment', async (req, res) => {
+    let query = { _id: `${req.params.id_comment}` }
+    const findComment = await Comment.findOne(query).exec();
+    res.json(response(findComment));
+});
 
 
-// router.delete('/:id_comment', async (req, res) => {
-//     let query = { _id: `${req.params.id_comment}` }
-//     const dltcmt = await Comment.deleteOne(query).exec();
-//     res.json(response(dltcmt));
-// });
+router.delete('/:id_comment', async (req, res) => {
+    let query = { _id: `${req.params.id_comment}` }
+    const dltcmt = await Comment.deleteOne(query).exec();
+    res.json(response(dltcmt));
+});
 
 
-// router.put('/:id_comment', async (req, res) => {
-//     let query = { _id: `${req.params.id_comment}` }
-//     let update_comment = { content: req.body.like };
+router.put('/:id_comment', async (req, res) => {
+    let query = { _id: `${req.params.id_comment}` }
+    let update_comment = { content: req.body.like };
 
-//     // Comment.patchUpdate(query, update_comment).then((updatedUser) => {
-//     //     res.json(response(updatedUser));
-//     //     //res.status(200).json(updatedUser);
-//     // })
-//     //     .catch((err) => {
-//     //         next(err);
-//     //     });
+    // Comment.patchUpdate(query, update_comment).then((updatedUser) => {
+    //     res.json(response(updatedUser));
+    //     //res.status(200).json(updatedUser);
+    // })
+    //     .catch((err) => {
+    //         next(err);
+    //     });
 
-//     const put_cmt = await Comment.updateOne(query, update_comment);
-//     res.json(response(put_cmt));
-// });
+    const put_cmt = await Comment.updateOne(query, update_comment);
+    res.json(response(put_cmt));
+});
 
-// router.patch('/:id_comment', async (req, res) => {
-//     //let query = { _id: `${req.params.id_comment}` };
-//     let query = { _id: ObjectId(req.params.userId) };
+router.patch('/:id_comment', async (req, res) => {
+    //let query = { _id: `${req.params.id_comment}` };
+    let query = { _id: ObjectId(req.params.userId) };
 
-//     const array = await Comment.findOne({})
+    const array = await Comment.findOne({})
 
-//     var update_comment = {
-//         like: req.body.like
-//     };
+    var update_comment = {
+        like: req.body.like
+    };
 
-//     // const put_cmt = await Comment.updateOne(query, update_comment);
-//     res.json(response(put_cmt));
-// });
+    // const put_cmt = await Comment.updateOne(query, update_comment);
+    res.json(response(put_cmt));
+});
 
-// //Path for after
+//Path for after
 
-// module.exports = router;
+module.exports = router;

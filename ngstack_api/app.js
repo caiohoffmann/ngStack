@@ -8,8 +8,6 @@ const mongoose = require('mongoose');
 
 //NGS IMPORT
 const jwstkey = require('./utils/key');
-const User = require('./data/user');
-const Post = require('./data/post');
 
 const { verifyToken } = require('./utils/verifyToken');
 const response = require('./utils/response');
@@ -38,6 +36,7 @@ app.get('/test', (req, res) => {
 });
 
 app.use('/posts', require('./route/posts'));
+app.use('/homes', require('./route/homes'));
 app.use('/users', require('./route/user'));
 
 app.use((req, res, next) => {
