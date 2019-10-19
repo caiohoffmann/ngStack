@@ -9,7 +9,8 @@ router.get('/users', verifyToken, async (req, res) => {
     res.json(list);
 });
 
-router.post('/users', verifyToken, async (req, res) => {
+
+router.post('users/userPost', verifyToken, async (req, res) => {
     const u = new User({
         email: req.body.email,
         password: req.body.password,
