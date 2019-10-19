@@ -10,7 +10,7 @@ const Home = new mongoose.Schema({
     date: { type: Date, default: Date.now },
 });
 
-Posts.index({ title: 1, 'owner.name': 1 }, { unique: true });
-Posts.index({ tags: 1 });
+Home.index({ title: 1, 'owner.name': 1 }, { unique: true });
+Home.index({ tags: 1 });
 
 module.exports = mongoose.model('home', Home);

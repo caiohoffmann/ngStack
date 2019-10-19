@@ -1,6 +1,8 @@
 const express = require('express');
 const Post = require('../data/post');
+const Home = require('../data/home');
 const commentsRouter = require('./comments');
+const { verifyToken } = require('../utils/verifyToken');
 
 const router = express.Router();
 
@@ -11,12 +13,14 @@ function getPost(req, res, next) {
     next();
 }
 
-///posts
+///POSTS
+//Getting All Posts
 router.get('/', async (req, res) => {
     const p = await Post.find({}).exec();
     res.json(p);
 })
 
+//Create New Post
 router.post('/', async (req, res) => {
     const p = new Post({
         title: req.body.title,
@@ -25,6 +29,12 @@ router.post('/', async (req, res) => {
     })
     const post = await p.save();
     res.json(post);
+})
+
+//Delete a post
+router.delete('/:id', async(req,res)=>{
+    const post = await Post.deleteOne({_id: req.params.id});
+    res.json({msg: 'posts deleted successfuly'})
 })
 
 
