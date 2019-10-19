@@ -1,0 +1,18 @@
+### Get All Posts
+get http://localhost:3000/posts http/1.1
+
+### Create Post
+POST http://localhost:3000/posts http/1.1
+Content-Type: application/json
+
+{
+    "title":"my first post",
+    "tags":["sport", "tech"],
+    "owner":{ "name": "Ali", "badge": 123}
+}
+
+### Delete Post
+delete http://localhost:3000/posts/:id http/1.1
+
+
+
