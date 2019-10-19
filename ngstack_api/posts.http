@@ -1,8 +1,19 @@
+@token =eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpzQGdtYWlsLmNvbSIsImlhdCI6MTU3MTUwNTkwMn0.uxHY244DCJtGGOlUSZKvoN6OYi5_VikZk0GFmQUarxI
+###Get Token
+Get http://localhost:3000/test http/1.1
+
 ### Get All Posts
-get http://localhost:3000/posts http/1.1
+get http://localhost:3000/posts/posts http/1.1
+ngstackauth : {{token}}
+
+### Get All Homes
+get http://localhost:3000/posts/homes http/1.1
+ngstackauth : {{token}}
+
 
 ### Create Post
 POST http://localhost:3000/posts http/1.1
+ngstackauth : {{token}}
 Content-Type: application/json
 
 {
@@ -12,7 +23,11 @@ Content-Type: application/json
 }
 
 ### Delete Post
-delete http://localhost:3000/posts/:id http/1.1
+delete http://localhost:3000/posts/5dab363b0385eb4edc7bce0c http/1.1
+ngstackauth : {{token}}
+
+###
+
 
 
 
