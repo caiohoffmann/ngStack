@@ -24,15 +24,36 @@ Content-Type: application/json
 
 delete http://localhost:3000/users/5daa4411ba95ee7865ca508b http/1.1
 
-###
-
-GET http://localhost:3000/posts/comments http/1.1
 
 ###
-GET http://localhost:3000/comment http/1.1
+GET http://localhost:3000/posts/123/comments http/1.1
+
 
 ###
+POST http://localhost:3000/posts/123/comments http/1.1
+Content-Type: application/json
+{
+    "content":"message "
+}
 
+###
+GET http://localhost:3000/posts/123/comments/5daa815ab40582874da722a3 http/1.1
+
+
+###
+DELETE http://localhost:3000/posts/123/comments/5daa81d5c88c9587793d259f http/1.1
+
+
+###
+PUT  http://localhost:3000/posts/123/comments/5daa81af28ef4f876faadfc6 http/1.1
+Content-Type: application/json
+ 
+{
+    "content":"New Content for you"
+}
+
+
+###
 POST http://localhost:3000/posts http/1.1
 Content-Type: application/json
 
