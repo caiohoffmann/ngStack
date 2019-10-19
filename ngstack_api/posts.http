@@ -34,7 +34,7 @@ delete http://localhost:3000/posts/5dab60dc56dfe31f58927352 http/1.1
 ngstackauth : {{token}}
 
 ###
-get http://localhost:3000/posts/1/comments http/1.1
+get http://localhost:3000/posts/1 http/1.1
 
 
 

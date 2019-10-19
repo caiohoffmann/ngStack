@@ -1,12 +1,13 @@
-POST http://localhost:3000/posts/1534456/comments/156144/replies/ HTTP/1.1
+POST http://localhost:3000/posts/5dab4bc5c3b5510290ff7460/comments/5dab75af65c47b2e196bdae4/replies HTTP/1.1
 Content-Type: application/json
 
 {
-    "content" : "I think this is a good comment"
+    "content" : "I think this is a good reply",
+    "owner":"Malkias"
 }
 
 ###
-PATCH http://localhost:3000/posts/1534456/comments/156144/replies/1233321 HTTP/1.1
+PATCH http://localhost:3000/posts/5dab4bc5c3b5510290ff7460/comments/5dab75af65c47b2e196bdae3/replies/5dab775fb9cdb8319900802d HTTP/1.1
 Content-Type: application/json
 
 {
@@ -19,3 +20,6 @@ Content-Type: application/json
 {
     "content" : "I think this is a better comment"
 }
+
+###
+GET http://localhost:3000/posts/5dab4bc5c3b5510290ff7460/comments/5dab75af65c47b2e196bdae3/replies/5dab775fb9cdb8319900802d HTTP/1.1

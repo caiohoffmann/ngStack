@@ -12,12 +12,11 @@ const jwstkey = require('../utils/key');
 
 router.use('/:idPost/comments', getPost, commentsRouter);
 
-//Find the post in the database and pass the post object in the request body for the comment router
 function getPost(req, res, next) {
-    const post = Post.findOne({_id: req.params.idPost});
-    res.json(post);
+    const id = req.params.idPost;
+    req.body.idPost = id;
+    next();
 }
-
 ///POSTS
 //Getting All Home
 router.get('/homes', async (req, res) => {
@@ -47,27 +46,32 @@ router.get('/:id', verifyToken, async(req,res)=>{
 
 //Create New Post
 router.post('/', verifyToken, async (req, res) => {
-    const home = new Home({
-        title: req.body.title,
-        tags: req.body.tags,
-        owner: req.body.owner,
-    })
-    const homeResult = await home.save();
-    const post = new Post({
-        _id: homeResult._id,
-        title: req.body.title,
-        tags: req.body.tags,
-        comments: []
-    })
-    const postResult = await post.save();
-    res.json(postResult);
+    try {
+        const home = new Home({
+            title: req.body.title,
+            tags: req.body.tags,
+            owner: req.body.owner,
+        })
+        const homeResult = await home.save();
+        const post = new Post({
+            _id: homeResult._id,
+            title: req.body.title,
+            tags: req.body.tags,
+            comments: []
+        })
+        const postResult = await post.save();
+        res.json(postResult);
+    } catch (err) {
+        res.json(500, response(null, err.errmsg));
+        throw err;
+    }
 })
 
 //Delete a post
-router.delete('/:id', verifyToken,  async(req,res)=>{
-    await Post.deleteOne({_id: req.params.id});
-    await Home.deleteOne({_id: req.params.id});
-    res.json({msg: 'posts deleted successfuly'})
+router.delete('/:id', verifyToken, async (req, res) => {
+    await Post.deleteOne({ _id: req.params.id });
+    await Home.deleteOne({ _id: req.params.id });
+    res.json({ msg: 'posts deleted successfuly' })
 })
 
 
