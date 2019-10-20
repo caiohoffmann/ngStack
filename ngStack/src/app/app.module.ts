@@ -17,10 +17,12 @@ import { UsersService } from './services/user.service';
 import { UsersStoreFacade } from './store/users.store-facade';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LoginComponent } from './core/login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
