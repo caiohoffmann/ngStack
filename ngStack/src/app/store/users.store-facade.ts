@@ -18,6 +18,10 @@ export class UsersStoreFacade {
     this.store.dispatch(logedIn({ user }));
   }
 
+  getUser() {
+    return this.store.pipe(select('user'));
+  }
+
   // updateContact(contact: User) {
   //   this.store.dispatch(update({ contact }));
   // }

@@ -12,9 +12,9 @@ export const logedIn = createAction(
   props<{ user: User }>()
 );
 
-// export const loadAll = createAction(
-//   '[Users] Load all'
-// );
+export const getUser = createAction(
+  UserEventTypes.getUser
+);
 
 // export const load = createAction(
 //   '[Users] Load',

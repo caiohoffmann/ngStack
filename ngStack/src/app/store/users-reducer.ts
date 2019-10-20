@@ -1,7 +1,7 @@
 import { User } from '../core/models/user.model';
 import { createReducer, on } from '@ngrx/store';
 import {
-  logedIn, login
+  logedIn, login,
 } from './users-actions';
 
 
@@ -14,10 +14,10 @@ export const initialState: State = {
 
 export const reducer = createReducer<State>(
   initialState,
-  on(logedIn, state =>
-    ({ ...state, users: state.user })),
-  on(logedIn, (state, { users }) =>
-    ({ ...state, user: state.user })
+  on(login, (state, { user }) =>
+    ({ ...state, user: user })),
+  on(logedIn, (state, { user }) =>
+    ({ ...state, user: user })
   ),
   // on(createSuccess, (state, { user }) =>
   //   usersAdapter.addOne(user, state)

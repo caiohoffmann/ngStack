@@ -7,7 +7,7 @@ import { UsersStoreFacade } from './store/users.store-facade';
   selector: 'app-root',
   template: `
     <div>
-      <p>{{user | async}}</p>
+      <p>{{user | async | json}}</p>
       <button (click)="login()">Log in</button>
     </div>
   `,
@@ -15,7 +15,9 @@ import { UsersStoreFacade } from './store/users.store-facade';
 })
 export class AppComponent {
   user: Observable<User>;
-  constructor(private usersStoreFacade: UsersStoreFacade) { }
+  constructor(private usersStoreFacade: UsersStoreFacade) {
+    this.user = usersStoreFacade.getUser();
+  }
   login() {
     this.usersStoreFacade.login({
       email: "caio@mum.edu",

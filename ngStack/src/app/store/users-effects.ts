@@ -38,7 +38,6 @@ export class UsersEffects {
   login$ = createEffect(() => this.actions$.pipe(
     ofType(login), /* When action is dispatched */
     pluck('user'),
-    /* Hit the Contacts Index endpoint of our REST API */
     /* Dispatch LoadAllSuccess action to the central store with id list returned by the backend as id*/
     /* 'Contacts Reducers' will take care of the rest */
     switchMap((user) => this.usersService.login(user).pipe(
