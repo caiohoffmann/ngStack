@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.post('/', verifyReply, async (req, res) => {
     try {
-        const p = await Post.updateOne({ _id: req.body.idPost, "comments.idContent": req.body.idComment },
+        const p = await Post.updateOne({ _id: req.body.idPost, "comments._id": req.body.idComment },
             {
                 $push: {
                     "comments.$.replies": {
@@ -15,7 +15,7 @@ router.post('/', verifyReply, async (req, res) => {
                         owner: req.body.owner
                     }
                 }
-            });
+            }).exec();
         res.json(response(p));
     } catch (err) {
         throw err;
@@ -31,18 +31,26 @@ router.get('/:idReply', async (req, res) => {
     res.json(response(reply));
 });
 
+router.get('/', async (req, res) => {
+    const reply = await Post.findOne({
+        _id: req.body.idPost,
+        'comments._id': req.body.idComment
+    }).exec();
+    res.json(response(reply));
+});
+
 router.patch('/:idReply', async (req, res) => {
     try {
         const p = await Post.updateOne({
             _id: req.body.idPost,
             'comments.replies._id': req.params.idReply
         },
+            { "$set": { "comments.$[comment].replies.$[reply].content": req.body.content } },
             {
-                $set: {
-                    "comments.replies.$": {
-                        content: req.body.content
-                    }
-                }
+                "arrayFilters": [
+                    { "comment._id": req.body.idComment },
+                    { "reply._id": req.params.idReply }
+                ]
             });
         res.json(response(p));
     } catch (err) {
@@ -52,12 +60,12 @@ router.patch('/:idReply', async (req, res) => {
 
 router.delete('/:idReply', async (req, res) => {
     try {
-        const p = await Post.updateOne({ _id: req.body.post._id, "comments.idContent": req.body.comment.idComment, "comments.replies.idReply": req.params.idReply },
-            {
-                $pop: {
-                    "comments.$.replies.$": 1
-                }
-            });
+        const p = await Post.updateOne({
+            _id: req.body.idPost,
+            "comments._id": req.body.idComment
+        },
+            { "$pull": { "comments.$.replies": { _id: req.params.idReply } } }
+        );
         res.json(response(p));
     } catch (err) {
         throw err;

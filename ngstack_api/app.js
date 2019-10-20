@@ -18,6 +18,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 mongoose.connect(`mongodb+srv://${jwstkey.mongoUser}:${jwstkey.mongoPass}@cluster0-mxtly.mongodb.net/test?retryWrites=true&w=majority`);
 mongoose.set('useCreateIndex', true);
+mongoose.set('debug', true);
 
 app.use('/posts', require('./route/posts'));
 app.use('/homes', require('./route/homes'));

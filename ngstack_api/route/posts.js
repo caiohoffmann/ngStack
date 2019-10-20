@@ -9,7 +9,7 @@ const Response = require('../utils/response');
 const router = express.Router();
 
 
-router.use('/:idPost/comments', getPost, commentsRouter);
+router.use('/:idPost/comments', verifyToken, getPost, commentsRouter);
 
 function getPost(req, res, next) {
     const id = req.params.idPost;
@@ -25,8 +25,8 @@ router.get('/', verifyToken, async (req, res) => {
 })
 
 //Get Post by Id
-router.get('/:id', verifyToken, async(req,res)=>{
-    const p = await Post.findById({_id: req.params.id}).exec();
+router.get('/:id', verifyToken, async (req, res) => {
+    const p = await Post.findById({ _id: req.params.id }).exec();
     res.json(p);
 })
 
@@ -49,35 +49,35 @@ router.post('/', verifyToken, async (req, res) => {
         const postResult = await post.save();
         res.json(postResult);
     } catch (err) {
-        res.json(Response(null,err.errmsg));
+        res.json(Response(null, err.errmsg));
     }
 })
 
 //Delete a post
 router.delete('/:id', verifyToken, async (req, res) => {
-    try{
+    try {
         const post = await Post.deleteOne({ _id: req.params.id });
         const home = await Home.deleteOne({ _id: req.params.id });
-        if(post.deletedCount!==0){
+        if (post.deletedCount !== 0) {
             res.json(Response('deleted successfully', null))
-        }else{
-            res.json(Response(null,'Nothing to delete!'))
+        } else {
+            res.json(Response(null, 'Nothing to delete!'))
         }
-        
-    }catch(err){
-        res.json(Response(null,err.errmsg));
+
+    } catch (err) {
+        res.json(Response(null, err.errmsg));
     }
-   
-    
+
+
 })
 
-router.patch('/:id', verifyToken, async (req,res)=>{
-    try{
-        const post = await Post.updateOne({_id:req.params.id},{$set:req.body});
-        const home = await Home.updateOne({_id:req.params.id},{$set:req.body});
-        res.json(Response('Updated Successfully',null));
-    }catch(err){
-        res.json(Response(null,err.errmsg));
+router.patch('/:id', verifyToken, async (req, res) => {
+    try {
+        const post = await Post.updateOne({ _id: req.params.id }, { $set: req.body });
+        const home = await Home.updateOne({ _id: req.params.id }, { $set: req.body });
+        res.json(Response('Updated Successfully', null));
+    } catch (err) {
+        res.json(Response(null, err.errmsg));
     }
 })
 
