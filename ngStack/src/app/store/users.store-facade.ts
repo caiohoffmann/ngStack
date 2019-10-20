@@ -25,4 +25,8 @@ export class UsersStoreFacade {
   // deleteContact(id: number) {
   //   this.store.dispatch(remove({ id }));
   // }
+
+  getUser() {
+    return this.store.pipe(select('user'));
+  }
 }
