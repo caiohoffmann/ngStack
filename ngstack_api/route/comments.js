@@ -29,7 +29,8 @@ router.post('/', async (req, res) => {
             comments: {
                 "content": req.body.content,
                 "like": req.body.like,
-                "owner": req.body.owner
+                "owner": req.body.owner,
+                "like": 0
             }
         }
     }).exec();
@@ -45,42 +46,44 @@ router.get('/:id_comment', async (req, res) => {
 
 
 router.delete('/:id_comment', async (req, res) => {
-    let query = { _id: `${req.params.id_comment}` }
-    const dltcmt = await Comment.deleteOne(query).exec();
+    let query = { _id: `${req.body.idPost}`, "comments._id": req.params.id_comment };
+
+    const dltcmt = await Post.updateOne(query, {
+        $pull: {
+            comments: {
+                _id: req.params.id_comment
+            }
+        }
+    }).exec();
     res.json(response(dltcmt));
 });
 
 
-router.put('/:id_comment', async (req, res) => {
-    let query = { _id: `${req.params.id_comment}` }
-    let update_comment = { content: req.body.like };
-
-    // Comment.patchUpdate(query, update_comment).then((updatedUser) => {
-    //     res.json(response(updatedUser));
-    //     //res.status(200).json(updatedUser);
-    // })
-    //     .catch((err) => {
-    //         next(err);
-    //     });
-
-    const put_cmt = await Comment.updateOne(query, update_comment);
-    res.json(response(put_cmt));
-});
-
-router.patch('/:id_comment', async (req, res) => {
-    //let query = { _id: `${req.params.id_comment}` };
-    let query = { _id: ObjectId(req.params.userId) };
-
-    const array = await Comment.findOne({})
-
-    var update_comment = {
-        like: req.body.like
+//,{ upsert: true }
+router.patch('/:id_comment/like', async (req, res) => {
+    let query = { _id: `${req.body.idPost}`, "comments._id": req.params.id_comment };
+    let update_comment = {
+        $inc: { "comments.$.like": 1 }
     };
-
-    // const put_cmt = await Comment.updateOne(query, update_comment);
+    const put_cmt = await Post.updateOne(query, update_comment).exec();
     res.json(response(put_cmt));
 });
 
-//Path for after
+
+
+
+router.put('/:id_comment', async (req, res) => {
+    let query = { _id: `${req.body.idPost}`, "comments._id": req.params.id_comment };
+    let update_comment = {
+        $set: {
+            "comments.$.content": req.body.content,
+            "comments.$.owner": req.body.owner
+        }
+    };
+    const put_cmt = await Post.updateOne(query, update_comment).exec();
+    res.json(response(put_cmt));
+});
+
+
 
 module.exports = router;
