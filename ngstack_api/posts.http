@@ -1,4 +1,4 @@
-@token =eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpzQGdtYWlsLmNvbSIsImlhdCI6MTU3MTUwNTkwMn0.uxHY244DCJtGGOlUSZKvoN6OYi5_VikZk0GFmQUarxI
+@token =eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNhaW9AZ21haWwuY29tIiwiaWQiOiI1ZGFhNTcyMWIzNDM4OTdmYzAzMTVmMzkiLCJuYW1lIjoiQ2FpbyIsImlhdCI6MTU3MTUzMTQyMn0.P2fcGZSZfEECtXInuWrBbSAuKFYNTy50Kzl72NzPt4s
 ### Get Token
 Get http://localhost:3000/test http/1.1
 
@@ -25,8 +25,7 @@ Content-Type: application/json
 
 {
     "title":"The new post",
-    "tags":["sport", "tech"],
-    "owner":{ "name": "Mike", "badge": 5}
+    "tags":["sport", "tech"]
 }
 
 ### Delete a Post

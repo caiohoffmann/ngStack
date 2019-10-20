@@ -9,9 +9,10 @@ module.exports = {
         jwt.verify(req.headers.ngstackauth, jwstkey.jwt, (err, data) => {
             if (err) throw err;
 
-            req.body.token = data;
+            req.body.idUser = data.id;
+            req.body.owner = data.name;
             return next();
         })
-    
+
     }
 };

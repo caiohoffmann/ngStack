@@ -2,11 +2,12 @@
 @token =eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpzQGdtYWlsLmNvbSIsImlhdCI6MTU3MTUwNTkwMn0.uxHY244DCJtGGOlUSZKvoN6OYi5_VikZk0GFmQUarxI
 POST http://localhost:3000/users/ HTTP/1.1
 Content-Type: application/json
-
 ngstackauth : {{token}}
 
 {
-    "content" : " new user to regisiiter"
+    "email" : "caio@mum.edu",
+    "name":"Caio",
+    "password" : 123
 }
 ###
 

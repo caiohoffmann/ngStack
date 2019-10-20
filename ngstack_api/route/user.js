@@ -1,7 +1,7 @@
 const express = require('express');
 
 const { verifyToken } = require('../utils/verifyToken');
-const User=require('../data/user');
+const User = require('../data/user');
 const router = express();
 const response = require('../utils/response');
 
@@ -23,33 +23,38 @@ router.get('/', verifyToken, async (req, res) => {
 //###########################################################
 
 router.post('/', verifyToken, async (req, res) => {
-    if(err)throw err;
-    const u = new User({
-        email: req.body.email,
-        password: req.body.password,
-        name: req.body.name
-    });
- 
-    const user = await u.save();
-    res.json(response(user));
+    try {
+
+
+        const u = new User({
+            email: req.body.email,
+            password: req.body.password,
+            name: req.body.name
+        });
+
+        const user = await u.save();
+        res.json(response(user));
+    } catch (err) {
+        throw err;
+    }
 });
 
 //################################################################
 //edit
-router.patch('/:id',verifyToken,async(req,res)=>{
-    let id=req.params.id;
-    let newtype=req.body.name;
-    let myquery={
-        _id:id
+router.patch('/:id', verifyToken, async (req, res) => {
+    let id = req.params.id;
+    let newtype = req.body.name;
+    let myquery = {
+        _id: id
     };
 
-    const newValue={$set:{name:newtype}};
-    
-    const user= await User.updateOne(myquery,newValue,(err,success)=>{
-    if(err)throw err;
-    
-    res.json(response(user))
-})
+    const newValue = { $set: { name: newtype } };
+
+    const user = await User.updateOne(myquery, newValue, (err, success) => {
+        if (err) throw err;
+
+        res.json(response(user))
+    })
 
 })
 
@@ -62,15 +67,15 @@ router.delete('delete/:id', verifyToken, async (req, res) => {
 });
 //########################################
 
-router.put('/:id',async(req,res)=>{
+router.put('/:id', async (req, res) => {
     let userId = req.params.id;
-    let newbodytype=req.body.type;
-    let databd={
-        'id':userId
+    let newbodytype = req.body.type;
+    let databd = {
+        'id': userId
     }
-    let newdata={$set:{type:newbodytype}};
-    const user=await User.updateOne(databd,newdata,(err,success)=>{
-        if(err)throw err;
+    let newdata = { $set: { type: newbodytype } };
+    const user = await User.updateOne(databd, newdata, (err, success) => {
+        if (err) throw err;
         res.json(response(user))
     })
 })

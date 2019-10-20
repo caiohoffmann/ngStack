@@ -1,7 +1,6 @@
 const createError = require('http-errors');
 const express = require('express');
 const logger = require('morgan');
-const jwt = require("jsonwebtoken");
 const mongoose = require('mongoose');
 
 
@@ -20,24 +19,10 @@ app.use(express.urlencoded({ extended: false }));
 mongoose.connect(`mongodb+srv://${jwstkey.mongoUser}:${jwstkey.mongoPass}@cluster0-mxtly.mongodb.net/test?retryWrites=true&w=majority`);
 mongoose.set('useCreateIndex', true);
 
-app.get('/test', (req, res) => {
-
-  jwt.sign({
-    "email": "js@gmail.com"
-  },
-    jwstkey.jwt, (err, data) => {
-      if (err) throw err;
-
-      res.header('ngstackauth', data);
-      res.json({ msg: 'success' });
-
-    }
-  );
-});
-
 app.use('/posts', require('./route/posts'));
 app.use('/homes', require('./route/homes'));
 app.use('/users', require('./route/user'));
+app.use('/auth', require('./route/auth'));
 
 app.use((req, res, next) => {
   res.json(404, response(null, "Route not found"));

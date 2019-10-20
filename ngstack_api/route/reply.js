@@ -12,7 +12,7 @@ router.post('/', verifyReply, async (req, res) => {
                 $push: {
                     "comments.$.replies": {
                         content: req.body.content,
-                        owner: req.body.username
+                        owner: req.body.owner
                     }
                 }
             });
