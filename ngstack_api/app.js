@@ -2,6 +2,7 @@ const createError = require('http-errors');
 const express = require('express');
 const logger = require('morgan');
 const mongoose = require('mongoose');
+const cors = require('cors');
 
 
 
@@ -18,7 +19,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 mongoose.connect(`mongodb+srv://${jwstkey.mongoUser}:${jwstkey.mongoPass}@cluster0-mxtly.mongodb.net/test?retryWrites=true&w=majority`);
 mongoose.set('useCreateIndex', true);
-mongoose.set('debug', true);
+app.use(cors());
 
 app.use('/posts', require('./route/posts'));
 app.use('/homes', require('./route/homes'));

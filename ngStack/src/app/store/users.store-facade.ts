@@ -14,8 +14,8 @@ export class UsersStoreFacade {
     this.store.dispatch(login({ user }));
   }
 
-  logedIn(users: User[]) {
-    this.store.dispatch(logedIn({ users }));
+  logedIn(user: User) {
+    this.store.dispatch(logedIn({ user }));
   }
 
   // updateContact(contact: User) {

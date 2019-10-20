@@ -9,7 +9,7 @@ export const login = createAction(
 
 export const logedIn = createAction(
   UserEventTypes.login,
-  props<{ users: User[] }>()
+  props<{ user: User }>()
 );
 
 // export const loadAll = createAction(
