@@ -22,18 +22,20 @@ export class CommentService {
             headers: this.headers
         });
     }
-    /*  "content": req.body.content,
-                    "like": req.body.like,
-                    "owner": req.body.owner,
-                    "like": 0*/
-    //POST http://localhost:3000/posts/5dad0bdf4ed73e3a6086f4b2/comments http/1.1
-
+   
+    
     sendComment(comment: Comment): Observable<any> {
         return this.http.post<any>(`${environment.appApi.baseUrl}/posts/${comment.idPost}/comments`, {
             content: comment.content
         }, { headers: this.headers });
     }
-    //PUT http://localhost:3000/posts/5dad0bdf4ed73e3a6086f4b2/comments/5dad0f92a896688758101a47 http/1.1
+
+
+    likeReply(idPost: string, idComment: string): Observable<any> {
+        return this.http.patch<any>(`${environment.appApi.baseUrl}/posts/${idPost}/comments/${idComment}/like`, {}, { headers: this.headers });
+    }
+
+
 
     updateComment(id_post: string, comment: Comment): Observable<any> {
         return null;

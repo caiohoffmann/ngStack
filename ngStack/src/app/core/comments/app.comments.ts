@@ -9,6 +9,7 @@ import { faUserCircle, faClock, faComment, faThumbsUp } from '@fortawesome/free-
 import { CommentsStoreFacade } from 'src/app/store/comments/comments.store-facade';
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
+import { PostsServices } from 'src/app/services/post.service';
 
 
 
@@ -35,13 +36,13 @@ export class CommentsComponent implements OnInit {
   public idPost: string;
 
   constructor(private _comment: CommentService, private formBuilder: FormBuilder, private user_facade: UsersStoreFacade, private _commentFacade: CommentsStoreFacade,
-    private _route: ActivatedRoute) {
+    private _route: ActivatedRoute, private _postService:PostsServices) {
     this.user_facade.login({ email: 'caio@mum.edu', password: '123' });
 
     this.user_facade.getToken().subscribe(
       t => {
 
-        this._comment.getComments("5dad0bdf4ed73e3a6086f4b2").subscribe(result => {
+        this._comment.getComments(this.idPost).subscribe(result => {
           this.comments_array = result;
 
           this.config = {
@@ -71,7 +72,7 @@ export class CommentsComponent implements OnInit {
   ngOnInit() {
     this._route.params.subscribe(params => {
       this.idPost = params['idPost'];
-      console.log("Info " + this.idPost);
+      // console.log("Info " + this.idPost);
 
     })
   }
@@ -79,14 +80,20 @@ export class CommentsComponent implements OnInit {
   onPostComment() {
     var postcontent: Comment = {
       content: this.myForm.get("comment").value,
-      idPost: '5dad0bdf4ed73e3a6086f4b2'
+      idPost: this.idPost
     }
-    this._commentFacade.createComment(postcontent);
+    //this._commentFacade.createComment(postcontent);
   }
 
+  //  //    likeReply(idPost: string, idComment:string): Observable<any> {
   onlikePost(event: Event) {
     this.comment_id = this.stoPropgation(event);
-    console.log("On like Data " + this.comment_id);
+    this._comment.likeReply(this.idPost, this.comment_id).subscribe(res=>{
+          console.log("On like Data " + res);
+    });
+   
+   // console.log("Reply Is ok  " + this.comment_id);
+
   }
 
 
@@ -99,16 +106,5 @@ export class CommentsComponent implements OnInit {
     event.preventDefault();
     return (event.target as Element).id;
   }
-
-
-
-
-  /* content?: string,
-   like: number,
-   owner: string,
-   updated:Date,
-  _id:string
-  // this.comment_id = (event.target as Element).id;
-  */
 
 }
