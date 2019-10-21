@@ -36,8 +36,8 @@ import { MatCardModule } from '@angular/material';
 import { MyMaterialModule } from './material.module';
 import { CommentsComponent } from './core/comments/app.comments';
 import { globalroute } from './app.routes'
-import { LoginComponent } from './core/login/app.logincomment';
 import { CommentService } from './services/comment.service';
+import { LoginComponent } from './core/login/login.component';
 
 
 

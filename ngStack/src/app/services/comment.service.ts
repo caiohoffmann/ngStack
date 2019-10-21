@@ -31,8 +31,9 @@ export class CommentService {
     }
     //PUT http://localhost:3000/posts/5dad0bdf4ed73e3a6086f4b2/comments/5dad0f92a896688758101a47 http/1.1
 
-    updateComment(id_post: string, comment: Comment): Observable<Comment> {
-        return this.http.put<Comment>(`${environment.appApi.baseUrl}/posts/${id_post}/comments/${comment._id}`, { comment });
+    updateComment(id_post: string, comment: Comment): Observable<any> {
+        return null;
+        //return this.http.put<Comment>(`${environment.appApi.baseUrl}/posts/${id_post}/comments/${comment._id}`, { comment });
     }
 
 

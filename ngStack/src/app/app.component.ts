@@ -5,13 +5,11 @@ import { UsersStoreFacade } from './store/users.store-facade';
 
 @Component({
   selector: 'app-root',
-  template: `
-  <app-header></app-header>
-  `
+  templateUrl: 'app.component.html'
 })
 
 
 export class AppComponent {
-   
+
 
 }
