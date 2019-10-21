@@ -49,7 +49,9 @@ import { CommentsComponent } from './core/comments/app.comments';
 import { globalroute } from './app.routes'
 import { CommentService } from './services/comment.service';
 import { LoginComponent } from './core/login/login.component';
-import{DateAgoPipe} from './pipe/date-ago.pipe'
+import{DateAgoPipe} from './pipe/date-ago.pipe';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 
 
 
@@ -81,6 +83,7 @@ import{DateAgoPipe} from './pipe/date-ago.pipe'
     MatDividerModule,
     MatMenuModule,
     MyMaterialModule,
+    FontAwesomeModule,
 
     // Material
     MatButtonModule,

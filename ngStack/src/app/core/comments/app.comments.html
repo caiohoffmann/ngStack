@@ -2,32 +2,42 @@
 <div class="card">
     <div class="list-group">
 
-        <div class="card-body" *ngFor="let comment of comments_array.data; let i = index;">
+        <div class="card-body" *ngFor="let comment of comments_array; let i = index;">
 
             <a class=" flex-column align-items-start active">
                 <div class="d-flex w-100 justify-content-between card-header">
                     <h5 class="card-title">{{comment.title}}</h5>
                 </div>
                 <span class="badge badge-dark">{{comment.tags}}</span>&nbsp;&nbsp;
-
             </a>
 
-            <small>{{comment.owner}}</small> | <small>{{comment.date | dateAgo}}</small> | <small>5 </small>
-            | <small>10</small>
+            <small>
+                <fa-icon [icon]="faCoffee"></fa-icon> {{comment.owner}} &nbsp;
+            </small> | <fa-icon [icon]="faClock"></fa-icon><small>{{comment.date | dateAgo}}</small> | <small>
+                <fa-icon [icon]="faComment"></fa-icon>
+                5
+            </small>
+            <!-- | <small>10</small> -->
 
             <div class="col-xs-12" style="height:20px;"></div>
             <div *ngFor="let arraycomment of comment.comments">
-                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                <a class="list-group-item list-group-item-action flex-column align-items-start">
                     <div class="container text-right">
                         <h5 class="mb-1"></h5>
-                        <small>{{arraycomment.owner}}</small> |
-                        <small>{{arraycomment.updated | dateAgo}}</small> |
-                        <small>{{arraycomment.like}}</small>
+                        <small>
+                            <fa-icon [icon]="faCoffee"></fa-icon> &nbsp; {{arraycomment.owner}}
+                        </small> |
+                        <small>
+                            <fa-icon [icon]="faClock"></fa-icon> &nbsp; {{arraycomment.updated | dateAgo}}
+                        </small> |
+                        <small>
+                            <fa-icon [icon]="faThumbsUp"></fa-icon> &nbsp; {{arraycomment.like}}
+                        </small>
                     </div>
                     <p class="mb-1">{{arraycomment.content}}</p>
                     <small class="text-muted">{{arraycomment.owner}}</small>
                     <div class="container text-right">
-                        <button type="button" class="btn btn-primary" (click)="onReplyComment($event)"
+                        <button type="button" class="btn btn-dark" (click)="onReplyComment($event)"
                             id="{{arraycomment._id}}">
                             Reply
                         </button>
@@ -50,5 +60,5 @@
         <textarea class="form-control" name="comment" id="exampleTextarea" rows="3"
             formControlName="comment"></textarea>
     </div>
-    <button type="submit" class="btn btn-primary" [disabled]="!myForm.valid">Submit</button>
+    <button type="submit" class="btn btn-dark" [disabled]="!myForm.valid">Submit</button>
 </form>
