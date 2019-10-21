@@ -1,7 +1,7 @@
 import { User } from '../../core/models/user.model';
 import { createReducer, on } from '@ngrx/store';
 import {
-    getAll, gotAll,
+    getAll, gotAll, createReplySuccess,
 } from './replies-actions';
 import { Reply } from 'src/app/core/models/reply.model';
 
@@ -20,9 +20,9 @@ export const replyReducer = createReducer<State>(
     on(gotAll, (state, { replies }) =>
         ({ ...state, replies: replies })
     ),
-    // on(createSuccess, (state, { user }) =>
-    //   usersAdapter.addOne(user, state)
-    // ),
+    on(createReplySuccess, (state, { reply }) =>
+        ({ ...state, replies: { ...state.replies, reply } })
+    ),
     // on(updateSuccess, (state, { user }) =>
     //   usersAdapter.updateOne({ id: user.id, changes: user }, state)
     // ),

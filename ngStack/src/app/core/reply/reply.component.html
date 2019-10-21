@@ -1,23 +1,5 @@
-<mat-accordion>
-    <mat-expansion-panel>
-        <mat-expansion-panel-header>
-            <mat-panel-title>
-                {{ comments | async | json}}
-            </mat-panel-title>
-        </mat-expansion-panel-header>
-    </mat-expansion-panel>
-    <mat-expansion-panel>
-        <mat-expansion-panel-header>
-            <mat-panel-title>
-                New
-            </mat-panel-title>
-        </mat-expansion-panel-header>
-        <mat-divider></mat-divider>
-        <form class="example-form">
-            <mat-form-field class="example-full-width">
-                <input matInput placeholder="New reply">
-            </mat-form-field>
-        </form>
-        <button (click)="create()">Create</button>
-    </mat-expansion-panel>
-</mat-accordion>
+<mat-selection-list #shoes>
+    <mat-list-option *ngFor="let reply of replies | async | json">
+        {{reply}}
+    </mat-list-option>
+</mat-selection-list>

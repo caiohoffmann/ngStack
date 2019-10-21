@@ -21,6 +21,10 @@ export class UsersService {
         });
     }
 
+    register(user: User) {
+        return this.http.post(`${environment.appApi.baseUrl}/users`, user);
+    }
+
     getUserFromToken(user: User): User {
         const prom = this.userStoreFacade.getToken();
         const u = jwt_decode(user.token);

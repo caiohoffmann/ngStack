@@ -18,7 +18,7 @@ import { MatExpansionModule } from '@angular/material/expansion'
 
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
-import { MatLabel } from '@angular/material/'
+import { MatLabel, MatListModule } from '@angular/material/'
 
 import { AppComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';
@@ -49,7 +49,7 @@ import { CommentsComponent } from './core/comments/app.comments';
 import { globalroute } from './app.routes'
 import { CommentService } from './services/comment.service';
 import { LoginComponent } from './core/login/login.component';
-import{DateAgoPipe} from './pipe/date-ago.pipe';
+import { DateAgoPipe } from './pipe/date-ago.pipe';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CommentEffects } from './store/comments/comments-effects';
 import { CommentsStoreFacade } from './store/comments/comments.store-facade';
@@ -106,6 +106,7 @@ import { commentReducer } from './store/comments/comments-reducer';
     MatInputModule,
     ReactiveFormsModule,
     MatRadioModule,
+    MatListModule,
 
     MatFormFieldModule,
     MatInputModule,
