@@ -1,7 +1,7 @@
-import { FormBuilder ,FormGroup,Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from '../../services/login.service';
 import { Component, OnInit, Input } from '@angular/core';
-import { Router,ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -39,45 +39,45 @@ export class LoginComponent implements OnInit {
   loading = false;
   submitted = false;
   returnUrl: string;
-  
+
 
   // userAutofilled: boolean;
   //   passwordAutofilled: boolean;
-  constructor(private loginService: LoginService, private router: Router,private route:ActivatedRoute,
-    private formBulider:FormBuilder
-    
-    ) { }
+  constructor(private loginService: LoginService, private router: Router, private route: ActivatedRoute,
+    private formBulider: FormBuilder
 
-    ngOnInit() {
+  ) { }
 
-      this.loginForm=this.formBulider.group({
-        username:['',Validators.required],
-        password:['',Validators.required]
-      });
-    }
+  ngOnInit() {
 
-    // accessing to form field
-    get fval(){return this.loginForm.controls;}
-  onFormSumbmit() {
-
-this.submitted=true;
-if(this.loginForm.invalid){return ;}
-this.loading=true;
-this.loginService.validateLogin(this.fval.username.value,this.fval.password.value).subscribe(data=>{
-  this.router.navigate(['/login']);
-},
-
-error=>{
-  
-  console.log("Error is");
-  
-}
-);
-
-
-    
+    this.loginForm = this.formBulider.group({
+      email: ['', Validators.required],
+      password: ['', Validators.required]
+    });
   }
 
-  
+  // accessing to form field
+  get fval() { return this.loginForm.controls; }
+  onFormSubmit() {
+
+    this.submitted = true;
+    if (this.loginForm.invalid) { return; }
+    this.loading = true;
+    this.loginService.validateLogin(this.fval.email.value, this.fval.password.value).subscribe(data => {
+      this.router.navigate(['/login']);
+    },
+
+      error => {
+
+        console.log("Error is");
+
+      }
+    );
+
+
+
+  }
+
+
 
 }

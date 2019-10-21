@@ -10,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
   template: `<form [formGroup]="registerForm" (ngSubmit)="onFormSubmit()">
     <div class="form-group">
       <label for="firstName"> Name</label>
-          <input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval.firstName.errors }" placeholder="Enter First Name here"/>
+          <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval.firstName.errors }" placeholder="Enter First Name here"/>
           <div *ngIf="submitted && fval.firstName.errors" class="invalid-feedback">
               <div *ngIf="fval.firstName.errors.required">First Name is required</div>
           </div>
@@ -62,7 +62,7 @@ export class SignUpComponent implements OnInit {
 
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
-      username: ['', Validators.required],
+      name: ['', Validators.required],
       email: ['', Validators.required, Validators.email],
       password: ['', [Validators.required, Validators.minLength(8)]]
     });
