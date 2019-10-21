@@ -19,5 +19,17 @@ router.get('/:page', verifyToken, async(req,res)=>{
     res.json(p);
 })
 
+//Get Homes Tagged
+router.post('/tags',verifyToken, async(req,res)=>{
+    const query = [];
+
+    for(let i=0; i<req.body.tags.length; i++){
+        query.push({tags:req.body.tags[i]});
+    }
+    
+    const p = await Home.find({$or:query}).exec();
+    res.json(p);
+})
+
 module.exports = router;
 
