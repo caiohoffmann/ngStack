@@ -9,6 +9,7 @@ const routes: Routes = [
   { path: 'comments', component: CommentsComponent },
   { path: 'login', component: LoginComponent },
   { path: '', redirectTo: '/comments', pathMatch: 'full' },
-  { path: 'home' , component: HomeComponent}
+  { path: 'home' , component: HomeComponent},
+  { path: 'home/:idPost' , component: CommentsComponent}
 ];
 export const globalroute = RouterModule.forRoot(routes);
