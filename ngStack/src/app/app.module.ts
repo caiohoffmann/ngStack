@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { SignUpComponent } from './core/login/signup.componet';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
@@ -14,7 +15,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule} from '@angular/material/card';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatRadioModule} from '@angular/material/radio';
-import {MatLabel} from '@angular/material/'
+
 
 import { AppComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';
@@ -63,7 +64,7 @@ import { LoginComponent } from './core/login/login.component';
 
     EffectsModule.forRoot([UsersEffects])
   ],
-  providers: [UsersService, UsersStoreFacade],
+  providers: [UsersService, UsersStoreFacade, Router],
   bootstrap: [AppComponent, LoginComponent, SignUpComponent],
 })
 export class AppModule { }
