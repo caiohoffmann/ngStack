@@ -14,7 +14,7 @@ export class UsersService {
     constructor(private http: HttpClient, private userStoreFacade: UsersStoreFacade) { }
 
 
-    login(): Observable<User> {
+    login(user: User): Observable<User> {
         return this.http.post<User>(`${environment.appApi.baseUrl}/auth/login`, {
             email: 'caio@mum.edu',
             password: '123'
@@ -29,7 +29,6 @@ export class UsersService {
     }
 
     create(user: User): Observable<any> {
-        console.dir(user);
         return this.http.post<User>(`${environment.appApi.baseUrl}/auth/signin`, {
             'email': user.email,
             password: user.password,

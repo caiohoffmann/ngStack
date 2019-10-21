@@ -12,6 +12,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatCardModule } from '@angular/material/card';
 import { MatExpansionModule } from '@angular/material/expansion'
 
 
@@ -43,7 +44,6 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { RouterModule } from '@angular/router';
 import { AppHeaderComponent } from './core/header/app.header';
-import { MatCardModule } from '@angular/material';
 import { MyMaterialModule } from './material.module';
 import { CommentsComponent } from './core/comments/app.comments';
 import { globalroute } from './app.routes'
@@ -51,6 +51,9 @@ import { CommentService } from './services/comment.service';
 import { LoginComponent } from './core/login/login.component';
 import{DateAgoPipe} from './pipe/date-ago.pipe';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { CommentEffects } from './store/comments/comments-effects';
+import { CommentsStoreFacade } from './store/comments/comments.store-facade';
+import { commentReducer } from './store/comments/comments-reducer';
 
 
 
@@ -68,14 +71,14 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     HomeComponent,
     LoginComponent,
     SignUpComponent,
-    DateAgoPipe, 
+    DateAgoPipe,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
-    StoreModule.forRoot({ user: userReducer, replys: replyReducer, posts: postsReducer }),
+    StoreModule.forRoot({ user: userReducer, replys: replyReducer, posts: postsReducer, comments: commentReducer }),
 
 
     MatSliderModule,
@@ -107,9 +110,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     MatFormFieldModule,
     MatInputModule,
 
-    EffectsModule.forRoot([UsersEffects, PostEffects, RepliesEffects])
+    EffectsModule.forRoot([UsersEffects, PostEffects, RepliesEffects, CommentEffects])
   ],
-  providers: [UsersService, UsersStoreFacade, , RepliesStoreFacade, PostsServices, PostsStoreFacade, ReplyServices],
+  providers: [UsersService, UsersStoreFacade, , RepliesStoreFacade, PostsServices, PostsStoreFacade, ReplyServices, CommentsStoreFacade],
   bootstrap: [AppComponent],
 })
 export class AppModule { }
