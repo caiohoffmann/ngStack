@@ -97,10 +97,8 @@ import {NgxPaginationModule} from 'ngx-pagination';
     MatInputModule,
     MatExpansionModule,
 
-    RouterModule,
     MatCardModule,
     globalroute,
-    RouterModule,
     HttpClientModule,
 
     MatCardModule,

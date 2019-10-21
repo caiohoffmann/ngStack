@@ -31,11 +31,12 @@
                 <div class="jumbotron">
                     <h4>{{h.title}}</h4>
                     <p class="lead"><span *ngFor="let t of h.tags"><span
-                                class="badge badge-danger">{{t}}</span>&nbsp;</span></p>
+                                class="badge badge-danger">{{t}}</span>&nbsp;</span>
+                    </p>
                     <hr class="my-4">
                     <p>by {{h.owner}} on {{h.date|date}}</p>
                     <p class="lead">
-                        <a class="btn btn-primary btn-lg" href="#" role="button">See This</a>
+                        <a class="btn btn-primary btn-lg" [routerLink]="['/posts/',h._id]" role="button">See This</a>
                     </p>
                 </div>
             </div>
