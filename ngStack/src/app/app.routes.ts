@@ -9,7 +9,7 @@ import { HomeComponent } from './core/home/home.component';
 const routes: Routes = [
   { path: 'comments', component: CommentsComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'home/:idPost', component: CommentsComponent },
+  { path: 'posts/:idPost', component: CommentsComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'signup', component: SignUpComponent }

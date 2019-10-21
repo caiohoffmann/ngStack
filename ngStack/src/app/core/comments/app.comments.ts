@@ -36,13 +36,13 @@ export class CommentsComponent implements OnInit {
 
   constructor(private _comment: CommentService, private formBuilder: FormBuilder, private user_facade: UsersStoreFacade, private _commentFacade: CommentsStoreFacade,
     private _route: ActivatedRoute) {
-    this.user_facade.login(null);
+    this.user_facade.login({ email: 'caio@mum.edu', password: '123' });
 
     this.user_facade.getToken().subscribe(
       t => {
 
         this._comment.getComments("5dad0bdf4ed73e3a6086f4b2").subscribe(result => {
-          this.comments_array = result.data;
+          this.comments_array = result;
 
           this.config = {
             itemsPerPage: 5,
@@ -69,11 +69,11 @@ export class CommentsComponent implements OnInit {
 
 
   ngOnInit() {
-     this._route.snapshot.params.subscribe(params=>{
+    this._route.params.subscribe(params => {
       this.idPost = params['idPost'];
-       console.log("Info "+this.idPost);
-      
-     })
+      console.log("Info " + this.idPost);
+
+    })
   }
 
   onPostComment() {
