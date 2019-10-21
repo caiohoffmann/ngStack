@@ -1,31 +1,31 @@
 import { User } from '../../core/models/user.model';
 import { createReducer, on } from '@ngrx/store';
 import {
-  logedIn, login,
+  logedIn, login, createSuccess, updateSuccess, removeSuccess,
 } from './users-actions';
 
 
 export interface State {
-  user: User
+  user: User,
+  token: string
 }
 export const initialState: State = {
-  user: null
+  user: null,
+  token: null
 };
 
 export const userReducer = createReducer<State>(
   initialState,
-  on(login, (state) =>
-    ({ ...state, user: state.user })),
-  on(logedIn, (state, { user }) =>
-    ({ ...state, user: user })
+  on(logedIn, (state, { user, token }) =>
+    ({ ...state, user: user, token: token })
+  ),
+  on(createSuccess, (state, { user }) =>
+    ({ ...state, user: user, token: user.token })
+  ),
+  on(updateSuccess, (state, { user }) =>
+    ({ ...state, user: user, token: user.token })
+  ),
+  on(removeSuccess, (state, { id }) =>
+    ({ ...state, user: null, token: null })
   )
-  // on(createSuccess, (state, { user }) =>
-  //   usersAdapter.addOne(user, state)
-  // ),
-  // on(updateSuccess, (state, { user }) =>
-  //   usersAdapter.updateOne({ id: user.id, changes: user }, state)
-  // ),
-  // on(removeSuccess, (state, { id }) =>
-  //   usersAdapter.removeOne(id, state)
-  // )
 );
