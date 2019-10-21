@@ -15,7 +15,25 @@ export const createPost = createAction(
     PostEventTypes.createPost,
     props<{ post: Post }>()
 );
-export const createdPost = createAction(
+export const createPostSuccess = createAction(
+    PostEventTypes.createdPost,
+    props<{ post: Post }>()
+)
+
+export const updatePost = createAction(
+    PostEventTypes.createPost,
+    props<{ post: Post }>()
+);
+export const updatePostSuccess = createAction(
+    PostEventTypes.createdPost,
+    props<{ post: Post }>()
+)
+
+export const deletePost = createAction(
+    PostEventTypes.createPost,
+    props<{ id: string }>()
+);
+export const deletePostSuccess = createAction(
     PostEventTypes.createdPost,
     props<{ post: Post }>()
 )
