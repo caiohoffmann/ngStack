@@ -3,10 +3,7 @@ const mongoose = require('mongoose');
 const Home = new mongoose.Schema({
     title: { type: String, required: true, index: true },
     tags: [String],
-    owner: {
-        name: { type: String, required: true },
-        badge: Number
-    },
+    owner:  { type: String, required: true },
     date: { type: Date, default: Date.now },
 });
 
