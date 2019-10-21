@@ -12,16 +12,10 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTabsModule } from '@angular/material/tabs';
-<<<<<<< HEAD
-import { MatCardModule} from '@angular/material/card';
-import {MatCheckboxModule} from '@angular/material/checkbox';
-import {MatRadioModule} from '@angular/material/radio';
 
-=======
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatLabel } from '@angular/material/'
->>>>>>> b39bf0398c17089184eb7b9a91b4f9d5477b0070
 
 import { AppComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';
