@@ -1,3 +1,4 @@
+//import { LogoutComponent } from './core/login/logout.component';
 import { SignUpComponent } from './core/login/signup.componet';
 import { Routes, RouterModule } from '@angular/router';
 import { AppHeaderComponent } from './core/header/app.header';
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: 'posts/:idPost', component: CommentsComponent },
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  { path: 'signup', component: SignUpComponent }
+  { path: 'signup', component: SignUpComponent },
+ 
 ];
 export const globalroute = RouterModule.forRoot(routes);

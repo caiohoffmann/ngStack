@@ -18,4 +18,8 @@ export class AppHeaderComponent implements OnInit {
     this.user = this.userFacade.getUser();
     this.user.subscribe(t => console.dir(t));
   }
+  logout() {
+    //remove user from store
+    this.userFacade.logout();
+  }
 }

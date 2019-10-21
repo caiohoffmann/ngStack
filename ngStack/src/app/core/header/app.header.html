@@ -22,7 +22,7 @@
             <li class="nav-item" *ngIf="!(user | async ).token; else userlogout"><a class="nav-link" routerLink="/signup"
                     routerLinkActive="active" class="btn btn-link">SignUp</a></li>
             <ng-template #userDetail> Welcome {{(user|async)?.name}}</ng-template>
-            <ng-template #userlogout><li class="nav-item" routerLink="/logout" routerLinkActive="active" class="btn btn-link">logout</li></ng-template>
+            <ng-template #userlogout><li class="nav-item" class="nav-link"><button (click)="logout()" >Logout</button></li></ng-template>
         </ul>
     </div>
 </nav>
