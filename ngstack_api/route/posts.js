@@ -44,6 +44,7 @@ router.post('/', verifyToken, async (req, res) => {
             _id: homeResult._id,
             title: req.body.title,
             tags: req.body.tags,
+            owner: req.body.owner,
             comments: []
         })
         const postResult = await post.save();

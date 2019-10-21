@@ -4,7 +4,8 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
-  template: `<form>
+  template: `
+  <form>
   <mat-form-field>
     <mat-label>First name</mat-label>
     <input matInput (cdkAutofill)="userNameAutofilled = $event.isAutofilled">
