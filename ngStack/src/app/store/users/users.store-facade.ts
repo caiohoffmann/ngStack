@@ -1,21 +1,17 @@
 import { Injectable } from '@angular/core';
-import * as fromRoot from './index';
+import * as fromRoot from '../reducer';
 import { select, Store } from '@ngrx/store';
 
-import { User } from '../core/models/user.model';
+import { User } from '../../core/models/user.model';
 import { logedIn, login } from './users-actions';
 
 @Injectable()
 export class UsersStoreFacade {
 
-  constructor(private store: Store<fromRoot.UsersState>) { }
+  constructor(private store: Store<fromRoot.State>) { }
 
   login(user: User) {
     this.store.dispatch(login({ user }));
-  }
-
-  logedIn(user: User) {
-    this.store.dispatch(logedIn({ user }));
   }
 
   getUser() {

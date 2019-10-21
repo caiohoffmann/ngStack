@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
-import { User } from '../core/models/user.model';
-import { UserEventTypes } from '../core/models/user.events';
+import { User } from '../../core/models/user.model';
+import { UserEventTypes } from '../../core/events/user.events';
 
 export const login = createAction(
   UserEventTypes.login,
@@ -8,7 +8,7 @@ export const login = createAction(
 );
 
 export const logedIn = createAction(
-  UserEventTypes.login,
+  UserEventTypes.logedIn,
   props<{ user: User }>()
 );
 
