@@ -12,10 +12,16 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTabsModule } from '@angular/material/tabs';
+<<<<<<< HEAD
 import { MatCardModule} from '@angular/material/card';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatRadioModule} from '@angular/material/radio';
 
+=======
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatLabel } from '@angular/material/'
+>>>>>>> b39bf0398c17089184eb7b9a91b4f9d5477b0070
 
 import { AppComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';
@@ -28,12 +34,28 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './core/home/home.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { LoginComponent } from './core/login/login.component';
+
+
+import { RouterModule } from '@angular/router';
+import { AppHeaderComponent } from './core/header/app.header';
+import { MatCardModule } from '@angular/material';
+import { MyMaterialModule } from './material.module';
+import { CommentsComponent } from './core/comments/app.comments';
+import { globalroute } from './app.routes'
+import { LoginComponent } from './core/login/app.logincomment';
+import { CommentService } from './services/comment.service';
+
+
+
+
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    AppHeaderComponent,
+    CommentsComponent,
     HomeComponent,
     LoginComponent,
     SignUpComponent
@@ -50,9 +72,17 @@ import { LoginComponent } from './core/login/login.component';
     MatTabsModule,
     MatDividerModule,
     MatMenuModule,
+    MyMaterialModule,
+
     // Material
     MatButtonModule,
     MatIconModule,
+    RouterModule,
+    MatCardModule,
+    globalroute,
+    RouterModule,
+    HttpClientModule,
+
     MatCardModule,
     MatCheckboxModule,
     MatInputModule,
@@ -64,7 +94,7 @@ import { LoginComponent } from './core/login/login.component';
 
     EffectsModule.forRoot([UsersEffects])
   ],
-  providers: [UsersService, UsersStoreFacade, Router],
-  bootstrap: [AppComponent, LoginComponent, SignUpComponent],
+  providers: [UsersService, UsersStoreFacade],
+  bootstrap: [AppComponent, LoginComponent, SignUpComponent, CommentService],
 })
 export class AppModule { }
