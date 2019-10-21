@@ -1,7 +1,7 @@
 import { Reply } from './reply.model';
 
 export interface Comment {
-    content: string,
+    content?: string,
     like?: number,
     owner?: string,
     updated?: Date,
