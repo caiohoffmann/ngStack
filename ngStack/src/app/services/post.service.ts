@@ -20,7 +20,7 @@ export class PostsServices {
 
     createPost(post: Post): Observable<any> {
         return this.http.post<Post>(`${environment.appApi.baseUrl}/posts`, {
-            title: post.title, tags: post.tags
+            title: post.title, tags: post.tags, likes:post.likes
         }
             , { headers: this.headers });
     }
@@ -31,6 +31,9 @@ export class PostsServices {
         }
             , { headers: this.headers });
     }
+
+
+
 
     delete(id: string): Observable<any> {
         return this.http.delete<Post>(`${environment.appApi.baseUrl}/posts/${id}`, { headers: this.headers });

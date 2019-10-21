@@ -8,7 +8,7 @@
                 <div class="d-flex w-100 justify-content-between card-header">
                     <h5 class="card-title">{{comment.title}}</h5>
                 </div>
-                <span class="badge badge-dark">{{comment.tags}}</span>&nbsp;&nbsp;
+                <span *ngFor="let t of comment.tags"><span class="badge badge-danger">{{t}}</span>&nbsp;</span>
             </a>
 
             <small>
