@@ -18,4 +18,10 @@ export class UsersService {
             password: '123'
         });
     }
+
+    register(user:User){
+        return this.http.post(`auth/users`,user);
+
+        
+    }
 }
