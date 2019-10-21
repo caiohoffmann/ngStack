@@ -2,17 +2,23 @@ import { Injectable } from "@angular/core";
 import { select, Store } from '@ngrx/store';
 
 import { AppState } from '../reducer';
-import { getAll } from './replies-actions';
+import { getAll, createReply } from './replies-actions';
+import { Reply } from 'src/app/core/models/reply.model';
+import { Comment } from 'src/app/core/models/comment.model';
 
 @Injectable()
 export class RepliesStoreFacade {
 
     constructor(private store: Store<AppState>) { }
-    getAll() {
-        this.store.dispatch(getAll());
+    getAll(comment: Comment) {
+        this.store.dispatch(getAll({ comment }));
     }
 
     all() {
         return this.store.pipe(select('replys'));
+    }
+
+    create(reply: Reply) {
+        this.store.dispatch(createReply({ reply }));
     }
 }

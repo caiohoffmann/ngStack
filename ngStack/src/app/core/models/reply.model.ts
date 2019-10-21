@@ -1,5 +1,8 @@
 export interface Reply {
-    content: string,
+    content?: string,
     likes?: number,
-    owner: string
+    owner?: string,
+    id?: string,
+    idPost?: string,
+    idComment?: string
 }
