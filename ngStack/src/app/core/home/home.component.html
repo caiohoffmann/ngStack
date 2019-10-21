@@ -1,0 +1,51 @@
+<div class='container'>
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-8">
+            <mat-card class="example-card">
+                <mat-card-title>Add New Post</mat-card-title>
+                <form class="example-form" (ngSubmit)="onSubmit()" [formGroup]="myForm">
+                    <mat-form-field class="example-full-width">
+                        <textarea matInput placeholder="Title of post" formControlName="title"></textarea>
+                    </mat-form-field>
+
+
+
+                    <mat-radio-group *ngFor="let tag of mytags">
+                        <mat-radio-button [value]="tag" name="tags" [formGroup]="myForm.get('tags')">{{tag}}
+                        </mat-radio-button>
+                    </mat-radio-group>
+
+
+                    <button type="submit" mat-button>Post</button>
+                </form>
+            </mat-card>
+
+            <div *ngFor="let h of homes">
+                <br />
+                <mat-card class="example-card">
+                    <mat-card-title>Title: {{h.title}}</mat-card-title>
+                    <mat-card-content><span *ngFor="let t of h.tags">{{t}} </span></mat-card-content>
+                    <hr />
+                    <mat-card-content>
+                        <!-- <img mat-card-image src="https://www.klrealty.com.au/wp-content/uploads/2018/11/user-image-.png"
+                style="width: 40px;height: 40px;"> -->
+                        <!-- <div mat-card-avatar class="example-header-image"></div> -->
+                        <mat-card-subtitle>by {{h.owner.name}} {{h.owner.badge}} on {{h.date|date}}</mat-card-subtitle>
+                    </mat-card-content>
+
+                    <!-- <mat-card-actions>
+            <button mat-button>See</button>
+        </mat-card-actions> -->
+
+                </mat-card>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <mat-checkbox>Art</mat-checkbox><br />
+            <mat-checkbox>Sport</mat-checkbox><br />
+            <mat-checkbox>Tech</mat-checkbox><br />
+        </div>
+    </div>
+</div>

@@ -1,0 +1,8 @@
+@token =eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNhaW9AZ21haWwuY29tIiwiaWQiOiI1ZGFhNTcyMWIzNDM4OTdmYzAzMTVmMzkiLCJuYW1lIjoiQ2FpbyIsImlhdCI6MTU3MTUzMTQyMn0.P2fcGZSZfEECtXInuWrBbSAuKFYNTy50Kzl72NzPt4s
+### Get All Homes
+get http://localhost:3000/homes http/1.1
+ngstackauth : {{token}}
+
+### Get Homes Paged
+get http://localhost:3000/homes/1 http/1.1
+ngstackauth : {{token}}

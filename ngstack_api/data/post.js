@@ -15,7 +15,8 @@ const Posts = new mongoose.Schema({
         }],
         owner: { type: String, required: true },
         updated: { type: Date, default: Date.now }
-    }]
+    }],
+    owner: { type: String, required: true}
 });
 
 Posts.index({ title: 1, 'owner.name': 1 }, { unique: true });
