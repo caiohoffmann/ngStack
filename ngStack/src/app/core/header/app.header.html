@@ -14,17 +14,22 @@
 
         </ul>
         <ul class="navbar-nav">
-            <a class="nav-link" routerLink="/home" routerLinkActive="active">Home</a>
-        </ul>
-        <ul class="navbar-nav">
-            <a class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>
-
-        </ul>
-        <ul class="navbar-nav mr-auto">
-            <a class="nav-link" routerLink="/signup" routerLinkActive="active" class="btn btn-link">SignUp</a>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/home" routerLinkActive="active">Home</a>
+            </li>
+            <li class="nav-item" *ngIf="!(user | async)?.token; else userDetail"><a class="nav-link" routerLink="/login"
+                    routerLinkActive="active">Login</a></li>
+            <li class="nav-item" *ngIf="!(user | async ).token; else userlogout"><a class="nav-link" routerLink="/signup"
+                    routerLinkActive="active" class="btn btn-link">SignUp</a></li>
+            <ng-template #userDetail> Welcome {{(user|async)?.name}}</ng-template>
+            <ng-template #userlogout><li class="nav-item" routerLink="/logout" routerLinkActive="active" class="btn btn-link">logout</li></ng-template>
         </ul>
     </div>
 </nav>
+
+
+<!-- <li class="nav-item" *ngIf="!(user | async ).token as user"><a class="nav-link" routerLink="/signup"
+    routerLinkActive="active" class="btn btn-link">SignUp</a></li> -->
 <!-- <div class="form-check float-right" style="margin-right: 200px;">
 
         <h2>Tags</h2>
