@@ -13,8 +13,9 @@ export class CommentEffects {
     getAllComments$ = createEffect(() =>
         this.actions$.pipe(
             ofType(getAllComments),
-            switchMap(_ =>
-                this.commentService.getComments('1').pipe(
+            pluck('id_post'),
+            switchMap(id_post =>
+                this.commentService.getComments(id_post).pipe(
                     map(comments => gotAllComments({ comments }))
                 )
             )

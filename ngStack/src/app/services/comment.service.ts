@@ -18,7 +18,7 @@ export class CommentService {
     }
 
     getComments(id_post: string): Observable<any> {
-        return this.http.get(`${environment.appApi.baseUrl}/posts/5dad0bdf4ed73e3a6086f4b2/comments`, {
+        return this.http.get(`${environment.appApi.baseUrl}/posts/${id_post}/comments`, {
             headers: this.headers
         });
     }
