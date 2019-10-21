@@ -21,18 +21,18 @@ export class ReplyComponent {
     comments: Observable<Comment[]>;
     replies: Observable<Reply[]>;
     constructor(private userFacade: UsersStoreFacade, private postFacade: PostsStoreFacade, private commentFacade: CommentsStoreFacade, private replyFacade: RepliesStoreFacade) {
-        this.userFacade.login({ id: '5dad5a268f0c0815e8a742f7', email: 'caio2@mum.edu', password: '123', name: 'Caio Hoffmann' });
-        this.token = this.userFacade.getToken();
-        this.token.subscribe(t => {
-            //this.commentFacade.getAll('5dad0bdf4ed73e3a6086f4b2');
-            this.replyFacade.getAll({ idPost: '5dad0bdf4ed73e3a6086f4b2', _id: '5dad708b3045c4220de752fa' });
-        });
-        this.user = this.userFacade.getUser();
+        // this.userFacade.login({ id: '5dad5a268f0c0815e8a742f7', email: 'caio2@mum.edu', password: '123', name: 'Caio Hoffmann' });
+        // this.token = this.userFacade.getToken();
+        // this.token.subscribe(t => {
+        //     //this.commentFacade.getAll('5dad0bdf4ed73e3a6086f4b2');
+        //     this.replyFacade.getAll({ idPost: '5dad0bdf4ed73e3a6086f4b2', _id: '5dad708b3045c4220de752fa' });
+        // });
+        // this.user = this.userFacade.getUser();
 
-        this.posts = this.postFacade.seeAll();
-        this.comments = this.commentFacade.seeAll();
-        this.replies = this.replyFacade.all();
-        this.replies.subscribe(d => console.dir(d));
+        // this.posts = this.postFacade.seeAll();
+        // this.comments = this.commentFacade.seeAll();
+        // this.replies = this.replyFacade.all();
+        // this.replies.subscribe(d => console.dir(d));
 
     }
     create(reply) {

@@ -7,6 +7,8 @@ import { UsersStoreFacade } from 'src/app/store/users/users.store-facade';
 import { PostsStoreFacade } from 'src/app/store/posts/posts.store-facade';
 import { faUserCircle, faClock, faComment, faThumbsUp } from '@fortawesome/free-solid-svg-icons';
 import { CommentsStoreFacade } from 'src/app/store/comments/comments.store-facade';
+import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 
 
@@ -17,6 +19,8 @@ import { CommentsStoreFacade } from 'src/app/store/comments/comments.store-facad
 })
 export class CommentsComponent implements OnInit {
 
+  config: any;
+
   faCoffee = faUserCircle;
   faClock = faClock;
   faComment = faComment;
@@ -26,16 +30,34 @@ export class CommentsComponent implements OnInit {
   myForm: FormGroup;
   comment_id: string;
 
-  constructor(private _comment: CommentService, private formBuilder: FormBuilder, private user_facade: UsersStoreFacade, private _commentFacade: CommentsStoreFacade) {
+
+  p: number = 1;
+  public idPost: string;
+
+  constructor(private _comment: CommentService, private formBuilder: FormBuilder, private user_facade: UsersStoreFacade, private _commentFacade: CommentsStoreFacade,
+    private _route: ActivatedRoute) {
     this.user_facade.login(null);
+
     this.user_facade.getToken().subscribe(
       t => {
+
         this._comment.getComments("5dad0bdf4ed73e3a6086f4b2").subscribe(result => {
           this.comments_array = result.data;
+
+          this.config = {
+            itemsPerPage: 5,
+            currentPage: 1,
+            totalItems: 16
+          };
+
         });
       }
     )
     this.veryfyForm();
+  }
+
+  pageChanged(event) {
+    this.config.currentPage = event;
   }
 
 
@@ -47,11 +69,14 @@ export class CommentsComponent implements OnInit {
 
 
   ngOnInit() {
-
+     this._route.snapshot.params.subscribe(params=>{
+      this.idPost = params['idPost'];
+       console.log("Info "+this.idPost);
+      
+     })
   }
 
   onPostComment() {
-    // console.log("Post Result " + this.myForm.get("comment").value);
     var postcontent: Comment = {
       content: this.myForm.get("comment").value,
       idPost: '5dad0bdf4ed73e3a6086f4b2'

@@ -2,7 +2,7 @@
 <div class="card">
     <div class="list-group">
 
-        <div class="card-body" *ngFor="let comment of comments_array; let i = index;">
+        <div class="card-body" *ngFor="let comment of comments_array">
 
             <a class=" flex-column align-items-start active">
                 <div class="d-flex w-100 justify-content-between card-header">
@@ -15,7 +15,7 @@
                 <fa-icon [icon]="faCoffee"></fa-icon> {{comment.owner}} &nbsp;
             </small> | <fa-icon [icon]="faClock"></fa-icon><small>{{comment.date | dateAgo}}</small> | <small>
                 <fa-icon [icon]="faComment"></fa-icon>
-                5
+                {{comment.comments.length}}
             </small>
             <!-- | <small>10</small> -->
 
@@ -32,10 +32,13 @@
                         </small> |
                         <small>
                             <button type="button" (click)="onlikePost($event)" id="{{arraycomment._id}}">
-                            <fa-icon [icon]="faThumbsUp"></fa-icon> &nbsp; {{arraycomment.like}}
+                                <fa-icon [icon]="faThumbsUp"></fa-icon> &nbsp; {{arraycomment.like}}
                             </button>
                         </small>
                     </div>
+
+
+
                     <p class="mb-1">{{arraycomment.content}}</p>
                     <small class="text-muted">{{arraycomment.owner}}</small>
                     <div class="container text-right">
@@ -51,8 +54,9 @@
             </div>
             <hr>
         </div>
-    </div>
+        <!-- <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls> -->
 
+    </div>
 </div>
 
 <div class="col-xs-12" style="height:20px;"></div>

@@ -55,6 +55,8 @@ import { CommentEffects } from './store/comments/comments-effects';
 import { CommentsStoreFacade } from './store/comments/comments.store-facade';
 import { commentReducer } from './store/comments/comments-reducer';
 
+import {NgxPaginationModule} from 'ngx-pagination'; 
+
 
 
 
@@ -71,8 +73,8 @@ import { commentReducer } from './store/comments/comments-reducer';
     HomeComponent,
     LoginComponent,
     SignUpComponent,
-    DateAgoPipe,
-  ],
+    DateAgoPipe
+    ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -110,6 +112,7 @@ import { commentReducer } from './store/comments/comments-reducer';
 
     MatFormFieldModule,
     MatInputModule,
+    NgxPaginationModule,
 
     EffectsModule.forRoot([UsersEffects, PostEffects, RepliesEffects, CommentEffects])
   ],
