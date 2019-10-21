@@ -10,10 +10,11 @@
                         <textarea matInput placeholder="Title of post" formControlName="title"></textarea>
                     </mat-form-field>
 
-                
+
 
                     <mat-radio-group *ngFor="let tag of mytags">
-                        <mat-radio-button [value]="tag" name="tags" [formGroup]="myForm.get('tags')">{{tag}}</mat-radio-button>
+                        <mat-radio-button [value]="tag" name="tags" [formGroup]="myForm.get('tags')">{{tag}}
+                        </mat-radio-button>
                     </mat-radio-group>
 
 
