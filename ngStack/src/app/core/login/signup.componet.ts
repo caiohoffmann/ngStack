@@ -1,13 +1,13 @@
 import { UsersService } from './../../services/user.service';
 import { LoginService } from '../../services/login.service';
-import { FormControl, FormBuilder ,FormGroup,Validators} from '@angular/forms';
+import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
-import {Router}from '@angular/router'
+import { Router } from '@angular/router'
 import { Component, OnInit } from '@angular/core';
 @Component({
-    selector: 'app-signup',
-    template: `<form [formGroup]="registerForm" (ngSubmit)="onFormSubmit()">
+  selector: 'app-signup',
+  template: `<form [formGroup]="registerForm" (ngSubmit)="onFormSubmit()">
     <div class="form-group">
       <label for="firstName"> Name</label>
           <input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval.firstName.errors }" placeholder="Enter First Name here"/>
@@ -45,57 +45,57 @@ import { Component, OnInit } from '@angular/core';
   </form>
   
   `,
-    styleUrls: ['./signup.component.css']
+  styleUrls: ['./signup.component.css']
 })
 export class SignUpComponent implements OnInit {
 
 
-    email = new FormControl('', [Validators.required, Validators.email]);
-    myForm:FormGroup;
-  
-    constructor(private formBuilder:FormBuilder,private loginService:LoginService, private router:Router ,private userService:UsersService) { }
+  email = new FormControl('', [Validators.required, Validators.email]);
+  myForm: FormGroup;
 
-registerForm:FormGroup;
-loading=false;
-submitted=false;
+  constructor(private formBuilder: FormBuilder, private loginService: LoginService, private router: Router, private userService: UsersService) { }
 
-
-ngOnInit() {
-this.registerForm=this.formBuilder.group({
-  username:['',Validators.required],
- email:['',Validators.required,Validators.email],
-  password:['',[Validators.required,Validators.minLength(8)]]
-});
-}
-get fval(){return this.registerForm.controls;}
-    
+  registerForm: FormGroup;
+  loading = false;
+  submitted = false;
 
 
-    onFormSubmit(){
-      this.submitted = true;
-      // return for here if form is invalid
-      if (this.registerForm.invalid) {
-        return;
-      }
-      this.loading = true;
-      this.userService.register(this.registerForm.value).subscribe(
-        (data)=>{
-          alert('User Registered successfully!!');
-          this.router.navigate(['/login']);
-       },
-       error=>{
-  
-        console.log("Error is");
-        
-      }
-        // (error)=>{
-        //   //this.toastr.error(error.error.message, 'Error');
-        //   this.loading = false;
-        //   console.log()
-        // }
-      )
-  
-    }
-  
+  ngOnInit() {
+    this.registerForm = this.formBuilder.group({
+      username: ['', Validators.required],
+      email: ['', Validators.required, Validators.email],
+      password: ['', [Validators.required, Validators.minLength(8)]]
+    });
   }
+  get fval() { return this.registerForm.controls; }
+
+
+
+  onFormSubmit() {
+    this.submitted = true;
+    // return for here if form is invalid
+    if (this.registerForm.invalid) {
+      return;
+    }
+    this.loading = true;
+    this.userService.register(this.registerForm.value).subscribe(
+      (data) => {
+        alert('User Registered successfully!!');
+        this.router.navigate(['/login']);
+      },
+      error => {
+        console.dir(error)
+        console.log(`Erro : ${error}`);
+
+      }
+      // (error)=>{
+      //   //this.toastr.error(error.error.message, 'Error');
+      //   this.loading = false;
+      //   console.log()
+      // }
+    )
+
+  }
+
+}
 

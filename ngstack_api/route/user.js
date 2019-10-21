@@ -22,7 +22,7 @@ router.get('/', verifyToken, async (req, res) => {
 
 //###########################################################
 
-router.post('/', verifyToken, async (req, res) => {
+router.post('/', async (req, res) => {
     try {
 
 
