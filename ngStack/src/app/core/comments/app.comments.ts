@@ -1,7 +1,7 @@
-import { Component,OnInit } from '@angular/core';
-import { Observable} from 'rxjs';
-import {CommentService } from '../../services/comment.service';
-import {Comment} from '../../core/models/comment.model'
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { CommentService } from '../../services/comment.service';
+import { Comment } from '../../core/models/comment.model'
 
 
 @Component({
@@ -9,12 +9,12 @@ import {Comment} from '../../core/models/comment.model'
   templateUrl: './app.comments.html',
   styles: ['./app.comments.css']
 })
-export class CommentsComponent implements OnInit{
+export class CommentsComponent implements OnInit {
 
-  arrayComments:Observable<any>;
+  arrayComments: Observable<any>;
   convert_array: any[];
 
-  constructor(private _comment:CommentService){}
+  constructor(private _comment: CommentService) { }
   comments_array = [
     {
       "title": "Are You There, Vodka? It's Me, Chelsea",
@@ -75,20 +75,20 @@ export class CommentsComponent implements OnInit{
     },
   ]
 
-  ngOnInit(){
+  ngOnInit() {
     console.log("Is Called");
-    // _comment
-    //GET http://localhost:3000/posts/5dad0bdf4ed73e3a6086f4b2/comments http/1.1
-    //{
-    // "content":"message ",
-    // "owner":"Caio Hoffman"
-//new Comment()
-    this._comment.getComments("5dad0bdf4ed73e3a6086f4b2")
-     .subscribe(result=>{
-         console.log("Result Info "+result);
-     });
-    
-   
+    //     // _comment
+    //     //GET http://localhost:3000/posts/5dad0bdf4ed73e3a6086f4b2/comments http/1.1
+    //     //{
+    //     // "content":"message ",
+    //     // "owner":"Caio Hoffman"
+    // //new Comment()
+    //     this._comment.getComments("5dad0bdf4ed73e3a6086f4b2")
+    //      .subscribe(result=>{
+    //          console.log("Result Info "+result);
+    //      });
+
+
   }
 
 
