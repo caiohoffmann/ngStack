@@ -14,7 +14,6 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule} from '@angular/material/card';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatRadioModule} from '@angular/material/radio';
-import {MatLabel} from '@angular/material/'
 
 import { AppComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';

@@ -9,14 +9,11 @@
                     <mat-form-field class="example-full-width">
                         <textarea matInput placeholder="Title of post" formControlName="title"></textarea>
                     </mat-form-field>
-
-
-
-                    <mat-radio-group *ngFor="let tag of mytags">
-                        <mat-radio-button [value]="tag" name="tags" [formGroup]="myForm.get('tags')">{{tag}}
-                        </mat-radio-button>
-                    </mat-radio-group>
-
+                    <div formArrayName="tags">
+                        <span *ngFor="let t of TagsArray.controls; let i=index">
+                            <mat-checkbox formControlName="{{t}}">{{t}}</mat-checkbox>
+                        </span>
+                    </div>
 
                     <button type="submit" mat-button>Post</button>
                 </form>

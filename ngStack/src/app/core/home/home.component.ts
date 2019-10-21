@@ -13,21 +13,30 @@ export class HomeComponent implements OnInit {
   mytags = ["Art", "Tech", "Food", "Angular"];
 
   constructor(private http: HttpClient, private formBuilder: FormBuilder) {
+
     this.http.get('http://localhost:3000/homes', {headers:{"ngstackauth": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE1NzE1MzEyOTh9.Ihtu4elMUcxb9e37VQk9oYxpyoohJwPfoBkQNgS0qWU"}}).subscribe(res=>{
       // localStorage.setItem('data', JSON.stringify(res));
       this.homes = res;
     })
 
     this.myForm = formBuilder.group({
-      title:['', Validators.required],
-      tags:formBuilder.array([
-        ['']
-      ])
+      'title':['', Validators.required],
+      'tags': this.addtagscontroller()
     })
     this.myForm.valueChanges.subscribe((val)=>{
       console.log(val);
     })
    }
+
+  addtagscontroller(){
+    const arr = this.mytags.map(ele=>{
+      return this.formBuilder.control(false);
+    })
+  }
+
+  get TagsArray(){
+    return <FormArray>this.myForm.get('tags');
+  }
 
   ngOnInit() {
   }
