@@ -29,7 +29,7 @@ import { Router, ActivatedRoute } from '@angular/router';
             <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
             Login
         </button>
-        <a routerLink="/register" class="btn btn-link">Register</a>
+        <a routerLink="/signup" class="btn btn-link">SignUP</a>
     </div>
 </form>`,
   styleUrls: ['./login.component.css']

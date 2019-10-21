@@ -1,4 +1,5 @@
-mat-form-field {
-    margin-right: 12px;
+form-group{
+    margin-right: 300px;
     background: lightgray;
+    float: right;
   }
