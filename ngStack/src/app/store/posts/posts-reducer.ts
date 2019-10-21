@@ -1,10 +1,8 @@
-import { User } from '../../core/models/user.model';
 import { createReducer, on } from '@ngrx/store';
 import {
     getAll, gotAll, createPost
 } from './posts-actions';
 import { Post } from '../../core/models/post.model';
-import { state } from '@angular/animations';
 
 
 export interface State {

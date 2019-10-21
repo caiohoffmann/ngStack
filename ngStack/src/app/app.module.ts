@@ -49,6 +49,9 @@ import { CommentsComponent } from './core/comments/app.comments';
 import { globalroute } from './app.routes'
 import { CommentService } from './services/comment.service';
 import { LoginComponent } from './core/login/login.component';
+import { commentReducer } from './store/comments/comments-reducer';
+import { CommentEffects } from './store/comments/comments-effects';
+import { CommentsStoreFacade } from './store/comments/comments.store-facade';
 
 
 
@@ -71,7 +74,7 @@ import { LoginComponent } from './core/login/login.component';
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
-    StoreModule.forRoot({ user: userReducer, replys: replyReducer, posts: postsReducer }),
+    StoreModule.forRoot({ user: userReducer, replys: replyReducer, posts: postsReducer, comments: commentReducer }),
 
 
     MatSliderModule,
@@ -102,9 +105,9 @@ import { LoginComponent } from './core/login/login.component';
     MatFormFieldModule,
     MatInputModule,
 
-    EffectsModule.forRoot([UsersEffects, PostEffects, RepliesEffects])
+    EffectsModule.forRoot([UsersEffects, PostEffects, RepliesEffects, CommentEffects])
   ],
-  providers: [UsersService, UsersStoreFacade, , RepliesStoreFacade, PostsServices, PostsStoreFacade, ReplyServices],
+  providers: [UsersService, UsersStoreFacade, , RepliesStoreFacade, PostsServices, PostsStoreFacade, ReplyServices, CommentsStoreFacade],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

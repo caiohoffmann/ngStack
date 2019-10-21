@@ -47,7 +47,8 @@ export class UsersEffects {
     ofType(login), /* When action is dispatched */
     /* Dispatch LoadAllSuccess action to the central store with id list returned by the backend as id*/
     /* 'Contacts Reducers' will take care of the rest */
-    switchMap(() => this.usersService.login().pipe(
+    pluck('user'),
+    switchMap((user) => this.usersService.login(user).pipe(
       map(user => this.usersService.getUserFromToken(user)),
       map(user => logedIn({ user: user, token: user.token })
       )

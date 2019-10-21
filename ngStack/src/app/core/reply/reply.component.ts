@@ -6,6 +6,7 @@ import { UsersStoreFacade } from 'src/app/store/users/users.store-facade';
 import { User } from '../models/user.model';
 import { Post } from '../models/post.model';
 import { PostsStoreFacade } from 'src/app/store/posts/posts.store-facade';
+import { CommentsStoreFacade } from 'src/app/store/comments/comments.store-facade';
 
 @Component({
     selector: 'reply',
@@ -16,7 +17,7 @@ export class ReplyComponent {
     token: Observable<string>;
     user: Observable<User>;
     posts: Observable<Post[]>;
-    constructor(private userFacade: UsersStoreFacade, private postFacade: PostsStoreFacade) {
+    constructor(private userFacade: UsersStoreFacade, private postFacade: PostsStoreFacade, private commentFacade: CommentsStoreFacade) {
         this.userFacade.login({ id: '5dad5a268f0c0815e8a742f7', email: 'caio2@mum.edu', password: '123', name: 'Caio Hoffmann' });
         this.token = this.userFacade.getToken();
         this.user = this.userFacade.getUser();
@@ -24,9 +25,10 @@ export class ReplyComponent {
         this.posts = this.postFacade.seeAll();
     }
     create() {
-        this.postFacade.createPost({
-            title: 'This is the other post i created',
-            tags: ['Tech']
-        });
+        // this.postFacade.createPost({
+        //     title: 'This is the other post i created',
+        //     tags: ['Tech']
+        // });
+        this.commentFacade.createComment({ content: 'This is my new comment', idPost: '5dad0bdf4ed73e3a6086f4b2' });
     }
 }
