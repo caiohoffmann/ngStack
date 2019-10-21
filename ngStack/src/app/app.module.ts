@@ -49,6 +49,7 @@ import { CommentsComponent } from './core/comments/app.comments';
 import { globalroute } from './app.routes'
 import { CommentService } from './services/comment.service';
 import { LoginComponent } from './core/login/login.component';
+import{DateAgoPipe} from './pipe/date-ago.pipe'
 
 
 
@@ -64,7 +65,8 @@ import { LoginComponent } from './core/login/login.component';
     CommentsComponent,
     HomeComponent,
     LoginComponent,
-    SignUpComponent
+    SignUpComponent,
+    DateAgoPipe, 
   ],
   imports: [
     BrowserModule,
