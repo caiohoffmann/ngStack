@@ -1,20 +1,22 @@
 import * as fromUsers from './users/users-reducer';
+import * as fromReplies from './replies/replies-reducer';
+import * as fromPosts from './posts/posts-reducer';
 import { Action, combineReducers, createFeatureSelector, createSelector } from '@ngrx/store';
 
-// export interface AppState {
-//   // user: fromUsers.State;
-//   // reply: fromReplies.State,
-//   posts: fromPosts.State
-// }
+export interface AppState {
+    user: fromUsers.State;
+    reply: fromReplies.State,
+    posts: fromPosts.State
+}
 
-// /** Provide reducers with AoT-compilation compliance */
-// export function reducers(state: AppState | undefined, action: Action) {
-//   return combineReducers({
-//     // user: fromUsers.userReducer,
-//     // reply: fromReplies.replyReducer,
-//     posts: fromPosts.postReducer
-//   })(state, action)
-// }
+/** Provide reducers with AoT-compilation compliance */
+export function reducers(state: AppState | undefined, action: Action) {
+    return combineReducers({
+        user: fromUsers.userReducer,
+        reply: fromReplies.replyReducer,
+        posts: fromPosts.postsReducer
+    })(state, action)
+}
 
 
 // /**

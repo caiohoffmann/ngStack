@@ -33,6 +33,7 @@ import { ReplyComponent } from './core/reply/reply.component';
 import { RepliesStoreFacade } from './store/replies/replies.store-facade';
 import { PostsStoreFacade } from './store/posts/posts.store-facade';
 import { postsReducer } from './store/posts/posts-reducer';
+import { replyReducer } from './store/replies/replies-reducer';
 import { PostEffects } from './store/posts/posts-effects';
 import { RepliesEffects } from './store/replies/replies-effects';
 import { ReplyServices } from './services/reply.service';
@@ -58,7 +59,7 @@ import { LoginComponent } from './core/login/login.component';
 @NgModule({
   declarations: [
     AppComponent,
-    ReplyComponent
+    ReplyComponent,
     AppHeaderComponent,
     CommentsComponent,
     HomeComponent,
@@ -104,6 +105,6 @@ import { LoginComponent } from './core/login/login.component';
     EffectsModule.forRoot([UsersEffects, PostEffects, RepliesEffects])
   ],
   providers: [UsersService, UsersStoreFacade, , RepliesStoreFacade, PostsServices, PostsStoreFacade, ReplyServices],
-  bootstrap: [AppComponent, LoginComponent, SignUpComponent],
+  bootstrap: [AppComponent],
 })
 export class AppModule { }

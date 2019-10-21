@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import * as fromRoot from '../reducer';
+import * as fromRoot from '../index';
 import { select, Store } from '@ngrx/store';
 
 import { User } from '../../core/models/user.model';
@@ -8,7 +8,7 @@ import { logedIn, login } from './users-actions';
 @Injectable()
 export class UsersStoreFacade {
 
-  constructor(private store: Store<fromRoot.State>) { }
+  constructor(private store: Store<fromRoot.AppState>) { }
 
   login(user: User) {
     this.store.dispatch(login({ user }));

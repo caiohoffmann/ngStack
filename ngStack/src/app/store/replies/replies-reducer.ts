@@ -13,7 +13,7 @@ export const initialState: State = {
     replies: null
 };
 
-export const userReducer = createReducer<State>(
+export const replyReducer = createReducer<State>(
     initialState,
     on(getAll, (state) =>
         ({ ...state, replies: state.replies })),
