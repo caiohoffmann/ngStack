@@ -31,7 +31,9 @@
                             <fa-icon [icon]="faClock"></fa-icon> &nbsp; {{arraycomment.updated | dateAgo}}
                         </small> |
                         <small>
+                            <button type="button" (click)="onlikePost($event)" id="{{arraycomment._id}}">
                             <fa-icon [icon]="faThumbsUp"></fa-icon> &nbsp; {{arraycomment.like}}
+                            </button>
                         </small>
                     </div>
                     <p class="mb-1">{{arraycomment.content}}</p>
