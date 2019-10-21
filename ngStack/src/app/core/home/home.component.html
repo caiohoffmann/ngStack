@@ -13,11 +13,11 @@
                         </div>
                         <label for="exampleTextarea">Tags: </label>
                         <span *ngFor="let tag of mytags; let i = index" formArrayName="tags">
-                                <div class="form-check">
+                            <div class="form-check">
                                 <label class="form-check-label">
-                                     <input type="checkbox" class="form-check-input" [formControlName]="i" >{{tag}}
+                                    <input type="checkbox" class="form-check-input" [formControlName]="i">{{tag}}
                                 </label>
-                                </div>
+                            </div>
                         </span>
                         <fieldset>
                             <button type="submit" class="btn btn-primary">Post</button>
@@ -29,8 +29,9 @@
             <div *ngFor="let h of homes">
                 <br />
                 <div class="jumbotron">
-                    <h6 class="display-4">{{h.title}}</h6>
-                    <p class="lead"><span *ngFor="let t of h.tags"><span class="badge badge-danger">{{t}}</span>&nbsp;</span></p>
+                    <h4>{{h.title}}</h4>
+                    <p class="lead"><span *ngFor="let t of h.tags"><span
+                                class="badge badge-danger">{{t}}</span>&nbsp;</span></p>
                     <hr class="my-4">
                     <p>by {{h.owner}} on {{h.date|date}}</p>
                     <p class="lead">
@@ -40,11 +41,20 @@
 
             </div>
         </div>
-        
+
         <div class="col-md-2">
-            <mat-checkbox>Art</mat-checkbox><br />
-            <mat-checkbox>Sport</mat-checkbox><br />
-            <mat-checkbox>Tech</mat-checkbox><br />
+            <div class="card border-primary mb-3">
+                <div class="card-header">Tags</div>
+                <div class="card-body">
+                    <span *ngFor="let tag of mytags">
+                        <div class="form-check">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input">{{tag}}
+                            </label>
+                        </div>
+                    </span>
+                </div>
+            </div>
         </div>
     </div>
 </div>
