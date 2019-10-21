@@ -2,21 +2,16 @@
 ### Get Token
 Get http://localhost:3000/test http/1.1
 
+
 ### Get All Posts
 get http://localhost:3000/posts/ http/1.1
 ngstackauth : {{token}}
 
-### Get All Homes
-get http://localhost:3000/homes http/1.1
-ngstackauth : {{token}}
-
-### Get Homes Paged
-get http://localhost:3000/homes/1 http/1.1
-ngstackauth : {{token}}
 
 ### Get Post By Id
 get http://localhost:3000/posts/5dab4c4d56ddc42924e634d7 http/1.1
 ngstackauth : {{token}}
+
 
 ### Create New Post
 POST http://localhost:3000/posts http/1.1
@@ -24,13 +19,15 @@ ngstackauth : {{token}}
 Content-Type: application/json
 
 {
-    "title":"The new post",
-    "tags":["sport", "tech"]
+    "title":"How to create potato soup",
+    "tags":["Food"]
 }
 
+
 ### Delete a Post
-delete http://localhost:3000/posts/5dab60dc56dfe31f58927352 http/1.1
+delete http://localhost:3000/posts/5dad0b3dd4d72b322435f1d0 http/1.1
 ngstackauth : {{token}}
+
 
 ### Modify a Post
 PATCH http://localhost:3000/posts/5dab4bc5c3b5510290ff7460 http/1.1
