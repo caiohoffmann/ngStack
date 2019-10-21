@@ -5,10 +5,11 @@ import {
   exhaustMap,
   map, pluck,
   startWith,
-  switchMap
+  switchMap,
+  mergeMap
 } from 'rxjs/operators';
 import { Actions, createEffect, Effect, ofType } from '@ngrx/effects';
-import { UsersService } from '../services/user.service';
+import { UsersService } from '../../services/user.service';
 import {
   login,
   logedIn
@@ -34,16 +35,13 @@ import {
 @Injectable()
 export class UsersEffects {
 
-
+  @Effect()
   login$ = createEffect(() => this.actions$.pipe(
     ofType(login), /* When action is dispatched */
-    pluck('user'),
-    /* Hit the Contacts Index endpoint of our REST API */
     /* Dispatch LoadAllSuccess action to the central store with id list returned by the backend as id*/
     /* 'Contacts Reducers' will take care of the rest */
-    switchMap((user) => this.usersService.login(user).pipe(
+    switchMap(() => this.usersService.login().pipe(
       map(user => {
-        console.log(user);
         return logedIn({ user })
       })
     )),

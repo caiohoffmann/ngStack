@@ -4,4 +4,6 @@ export enum UserEventTypes {
     signin = '[Users] Sign in',
     edit = '[Users] Edite',
     remove = '[Users] Remove',
+    getUser = '[Users] Get',
+    logedIn = '[Users] Loged In'
 }

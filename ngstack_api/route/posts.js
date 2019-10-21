@@ -19,7 +19,7 @@ function getPost(req, res, next) {
 
 ///POSTS
 //Getting All Posts
-router.get('/', verifyToken, async (req, res) => {
+router.get('/', async (req, res) => {
     const p = await Post.find({}).exec();
     res.json(p);
 })

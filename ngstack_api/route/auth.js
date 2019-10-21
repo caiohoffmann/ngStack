@@ -23,7 +23,7 @@ router.post('/login', async (req, res, next) => {
             if (err) throw err;
 
             res.header('ngstackauth', data);
-            res.json({ msg: 'success' });
+            res.json({ msg: 'success', token: data });
 
         }
     );

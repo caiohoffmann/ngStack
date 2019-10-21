@@ -1,0 +1,18 @@
+<div></div>
+<div></div>
+
+<div class="card">
+    <div class="card-header">
+        Featured
+    </div>
+    <div class="card-body" *ngFor="let comment of comments_array; let i = index;">
+        <h5 class="card-title">{{comment.title}}</h5>
+        <div *ngFor="let arraycomment of comment.comments">
+            <p class="card-text">{{arraycomment.content}}</p>
+            <p class="card-text">{{arraycomment.like}}</p>
+            <p class="card-text">{{arraycomment.owner}}</p>
+            <p class="card-text">{{arraycomment.updated}}</p>
+        </div>
+        <hr>
+    </div>
+</div>

@@ -1,24 +1,24 @@
-import { User } from '../core/models/user.model';
+import { User } from '../../core/models/user.model';
 import { createReducer, on } from '@ngrx/store';
 import {
-  logedIn, login
+  logedIn, login,
 } from './users-actions';
 
 
 export interface State {
-  user: User;
+  user: User
 }
 export const initialState: State = {
   user: null
 };
 
-export const reducer = createReducer<State>(
+export const userReducer = createReducer<State>(
   initialState,
-  on(login, state =>
+  on(login, (state) =>
     ({ ...state, user: state.user })),
   on(logedIn, (state, { user }) =>
-    ({ ...state, user: state.user })
-  ),
+    ({ ...state, user: user })
+  )
   // on(createSuccess, (state, { user }) =>
   //   usersAdapter.addOne(user, state)
   // ),
@@ -29,7 +29,3 @@ export const reducer = createReducer<State>(
   //   usersAdapter.removeOne(id, state)
   // )
 );
-
-export function userReducer(state, action) {
-  return reducer(state, action);
-}
