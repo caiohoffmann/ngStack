@@ -5,12 +5,13 @@ import { UsersStoreFacade } from './store/users.store-facade';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styles: ['./app.component.css']
+  template: `
+  <app-header></app-header>
+  `
 })
+
+
 export class AppComponent {
-  user: Observable<User>;
-  constructor(private usersStoreFacade: UsersStoreFacade) {
-    this.user = usersStoreFacade.getUser();
-  }
+   
+
 }

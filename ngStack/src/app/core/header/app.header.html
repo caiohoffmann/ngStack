@@ -1,0 +1,24 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <span><img src="/assets/logo.png" style="width:50px;"></span>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <!-- <span class="name_tyle" style="color:white">NGSTACK</span> -->
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/comments" routerLinkActive="active">NGSTACK</a>
+            </li>
+
+        </ul>
+        <ul class="navbar-nav">
+            <a class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>
+        </ul>
+    </div>
+</nav>
+<div class="container">
+    <router-outlet></router-outlet>
+</div>
