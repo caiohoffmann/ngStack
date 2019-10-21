@@ -89,6 +89,6 @@ import { CommentService } from './services/comment.service';
     EffectsModule.forRoot([UsersEffects])
   ],
   providers: [UsersService, UsersStoreFacade],
-  bootstrap: [AppComponent, LoginComponent, SignUpComponent, CommentService],
+  bootstrap: [AppComponent, LoginComponent, SignUpComponent],
 })
 export class AppModule { }
