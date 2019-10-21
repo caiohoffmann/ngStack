@@ -1,9 +1,12 @@
 import { User } from './user.model';
 import { Reply } from './reply.model';
+import { Comment } from './comment.model';
 
 export interface Post {
-    content: string,
-    owner: string,
+    title: string,
+    owner?: string,
     likes?: number,
-    replies?: [Reply]
+    comments?: [Comment],
+    tags?: [String],
+    id?: string
 }

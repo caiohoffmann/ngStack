@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { of } from 'rxjs';
+import { of, EMPTY } from 'rxjs';
 import {
   catchError,
   exhaustMap,
@@ -12,7 +12,14 @@ import { Actions, createEffect, Effect, ofType } from '@ngrx/effects';
 import { UsersService } from '../../services/user.service';
 import {
   login,
-  logedIn
+  logedIn,
+  getUserFromToken,
+  create,
+  createSuccess,
+  update,
+  updateSuccess,
+  remove,
+  removeSuccess
   // create,
   // createSuccess,
   // failure,
@@ -40,13 +47,13 @@ export class UsersEffects {
     ofType(login), /* When action is dispatched */
     /* Dispatch LoadAllSuccess action to the central store with id list returned by the backend as id*/
     /* 'Contacts Reducers' will take care of the rest */
-    switchMap(() => this.usersService.login().pipe(
-      map(user => {
-        return logedIn({ user })
-      })
+    pluck('user'),
+    switchMap((user) => this.usersService.login(user).pipe(
+      map(user => this.usersService.getUserFromToken(user)),
+      map(user => logedIn({ user: user, token: user.token })
+      )
     )),
   ));
-
 
   // load$ = createEffect(() => this.actions$.pipe(
   //   ofType(load),
@@ -57,35 +64,36 @@ export class UsersEffects {
   // ));
 
 
-  // create$ = createEffect(() => this.actions$.pipe(
-  //   ofType(create),
-  //   pluck('contact'),
-  //   switchMap(contact => this.usersService.create(contact).pipe(
-  //     map(contact => createSuccess({ contact })),
-  //     catchError(err => {
-  //       alert(err.message);
-  //       return of(failure({ err: { concern: 'CREATE', error: err } }));
-  //     })
-  //   ))
-  // ));
+  create$ = createEffect(() => this.actions$.pipe(
+    ofType(create),
+    pluck('user'),
+    switchMap(user => this.usersService.create(user).pipe(
+      map(user => this.usersService.getUserFromToken(user)),
+      map(user => createSuccess({ user })),
+      catchError(err => {
+        alert(err.message);
+        return EMPTY;
+      })
+    ))
+  ));
 
 
-  // update$ = createEffect(() => this.actions$.pipe(
-  //   ofType(update),
-  //   pluck('contact'),
-  //   exhaustMap(contact => this.usersService.update(contact).pipe(
-  //     map(contact => updateSuccess({ contact }))
-  //   ))
-  // ));
+  update$ = createEffect(() => this.actions$.pipe(
+    ofType(update),
+    pluck('user'),
+    exhaustMap(user => this.usersService.update(user).pipe(
+      map(user => updateSuccess({ user }))
+    ))
+  ));
 
-  // destroy$ = createEffect(() => this.actions$.pipe(
-  //   ofType(remove),
-  //   pluck('id'),
-  //   switchMap(id => this.usersService.destroy(id).pipe(
-  //     pluck('id'),
-  //     map(id => removeSuccess({ id }))
-  //   ))
-  // ));
+  destroy$ = createEffect(() => this.actions$.pipe(
+    ofType(remove),
+    pluck('id'),
+    switchMap(id => this.usersService.destroy(id).pipe(
+      pluck('id'),
+      map(id => removeSuccess({ id }))
+    ))
+  ));
 
   constructor(
     private actions$: Actions,

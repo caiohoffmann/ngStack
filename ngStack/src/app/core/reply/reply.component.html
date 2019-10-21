@@ -2,7 +2,7 @@
     <mat-expansion-panel>
         <mat-expansion-panel-header>
             <mat-panel-title>
-                {{ reply | async | json}}
+                {{ comments | async | json}}
             </mat-panel-title>
         </mat-expansion-panel-header>
     </mat-expansion-panel>
@@ -18,5 +18,6 @@
                 <input matInput placeholder="New reply">
             </mat-form-field>
         </form>
+        <button (click)="create()">Create</button>
     </mat-expansion-panel>
 </mat-accordion>

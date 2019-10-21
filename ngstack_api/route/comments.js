@@ -16,7 +16,7 @@ function getComment(req, res, next) {
 router.get('/', async (req, res) => {
     let query = { _id: `${req.body.idPost}` };
     const comment = await Post.find(query).exec();
-    res.json(response(comment));
+    res.json(comment);
 });
 
 
@@ -28,7 +28,6 @@ router.post('/', async (req, res) => {
         $push: {
             comments: {
                 "content": req.body.content,
-                "like": req.body.like,
                 "owner": req.body.owner,
                 "like": 0
             }

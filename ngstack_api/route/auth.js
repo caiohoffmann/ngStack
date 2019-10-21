@@ -29,5 +29,36 @@ router.post('/login', async (req, res, next) => {
     );
 });
 
+router.post('/signin', async (req, res) => {
+    try {
+
+
+        const u = new User({
+            email: req.body.email,
+            password: req.body.password,
+            name: req.body.name
+        });
+
+        const user = await u.save();
+        jwt.sign({
+            "email": u.email,
+            "id": u._id,
+            "name": u.name,
+            "picture": u.picture
+        },
+            jwstkey.jwt, (err, data) => {
+                if (err) throw err;
+
+                res.header('ngstackauth', data);
+                res.json({ msg: 'success', token: data });
+
+            }
+        );
+        //res.json(response(user));
+    } catch (err) {
+        throw err;
+    }
+});
+
 
 module.exports = router;

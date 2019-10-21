@@ -12,15 +12,15 @@ GET http://localhost:3000/posts/5dad0bdf4ed73e3a6086f4b2/comments http/1.1
 ngstackauth : {{token}}
 
 
-
 ###
 POST http://localhost:3000/posts/5dad0bdf4ed73e3a6086f4b2/comments http/1.1
 ngstackauth : {{token}}
 Content-Type: application/json
 
 {
-    "content":"message ",
-    "owner":"Caio Hoffman"
+    "content":"Try to Message test Befor Front-End",
+    "owner":"John Vallon By Update Guy",
+    "like":8
 }
 
 ###
@@ -30,8 +30,8 @@ ngstackauth : {{token}}
 Content-Type: application/json
  
 {
-    "content":"Put Test New message Content Update ",
-    "owner":"John Vallon"
+    "content":"Realy Baby ",
+    "owner":"John Vallon By Update Guy"
 }
 
 

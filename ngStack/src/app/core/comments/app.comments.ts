@@ -1,7 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CommentService } from '../../services/comment.service';
-import { Comment } from '../../core/models/comment.model'
+import { Comment } from '../../core/models/comment.model';
+import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { UsersStoreFacade } from 'src/app/store/users/users.store-facade';
+import { PostsStoreFacade } from 'src/app/store/posts/posts.store-facade';
+import { faUserCircle, faClock, faComment, faThumbsUp } from '@fortawesome/free-solid-svg-icons';
+import { CommentsStoreFacade } from 'src/app/store/comments/comments.store-facade';
+
 
 
 @Component({
@@ -11,88 +17,73 @@ import { Comment } from '../../core/models/comment.model'
 })
 export class CommentsComponent implements OnInit {
 
+  faCoffee = faUserCircle;
+  faClock = faClock;
+  faComment = faComment;
+  faThumbsUp = faThumbsUp;
   arrayComments: Observable<any>;
-  convert_array: any[];
+  comments_array: Object;
+  myForm: FormGroup;
+  comment_id: string;
 
-  constructor(private _comment: CommentService) { }
-  comments_array = [
-    {
-      "title": "Are You There, Vodka? It's Me, Chelsea",
-      "tags": "Science",
-      "date": "30/02/2019",
-      "comments": [
-        {
-          "content": " 1 ext of the printing and typesetting industry",
-          "like": 0,
-          "replies": [
-            {
-              "content": "ext of the printing and typesetting industry",
-              "likes": 5,
-              "owner": "Caio HoffMan",
-              "updated": "06/22/2019",
-            },
-            {
-              "content": "2 ext of the printing and typesetting industry",
-              "likes": 6,
-              "owner": "John Vallon",
-              "updated": "07/29/2019",
-            }
-          ],
+  constructor(private _comment: CommentService, private formBuilder: FormBuilder, private user_facade: UsersStoreFacade, private _commentFacade: CommentsStoreFacade) {
+    this.user_facade.login(null);
+    this.user_facade.getToken().subscribe(
+      t => {
+        this._comment.getComments("5dad0bdf4ed73e3a6086f4b2").subscribe(result => {
+          this.comments_array = result.data;
+        });
+      }
+    )
+    this.veryfyForm();
+  }
 
-          "owner": "Caio Owner",
-          "updated": "06/22/2200"
 
-        }]
-    },
+  veryfyForm() {
+    this.myForm = this.formBuilder.group({
+      'comment': ['', [Validators.required, Validators.minLength(10)]]
+    });
+  }
 
-    {
-      "title": "Special title treatment ",
-      "tags": "Football",
-      "date": "31/03/2029",
-      "comments": [
-        {
-          "content": "6666ext of the printing and typesetting industry",
-          "like": 8,
-          "replies": [
-            {
-              "content": "ext of the printing and typesetting industry",
-              "likes": 5,
-              "owner": "Caio HoffMan",
-              "updated": "06/22/2019",
-            },
-            {
-              "content": "2 ext of the printing and typesetting industry",
-              "likes": 6,
-              "owner": "John Vallon",
-              "updated": "07/29/2019",
-            }
-          ],
-
-          "owner": "Caio Owner",
-          "updated": "06/22/2200"
-
-        }]
-    },
-  ]
 
   ngOnInit() {
-    console.log("Is Called");
-    //     // _comment
-    //     //GET http://localhost:3000/posts/5dad0bdf4ed73e3a6086f4b2/comments http/1.1
-    //     //{
-    //     // "content":"message ",
-    //     // "owner":"Caio Hoffman"
-    // //new Comment()
-    //     this._comment.getComments("5dad0bdf4ed73e3a6086f4b2")
-    //      .subscribe(result=>{
-    //          console.log("Result Info "+result);
-    //      });
+
+  }
+
+  onPostComment() {
+    // console.log("Post Result " + this.myForm.get("comment").value);
+    var postcontent: Comment = {
+      content: this.myForm.get("comment").value,
+      idPost: '5dad0bdf4ed73e3a6086f4b2'
+    }
+    this._commentFacade.createComment(postcontent);
+  }
+
+  onlikePost(event: Event) {
+    this.comment_id = this.stoPropgation(event);
+    console.log("On like Data " + this.comment_id);
+  }
 
 
+  onReplyComment(event: Event) {
+    this.comment_id = this.stoPropgation(event);
+    console.log("After Method Elem " + this.comment_id);
+  }
+
+  stoPropgation(event: Event): string {
+    event.preventDefault();
+    return (event.target as Element).id;
   }
 
 
 
 
+  /* content?: string,
+   like: number,
+   owner: string,
+   updated:Date,
+  _id:string
+  // this.comment_id = (event.target as Element).id;
+  */
 
 }

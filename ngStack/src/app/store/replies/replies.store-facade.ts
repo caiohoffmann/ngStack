@@ -1,14 +1,13 @@
 import { Injectable } from "@angular/core";
 import { select, Store } from '@ngrx/store';
 
-import * as fromRoot from '../index';
+import { AppState } from '../reducer';
 import { getAll } from './replies-actions';
-import { Post } from 'src/app/core/models/post.model';
 
 @Injectable()
 export class RepliesStoreFacade {
 
-    constructor(private store: Store<fromRoot.AppState>) { }
+    constructor(private store: Store<AppState>) { }
     getAll() {
         this.store.dispatch(getAll());
     }
