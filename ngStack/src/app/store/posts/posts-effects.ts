@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { createEffect, Actions, ofType, Effect } from '@ngrx/effects';
-import { getAll, gotAll, createPost, createdPost } from './posts-actions';
+import { getAll, gotAll, createPost, createPostSuccess, updatePost, updatePostSuccess, deletePost, deletePostSuccess } from './posts-actions';
 import { switchMap, pluck, mergeMap, map } from 'rxjs/operators';
 import { PostsServices } from 'src/app/services/post.service';
 
@@ -12,11 +12,9 @@ export class PostEffects {
 
     @Effect()
     getAll$ = createEffect(() => {
-        console.log('first');
         return this.actions$.pipe(
             ofType(getAll),
             mergeMap(_ => {
-                console.log('effect')
                 return this.postService.getAll().pipe(
                     map(posts => gotAll({ posts }))
                 )
@@ -28,8 +26,31 @@ export class PostEffects {
     create$ = createEffect(() => this.actions$.pipe(
         ofType(createPost),
         pluck('post'),
-        switchMap
+        mergeMap
             ((post) => this.postService.createPost(post))).pipe(
-                map(newPost => createdPost(newPost))
+                map(newPost => createPostSuccess(newPost))
             ));
+
+    @Effect()
+    update$ = createEffect(() => this.actions$.pipe(
+        ofType(updatePost),
+        pluck('post'),
+        switchMap(
+            (post) => this.postService.updatePost(post).pipe(
+                map(post => updatePostSuccess(post))
+            )
+        )
+    ));
+
+    @Effect()
+    delete$ = createEffect(() => this.actions$.pipe(
+        ofType(deletePost),
+        pluck('id'),
+        switchMap(
+            (id) => this.postService.delete(id).pipe(
+                map(post => deletePostSuccess(post))
+            )
+        )
+    ));
+
 }
