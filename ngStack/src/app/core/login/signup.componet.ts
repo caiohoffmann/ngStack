@@ -40,7 +40,7 @@ import { Component, OnInit } from '@angular/core';
           <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
   SignUp
       </button>
-      <a routerLink="/login" class="btn btn-link">Login to continue...</a>
+      <a routerLink="/login" class="btn btn-link">login</a>
   </div>
   </form>
   
