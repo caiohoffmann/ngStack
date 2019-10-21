@@ -1,52 +1,83 @@
-import { LoginService } from './../../services/login/login.service';
+import { FormBuilder ,FormGroup,Validators} from '@angular/forms';
+import { LoginService } from '../../services/login.service';
 import { Component, OnInit, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router,ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-login',
   template: `
-  <form>
-  <mat-form-field>
-    <mat-label>First name</mat-label>
-    <input matInput (cdkAutofill)="userNameAutofilled = $event.isAutofilled">
-    <mat-hint *ngIf="userNameAutofilled">Autofilled!</mat-hint>
-  </mat-form-field>
-  <br>
-  <mat-form-field>
-    <mat-label>Password</mat-label>
-    <input matInput  type="password" (cdkAutofill)="password = $event.isAutofilled">
-    <mat-hint *ngIf="passwordAutofilled">Autofilled!</mat-hint>
-  </mat-form-field><br>
-  <button mat-raised-button>login</button>
+  <h3>User Login</h3>
+<form [formGroup]="loginForm" (ngSubmit)="onFormSubmit()">
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval.email.errors }" placeholder="Enter email here"/>
+        <div *ngIf="submitted && fval.email.errors" class="invalid-feedback">
+            <div *ngIf="fval.email.errors.required">Email is required</div>
+            <div *ngIf="fval.email.errors.email">Enter valid email address</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval.password.errors }" placeholder="Enter password here" />
+        <div *ngIf="submitted && fval.password.errors" class="invalid-feedback">
+            <div *ngIf="fval.password.errors.required">Password is required</div>
+        </div>
+    </div>
+    <div class="form-group">
+        <button [disabled]="loading" class="btn btn-primary">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            Login
+        </button>
+        <a routerLink="/register" class="btn btn-link">Register</a>
+    </div>
 </form>`,
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  @Input() username;
-  @Input() password;
+  loginForm: FormGroup;
+  loading = false;
+  submitted = false;
+  returnUrl: string;
+  
 
   // userAutofilled: boolean;
   //   passwordAutofilled: boolean;
-  constructor(private loginService: LoginService, private router: Router) { }
-  validateLogin() {
-    if (this.username && this.password) {
-      this.loginService.validateLogin(this.username, this.password).subscribe((result: { token: string, username: string }) => {
-        if (result.token) {
-          localStorage.setItem('token', result.token);
-          localStorage.setItem('loggedInUser', result.username);
-          this.loginService.emitValue(result.username);
-        }
+  constructor(private loginService: LoginService, private router: Router,private route:ActivatedRoute,
+    private formBulider:FormBuilder
+    
+    ) { }
 
-        this.router.navigate(['/home']);
-      }, error => {
-        console.log('error is ', error);
+    ngOnInit() {
+
+      this.loginForm=this.formBulider.group({
+        username:['',Validators.required],
+        password:['',Validators.required]
       });
-    } else {
-      alert('enter user name and password');
     }
+
+    // accessing to form field
+    get fval(){return this.loginForm.controls;}
+  onFormSumbmit() {
+
+this.submitted=true;
+if(this.loginForm.invalid){return ;}
+this.loading=true;
+this.loginService.validateLogin(this.fval.username.value,this.fval.password.value).subscribe(data=>{
+  this.router.navigate(['/login']);
+},
+
+error=>{
+  
+  console.log("Error is");
+  
+}
+);
+
+
+    
   }
 
-  ngOnInit() {
-  }
+  
 
 }
