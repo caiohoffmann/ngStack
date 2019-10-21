@@ -16,7 +16,7 @@ function getComment(req, res, next) {
 router.get('/', async (req, res) => {
     let query = { _id: `${req.body.idPost}` };
     const comment = await Post.find(query).exec();
-    res.json(response(comment));
+    res.json(comment);
 });
 
 

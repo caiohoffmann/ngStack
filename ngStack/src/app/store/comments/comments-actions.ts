@@ -4,7 +4,8 @@ import { CommentEventTypes } from 'src/app/core/events/comment.events';
 
 
 export const getAllComments = createAction(
-    CommentEventTypes.getAll
+    CommentEventTypes.getAll,
+    props<{ id_post: string }>()
 )
 
 export const gotAllComments = createAction(
