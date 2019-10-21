@@ -1,5 +1,5 @@
 <div class='container'>
-<br/>
+    <br />
     <div class="row justify-content-center">
 
         <div class="col-md-10">
@@ -9,7 +9,7 @@
                     <form class="example-form" (ngSubmit)="onSubmit()" [formGroup]="myForm">
                         <div class="form-group">
                             <textarea placeholder="Title of post" formControlName="title" class="form-control"
-                                id="exampleTextarea" rows="3"></textarea>
+                                id="exampleTextarea" rows="3" required></textarea>
                         </div>
                         <label for="exampleTextarea">Tags: </label>
                         <span *ngFor="let tag of mytags; let i = index" formArrayName="tags">
@@ -42,18 +42,26 @@
         </div>
 
         <div class="col-md-2">
+
             <div class="card border-primary mb-3">
                 <div class="card-header">Tags</div>
                 <div class="card-body">
-                    <span *ngFor="let tag of mytags">
-                        <div class="form-check">
-                            <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input">{{tag}}
-                            </label>
-                        </div>
-                    </span>
+                    <form [formGroup]="tagsForm" (ngSubmit)="onSubmit2()">
+                        <span *ngFor="let tag of mytags;let i=index" formArrayName="tags">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input" [formControlName]="i">{{tag}}
+                                </label>
+                            </div>
+                        </span>
+                        <fieldset>
+                            <button type="submit" class="btn btn-primary">Show</button>
+                        </fieldset>
+                    </form>
                 </div>
             </div>
+
+
         </div>
     </div>
 </div>

@@ -20,5 +20,5 @@ DELETE http://localhost:3000/posts/5dab4bc5c3b5510290ff7460/comments/5dab930ea03
 ngstackauth : {{token}}
 
 ###
-GET http://localhost:3000/posts/5dab4bc5c3b5510290ff7460/comments/5dab930ea0340368e8c5e4f7/replies/ HTTP/1.1
+GET http://localhost:3000/posts/5dad0bdf4ed73e3a6086f4b2/comments/5dad708b3045c4220de752fa/replies/ HTTP/1.1
 ngstackauth : {{token}}
