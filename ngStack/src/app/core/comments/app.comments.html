@@ -1,18 +1,54 @@
-<div></div>
-<div></div>
-
+<div class="col-xs-12" style="height:10px;"></div>
 <div class="card">
-    <div class="card-header">
-        Featured
-    </div>
-    <div class="card-body" *ngFor="let comment of comments_array; let i = index;">
-        <h5 class="card-title">{{comment.title}}</h5>
-        <div *ngFor="let arraycomment of comment.comments">
-            <p class="card-text">{{arraycomment.content}}</p>
-            <p class="card-text">{{arraycomment.like}}</p>
-            <p class="card-text">{{arraycomment.owner}}</p>
-            <p class="card-text">{{arraycomment.updated}}</p>
+    <div class="list-group">
+
+        <div class="card-body" *ngFor="let comment of comments_array.data; let i = index;">
+
+            <a class=" flex-column align-items-start active">
+                <div class="d-flex w-100 justify-content-between card-header">
+                    <h5 class="card-title">{{comment.title}}</h5>
+                </div>
+                <span class="badge badge-dark">{{comment.tags}}</span>&nbsp;&nbsp;
+
+            </a>
+
+            <small>{{comment.owner}}</small> | <small>{{comment.date | dateAgo}}</small> | <small>5 </small>
+            | <small>10</small>
+
+            <div class="col-xs-12" style="height:20px;"></div>
+            <div *ngFor="let arraycomment of comment.comments">
+                <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                    <div class="container text-right">
+                        <h5 class="mb-1"></h5>
+                        <small>{{arraycomment.owner}}</small> |
+                        <small>{{arraycomment.updated | dateAgo}}</small> |
+                        <small>{{arraycomment.like}}</small>
+                    </div>
+                    <p class="mb-1">{{arraycomment.content}}</p>
+                    <small class="text-muted">{{arraycomment.owner}}</small>
+                    <div class="container text-right">
+                        <button type="button" class="btn btn-primary" (click)="onReplyComment($event)"
+                            id="{{arraycomment._id}}">
+                            Reply
+                        </button>
+                    </div>
+                </a>
+
+                <div class="col-xs-12" style="height:30px;"></div>
+
+            </div>
+            <hr>
         </div>
-        <hr>
     </div>
+
 </div>
+
+<div class="col-xs-12" style="height:20px;"></div>
+<form [formGroup]="myForm" (ngSubmit)="onPostComment()">
+    <div class="form-group">
+        <label for="exampleTextarea">Put your comment</label>
+        <textarea class="form-control" name="comment" id="exampleTextarea" rows="3"
+            formControlName="comment"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="!myForm.valid">Submit</button>
+</form>

@@ -12,6 +12,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatCardModule } from '@angular/material/card';
 import { MatExpansionModule } from '@angular/material/expansion'
 
 
@@ -43,7 +44,6 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 import { RouterModule } from '@angular/router';
 import { AppHeaderComponent } from './core/header/app.header';
-import { MatCardModule } from '@angular/material';
 import { MyMaterialModule } from './material.module';
 import { CommentsComponent } from './core/comments/app.comments';
 import { globalroute } from './app.routes'
@@ -52,6 +52,7 @@ import { LoginComponent } from './core/login/login.component';
 import { commentReducer } from './store/comments/comments-reducer';
 import { CommentEffects } from './store/comments/comments-effects';
 import { CommentsStoreFacade } from './store/comments/comments.store-facade';
+import { DateAgoPipe } from './pipe/date-ago.pipe'
 
 
 
@@ -67,7 +68,8 @@ import { CommentsStoreFacade } from './store/comments/comments.store-facade';
     CommentsComponent,
     HomeComponent,
     LoginComponent,
-    SignUpComponent
+    SignUpComponent,
+    DateAgoPipe,
   ],
   imports: [
     BrowserModule,

@@ -28,7 +28,6 @@ router.post('/', async (req, res) => {
         $push: {
             comments: {
                 "content": req.body.content,
-                "like": req.body.like,
                 "owner": req.body.owner,
                 "like": 0
             }

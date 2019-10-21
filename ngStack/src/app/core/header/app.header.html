@@ -7,7 +7,6 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <!-- <span class="name_tyle" style="color:white">NGSTACK</span> -->
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
                 <a class="nav-link" routerLink="/comments" routerLinkActive="active">NGSTACK</a>
@@ -15,10 +14,36 @@
 
         </ul>
         <ul class="navbar-nav">
+                <a class="nav-link" routerLink="/home" routerLinkActive="active">Home</a>
+            </ul>
+        <ul class="navbar-nav">
             <a class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>
         </ul>
     </div>
 </nav>
+<!-- <div class="form-check float-right" style="margin-right: 200px;">
+
+        <h2>Tags</h2>
+        <div class="panel panel-default">
+          <div class="checkbox panel-body">
+                <input id="checkbox1" class="styled" type="checkbox">
+                <label for="checkbox1">
+                    Default
+                </label>
+            </div>
+             
+        <div class="checkbox checkbox-primary panel-body">
+                <input id="checkbox2" class="styled" type="checkbox" checked>
+                <label for="checkbox2">
+                    Primary
+                </label>
+            </div>
+        </div>
+
+
+</div> -->
+
+
 <div class="container">
     <router-outlet></router-outlet>
     <reply></reply>

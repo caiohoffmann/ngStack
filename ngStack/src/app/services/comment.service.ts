@@ -5,7 +5,6 @@ import { environment } from '../env/environment';
 import { Comment } from '../core/models/comment.model';
 import { UsersStoreFacade } from '../store/users/users.store-facade';
 
-
 @Injectable({
     providedIn: 'root'
 })
@@ -18,10 +17,10 @@ export class CommentService {
         })
     }
 
-
     getComments(id_post: string): Observable<any> {
-
-        return this.http.get<any>(`${environment.appApi.baseUrl}/posts/5dad0bdf4ed73e3a6086f4b2/comments`);
+        return this.http.get(`${environment.appApi.baseUrl}/posts/5dad0bdf4ed73e3a6086f4b2/comments`, {
+            headers: this.headers
+        });
     }
     /*  "content": req.body.content,
                     "like": req.body.like,
