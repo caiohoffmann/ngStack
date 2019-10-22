@@ -7,15 +7,25 @@
                 <div class="card-header">Add New Post</div>
                 <div class="card-body">
                     <form class="example-form" (ngSubmit)="onSubmit()" [formGroup]="myForm">
+
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">Title</span>
+                            </div>
+                            <input type="text" class="form-control" placeholder="Write post title here"
+                                aria-label="Username" aria-describedby="basic-addon1" formControlName="title">
+                        </div>
+
                         <div class="form-group">
-                            <textarea placeholder="Title of post" formControlName="title" class="form-control"
+                            <textarea placeholder="Post content" formControlName="content" class="form-control"
                                 id="exampleTextarea" rows="3" required></textarea>
                         </div>
                         <label for="exampleTextarea">Choose tags: &nbsp;&nbsp;</label>
                         <span *ngFor="let tag of mytags; let i = index" formArrayName="tags">
                             <div class="form-check" style="display: inline;">
                                 <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" [formControlName]="i">{{tag}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                    <input type="checkbox" class="form-check-input"
+                                        [formControlName]="i">{{tag}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 </label>
                             </div>
                         </span>
@@ -31,14 +41,16 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">{{h.title}}</h5>
-
+                        
                         <p class="lead">
                             <span *ngFor="let t of h.tags">
                                 <span class="badge badge-danger">{{t}}</span>&nbsp;
                             </span>
                         </p>
+                        <hr/>
                         <p class="card-text">by {{h.owner}} on {{h.date|date}}</p>
-                        <a href="#" class="btn btn-outline-primary ml-auto" [routerLink]="['/posts/',h._id]">See This</a>
+                        <a href="#" class="btn btn-outline-primary ml-auto" [routerLink]="['/posts/',h._id]">See
+                            This</a>
                     </div>
                 </div>
             </div>
