@@ -39,17 +39,18 @@ export class HomeComponent implements OnInit {
 
     this.myForm = this.fb.group({
       'title': ['', Validators.required],
+      'content': ['', Validators.required],
       'tags': this.fb.array(this.mytags.map(x => !1))
     });
 
-    // this.myForm.valueChanges.subscribe((val) => { })
+    // this.myForm.valueChanges.subscribe((val) => { console.log(val) })
 
     //For right sidebar form
     this.tagsForm = this.fb.group({
       'tags': this.fb.array(this.mytags.map(x => !1))
     })
 
-    this.tagsForm.valueChanges.subscribe(val => {  })
+    // this.tagsForm.valueChanges.subscribe(val => {  })
       
   }
 
