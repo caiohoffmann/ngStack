@@ -40,10 +40,10 @@ export class CommentsComponent implements OnInit {
   constructor(private _comment: CommentService, private formBuilder: FormBuilder, private user_facade: UsersStoreFacade, private _commentFacade: CommentsStoreFacade,
     private _route: ActivatedRoute, private _postService: PostsServices) {
     this.user_facade.login({ email: 'caio@mum.edu', password: '123' });
-
+    console.log("Inside Constructor");
     this.user_facade.getToken().subscribe(
       t => {
-
+        console.log("Post Value " + this.idPost);
         this._comment.getComments(this.idPost).subscribe(result => {
           this.comment = result;
 
@@ -82,8 +82,9 @@ export class CommentsComponent implements OnInit {
       content: this.myForm.get("comment").value,
       idPost: this.idPost
     }
-    this._comment.sendComment(postcontent);
-    this.comment.comments = [...this.comment.comments, postcontent];
+
+    /*this._comment.sendComment(postcontent);
+    this.comment.comments = [...this.comment.comments, postcontent];*/
   }
 
 

@@ -19,6 +19,8 @@ export class CommentService {
     }
 
     getComments(id_post: string): Observable<Post> {
+        console.log(`Get Data ${environment.appApi.baseUrl}/posts/${id_post}/comments`);
+        // http://localhost:3000/posts/5dad0bdf4ed73e3a6086f4b2/comments
         return this.http.get<Post>(`${environment.appApi.baseUrl}/posts/${id_post}/comments`, {
             headers: this.headers
         });

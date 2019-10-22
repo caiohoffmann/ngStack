@@ -23,9 +23,9 @@ export class HomeComponent implements OnInit {
     //   // localStorage.setItem('data', JSON.stringify(res));
     //   this.homes = res;
     // });
-    
+
     //Get All Posts from Service
-    ps.getAll().subscribe(res=>{
+    ps.getAll().subscribe(res => {
       this.homes = res;
     })
 
@@ -61,7 +61,7 @@ export class HomeComponent implements OnInit {
     this.http.post(`${environment.appApi.baseUrl}/posts`, valueToStore, { observe: 'response', headers: { "ngstackauth": this.token } }).subscribe(res => {
       console.log(res)
       //fetch the data from server
-      this.ps.getAll().subscribe(res=>{
+      this.ps.getAll().subscribe(res => {
         this.homes = res;
       })
     })
@@ -69,7 +69,7 @@ export class HomeComponent implements OnInit {
 
   onSubmit2() {
     //fills the tags array with tag name
-    const valueToStore = Object.assign({}, this.tagsForm.value,{
+    const valueToStore = Object.assign({}, this.tagsForm.value, {
       tags: this.convertToValue2('tags')
     });
 
