@@ -16,7 +16,7 @@ import { User } from '../models/user.model';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  homes:any[];
+  homes: any[];
   myForm: FormGroup;
   mytags = ["Tech", "Food", "Art", "Angular"];
   token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNhaW9AZ21haWwuY29tIiwiaWQiOiI1ZGFhNTcyMWIzNDM4OTdmYzAzMTVmMzkiLCJuYW1lIjoiQ2FpbyIsImlhdCI6MTU3MTUzMTQyMn0.P2fcGZSZfEECtXInuWrBbSAuKFYNTy50Kzl72NzPt4s";
@@ -24,12 +24,13 @@ export class HomeComponent implements OnInit {
   page = 2;
   loadmoreButton:Boolean = true;
   user: Observable<User>;
+  temhomes;
 
   constructor(private http: HttpClient, private fb: FormBuilder, private ps: PostsServices, private userFacade: UsersStoreFacade) {
     
     
     //Get All Posts from Service
-    ps.getHomePaged(1).subscribe(res=>{
+    ps.getHomePaged(1).subscribe((res:{error:String, data:any[]})=>{
       this.homes = res.data;
     })
 
@@ -48,12 +49,7 @@ export class HomeComponent implements OnInit {
       'tags': this.fb.array(this.mytags.map(x => !1))
     })
 
-    //Triggered when you choose topic from right sidebar
-    // this.tagsForm.valueChanges.subscribe(val => {  })
-
-
-      
-
+    this.tagsForm.valueChanges.subscribe(val => {  })
       
   }
 
@@ -69,7 +65,7 @@ export class HomeComponent implements OnInit {
     this.http.post(`${environment.appApi.baseUrl}/posts`, valueToStore, { observe: 'response', headers: { "ngstackauth": this.token } }).subscribe(res => {
 
       //fetch the data from server
-      this.ps.getHomePaged(1).subscribe(res=>{
+      this.ps.getHomePaged(1).subscribe((res:{error:String, data:any[]})=>{
         this.homes = res.data;
         this.loadmoreButton = true;
       })
@@ -84,8 +80,8 @@ export class HomeComponent implements OnInit {
     });
 
     //Call to API to fetch posts tagged
-    this.http.post(`${environment.appApi.baseUrl}/homes/tags`, valueToStore, { observe: 'response', headers: { "ngstackauth": this.token } }).subscribe(res => {
-      this.homes = res.body.data;
+    this.http.post(`${environment.appApi.baseUrl}/homes/tags`, valueToStore, { headers: { "ngstackauth": this.token } }).subscribe((res:any) => {
+      this.homes = res.data;
     })
   }
 
@@ -99,9 +95,11 @@ export class HomeComponent implements OnInit {
   }
 
   loadmore(){
-    this.ps.getHomePaged(this.page).subscribe(res=>{
+    this.ps.getHomePaged(this.page).subscribe((res:{error:String, data:any[]})=>{
       this.page +=1;
+      
       this.homes = [...this.homes, ...res.data];
+
       if(res.data.length<5) this.loadmoreButton=false;
     })
   }
