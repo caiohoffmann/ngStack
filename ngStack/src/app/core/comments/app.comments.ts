@@ -40,7 +40,6 @@ export class CommentsComponent implements OnInit {
 
   constructor(private _comment: CommentService, private formBuilder: FormBuilder, private user_facade: UsersStoreFacade, private _commentFacade: CommentsStoreFacade,
     private _route: ActivatedRoute, private _postService: PostsServices) {
-
     this.user = user_facade.getUser();
     this.veryfyForm();
   }
@@ -80,8 +79,9 @@ export class CommentsComponent implements OnInit {
       idPost: this.idPost
     }
 
-    /*this._comment.sendComment(postcontent);
-    this.comment.comments = [...this.comment.comments, postcontent];*/
+    this._comment.sendComment(postcontent).subscribe(con => {
+      this.comment.comments = [...this.comment.comments, con.data];
+    });
   }
 
 
