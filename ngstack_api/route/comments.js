@@ -19,21 +19,28 @@ router.get('/', async (req, res) => {
     res.json(comment);
 });
 
-
-router.post('/', async (req, res) => {
+router.post('/', async (req, res, next) => {
 
     let query = { _id: `${req.body.idPost}` };
+    var options = { new: true };
 
-    const findPost = await Post.updateOne(query, {
-        $push: {
-            comments: {
-                "content": req.body.content,
-                "owner": req.body.owner,
-                "like": 0
+    try {
+        const findPost = await Post.findOneAndUpdate(query, {
+            $push: {
+                comments: {
+                    "content": req.body.content,
+                    "owner": req.body.owner,
+                    "like": 0
+                }
             }
-        }
-    }).exec();
-    res.json(response({ msg: "Comment added succesfully" }));
+        }, options).exec();
+
+        newData = findPost.comments.slice(-1).pop();
+
+        res.json(response(newData));
+    } catch (err) {
+        next(err);
+    }
 });
 
 

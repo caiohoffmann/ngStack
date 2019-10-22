@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material';
 import { UsersService } from './../../services/user.service';
 import { LoginService } from '../../services/login.service';
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -9,16 +10,16 @@ import { Component, OnInit } from '@angular/core';
   selector: 'app-signup',
   template: `<form [formGroup]="registerForm" (ngSubmit)="onFormSubmit()">
     <div class="form-group">
-      <label for="firstName"> Name</label>
-          <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval.firstName.errors }" placeholder="Enter First Name here"/>
-          <div *ngIf="submitted && fval.firstName.errors" class="invalid-feedback">
-              <div *ngIf="fval.firstName.errors.required">First Name is required</div>
+      <label for="name"> Name</label>
+          <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval.name.errors }" placeholder="Enter Name here"/>
+          <div *ngIf="submitted && fval.name.errors" class="invalid-feedback">
+              <div *ngIf="fval.name.errors.required"> Name is required</div>
           </div>
     </div>
   
     <div class="form-group">
       <label for="email">Email</label>
-      <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval.email.errors }" placeholder="Enter email here"/>
+      <input type= "email"  formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval.email.errors }" placeholder="Enter email here"/>
       <div *ngIf="submitted && fval.email.errors" class="invalid-feedback">
           <div *ngIf="fval.email.errors.required">Email is required</div>
           <div *ngIf="fval.email.errors.email">Enter valid email address</div>
@@ -26,7 +27,7 @@ import { Component, OnInit } from '@angular/core';
     </div>
     
     <div class="form-group">
-      <label for="email">Password</label>
+      <label for="password">Password</label>
       <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval.password.errors }" placeholder="Enter Password here"/>
       <div *ngIf="submitted && fval.password.errors" class="invalid-feedback">
           <div *ngIf="fval.password.errors.required">Password is required</div>
@@ -41,6 +42,12 @@ import { Component, OnInit } from '@angular/core';
   SignUp
       </button>
       <a routerLink="/login" class="btn btn-link">login</a>
+
+
+
+      <p>By clicking
+        <em>Sign up</em> you agree to our
+        <a href="" target="_blank">terms of service</a>. </p>
   </div>
   </form>
   
@@ -53,7 +60,7 @@ export class SignUpComponent implements OnInit {
   email = new FormControl('', [Validators.required, Validators.email]);
   myForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private loginService: LoginService, private router: Router, private userService: UsersService) { }
+  constructor(private formBuilder: FormBuilder, private loginService: LoginService, private router: Router, private _snackBar: MatSnackBar, private userService: UsersService) { }
 
   registerForm: FormGroup;
   loading = false;
@@ -63,7 +70,7 @@ export class SignUpComponent implements OnInit {
   ngOnInit() {
     this.registerForm = this.formBuilder.group({
       name: ['', Validators.required],
-      email: ['', Validators.required, Validators.email],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(8)]]
     });
   }
@@ -80,19 +87,21 @@ export class SignUpComponent implements OnInit {
     this.loading = true;
     this.userService.register(this.registerForm.value).subscribe(
       (data) => {
+        this.loading = false;
         alert('User Registered successfully!!');
         this.router.navigate(['/home']);
       },
       error => {
-        console.dir(error)
+        this.loading = false;
+        console.dir(error);
+
+        this._snackBar.open("some thing problem with User Name , password and email please checking", "close!!")
+
+
         console.log(`Erro : ${error}`);
 
       }
-      // (error)=>{
-      //   //this.toastr.error(error.error.message, 'Error');
-      //   this.loading = false;
-      //   console.log()
-      // }
+      
     )
 
   }
