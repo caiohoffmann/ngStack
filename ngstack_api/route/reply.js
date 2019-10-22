@@ -31,7 +31,7 @@ router.get('/:idReply', async (req, res) => {
         'comments._id': req.body.idComment,
         'comments.replies._id': req.params.idReply
     });
-    const nreply = p.comments.filter((c, i, arr) => {
+    const nreply = reply.comments.filter((c, i, arr) => {
         return c.id === req.body.idComment
     })[0].replies.filter((r, i, arr) => {
         return r.id === req.params.idReply
@@ -45,13 +45,13 @@ router.get('/', async (req, res) => {
             _id: req.body.idPost,
             'comments._id': req.body.idComment
         }).exec();
-        const nreply = p.comments.filter((c, i, arr) => {
+        const nreply = reply.comments.filter((c, i, arr) => {
             return c.id === req.body.idComment
         })[0];
         res.json(response(nreply));
     } catch (err) {
         next(err);
-    })
+    }
 });
 
 router.patch('/:idReply', async (req, res) => {
