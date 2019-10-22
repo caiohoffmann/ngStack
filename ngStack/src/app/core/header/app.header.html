@@ -9,7 +9,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" routerLink="/comments" routerLinkActive="active">NGSTACK</a>
+                <a class="nav-link" routerLink="/home" routerLinkActive="active">NGSTACK</a>
             </li>
 
         </ul>
@@ -19,13 +19,14 @@
             </li>
             <li class="nav-item" *ngIf="!(user | async)?.token; else userDetail"><a class="nav-link" routerLink="/login"
                     routerLinkActive="active">Login</a></li>
-            <li class="nav-item" *ngIf="!(user | async ).token; else userlogout"><a class="nav-link" routerLink="/signup"
-                    routerLinkActive="active" class="btn btn-link">SignUp</a></li>
-            <ng-template #userDetail> Welcome {{(user|async)?.user.name}}</ng-template>
+            <li class="nav-item" *ngIf="!(user | async)?.token; else userlogout"><a class="nav-link"
+                    routerLink="/signup" routerLinkActive="active" class="btn btn-link">SignUp</a></li>
+            <ng-template #userDetail> Welcome {{(user|async)?.name}}</ng-template>
 
-            <ng-template #userlogout><li class="nav-item" class="nav-link"><button (click)="logout()" >Logout</button></li>
-            <li class="nav-item " class="nav-link" ><a routerLink="/edit">EditProfile</a></li>
-            
+            <ng-template #userlogout>
+                <li class="nav-item" class="nav-link"><button (click)="logout()">Logout</button></li>
+                <li class="nav-item " class="nav-link"><a routerLink="/edit">EditProfile</a></li>
+
             </ng-template>
 
         </ul>

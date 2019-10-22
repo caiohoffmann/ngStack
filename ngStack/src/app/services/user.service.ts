@@ -15,10 +15,7 @@ export class UsersService {
 
 
     login(user: User): Observable<User> {
-        return this.http.post<User>(`${environment.appApi.baseUrl}/auth/login`, {
-            email: 'caio@mum.edu',
-            password: '123'
-        });
+        return this.http.post<User>(`${environment.appApi.baseUrl}/auth/login`, user);
     }
 
     register(user: User) {

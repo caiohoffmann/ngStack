@@ -12,7 +12,7 @@ export class ReplyServices {
     headers = { ngstackauth: '' };
     constructor(private http: HttpClient, private userStoreFacade: UsersStoreFacade) {
         this.userStoreFacade.getToken().subscribe(t => {
-            this.headers.ngstackauth = t;
+            this.headers.ngstackauth = (t || '');
         });
     }
 

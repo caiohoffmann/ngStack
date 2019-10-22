@@ -10,7 +10,7 @@ export class PostsServices {
     headers = { ngstackauth: '' };
     constructor(private http: HttpClient, private userStoreFacade: UsersStoreFacade) {
         this.userStoreFacade.getToken().subscribe(t => {
-            this.headers.ngstackauth = t;
+            this.headers.ngstackauth = (t || '');
         });
     }
 
@@ -20,19 +20,21 @@ export class PostsServices {
 
     createPost(post: Post): Observable<any> {
         return this.http.post<Post>(`${environment.appApi.baseUrl}/posts`, {
-            title: post.title, tags: post.tags, likes:post.likes
+            title: post.title, tags: post.tags, likes: post.likes
         }
             , { headers: this.headers });
     }
 
     updatePost(post: Post): Observable<any> {
-        return this.http.put<Post>(`${environment.appApi.baseUrl}/posts/${post.id}`, {
+        return this.http.put<Post>(`${environment.appApi.baseUrl}/posts/${post._id}`, {
             title: post.title, tags: post.tags
         }
             , { headers: this.headers });
     }
 
-
+    getPost(id: string) {
+        return this.http.get<Post>(`${environment.appApi.baseUrl}/posts/${id}`);
+    }
 
 
     delete(id: string): Observable<any> {

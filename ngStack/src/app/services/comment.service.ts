@@ -14,7 +14,7 @@ export class CommentService {
     headers = { ngstackauth: '' };
     constructor(private http: HttpClient, private userFacade: UsersStoreFacade) {
         this.userFacade.getToken().subscribe(t => {
-            this.headers.ngstackauth = t;
+            this.headers.ngstackauth = (t || '');
         })
     }
 

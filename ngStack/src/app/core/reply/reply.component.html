@@ -1,5 +1,11 @@
-<mat-selection-list #shoes>
-    <mat-list-option *ngFor="let reply of replies | async | json">
-        {{reply}}
-    </mat-list-option>
-</mat-selection-list>
+<ul class="list-group list-group-flush">
+    <li class="list-group-item" *ngFor="let reply of replies">{{reply.content}}</li>
+    <li class="list-group-item">
+        <mat-form-field class="example-full-width">
+            <input matInput placeholder="New Reply" value="" #ar>
+            <button (click)="create(ar.value)" mat-icon-button>
+                <mat-icon aria-hidden="false" aria-label="">add</mat-icon>
+            </button>
+        </mat-form-field>
+    </li>
+</ul>

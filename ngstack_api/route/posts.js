@@ -25,7 +25,7 @@ router.get('/', async (req, res) => {
 })
 
 //Get Post by Id
-router.get('/:id', verifyToken, async (req, res) => {
+router.get('/:id', async (req, res) => {
     const p = await Post.findById({ _id: req.params.id }).exec();
     res.json(p);
 })

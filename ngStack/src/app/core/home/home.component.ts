@@ -5,6 +5,8 @@ import { environment } from '../../env/environment';
 import { PostsServices } from 'src/app/services/post.service';
 import { UsersStoreFacade } from 'src/app/store/users/users.store-facade';
 import { ConcatSource } from 'webpack-sources';
+import { Observable } from 'rxjs';
+import { User } from '../models/user.model';
 
 
 
@@ -21,21 +23,18 @@ export class HomeComponent implements OnInit {
   tagsForm: FormGroup;
   page = 2;
   loadmoreButton:Boolean = true;
+  user: Observable<User>;
 
-  //constructor
-  constructor(private http: HttpClient, private fb: FormBuilder, private ps: PostsServices,private userFacade : UsersStoreFacade) {
-    // this.http.get('http://localhost:3000/homes', { headers: { "ngstackauth": this.token } }).subscribe(res => {
-    //   // localStorage.setItem('data', JSON.stringify(res));
-    //   this.homes = res;
-    // });
-    this.userFacade.login({ email: 'caio@mum.edu', password: '123' });
-    this.userFacade.getToken().subscribe(t => {
-      
-    });
+  constructor(private http: HttpClient, private fb: FormBuilder, private ps: PostsServices, private userFacade: UsersStoreFacade) {
+    
+    
     //Get All Posts from Service
     ps.getHomePaged(1).subscribe(res=>{
       this.homes = res.data;
     })
+
+
+    this.user = this.userFacade.getUser();
 
     this.myForm = this.fb.group({
       'title': ['', Validators.required],
@@ -80,7 +79,7 @@ export class HomeComponent implements OnInit {
   onSubmit2() {
     this.loadmoreButton =false;
     //fills the tags array with tag name
-    const valueToStore = Object.assign({}, this.tagsForm.value,{
+    const valueToStore = Object.assign({}, this.tagsForm.value, {
       tags: this.convertToValue2('tags')
     });
 
