@@ -14,7 +14,7 @@ import { User } from '../../models/user.model';
   template: `<form [formGroup]="registerForm" (ngSubmit)="onFormSubmit()">
   <div class="form-group">
     <label for="firstName"> Name</label>
-        <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval.firstName.errors }" placeholder="Enter First Name here"/>
+        <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval.firstName.errors }" value={{user.name}}/>
         <div *ngIf="submitted && fval.firstName.errors" class="invalid-feedback">
             <div *ngIf="fval.firstName.errors.required">First Name is required</div>
         </div>
@@ -22,7 +22,7 @@ import { User } from '../../models/user.model';
 
   <div class="form-group">
     <label for="email">Picture</label>
-    <input type="text" formControlName="picture" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval.picture.errors }" placeholder="Enter Picture here"/>
+    <input type="text" formControlName="picture" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval.picture.errors }" value={{user.picture}}/>
     <div *ngIf="submitted && fval.picture.errors" class="invalid-feedback">
         <div *ngIf="fval.picture.errors.required">Pictureis required</div>
         <div *ngIf="fval.email.errors.email">Enter valid Picture </div>
@@ -68,8 +68,8 @@ export class EditComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(8)]]
     });
     this.userFacade.getUser().subscribe(u => {
+      this.user = u;
       
-      this.user = u.user
     });
   }
   get fval() { return this.registerForm.controls; }
@@ -85,6 +85,7 @@ export class EditComponent implements OnInit {
     this.loading = true;
     const u = this.registerForm.value;
     u.id = this.user.id;
+    console.dir(u);
     this.userService.update(u).subscribe(
       (data) => {
         alert('Edit successfully!!');

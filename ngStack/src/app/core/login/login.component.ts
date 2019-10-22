@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from '../../services/login.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { MatSnackBar } from '@angular/material';
 
 
 @Component({
@@ -45,7 +46,7 @@ export class LoginComponent implements OnInit {
 
   // userAutofilled: boolean;
   //   passwordAutofilled: boolean;
-  constructor(private loginService: LoginService, private router: Router, private route: ActivatedRoute,
+  constructor(private loginService: LoginService, private router: Router, private _snackBar: MatSnackBar, private route: ActivatedRoute,
     private formBulider: FormBuilder, private userFacade: UsersStoreFacade
 
   ) { }
@@ -66,22 +67,17 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.invalid) { return; }
     this.loading = true;
     this.userFacade.login({ email: this.fval.email.value, password: this.fval.password.value });
-    this.userFacade.getToken().subscribe(_ => {
-      if (_) {
-        this.router.navigate(['/home']);
+    this.loginService.validateLogin(this.fval.email.value, this.fval.password.value).subscribe(data => {
+      this.router.navigate(['/home']);
+    },
+
+      error => {
+
+        this.loading = false;
+        console.log("Error is");
+        this._snackBar.open("some thing problem with password and email please checking", "close!!")
       }
-    })
-    // this.loginService.validateLogin(this.fval.email.value, this.fval.password.value).subscribe(data => {
-    //   this.router.navigate(['/home']);
-    // },
-
-    //   error => {
-
-
-    //     console.log("Error is");
-
-    //   }
-    // );
+    );
 
 
 
