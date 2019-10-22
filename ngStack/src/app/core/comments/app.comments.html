@@ -41,14 +41,10 @@
 
                     <p class="mb-1">{{arraycomment.content}}</p>
                     <small class="text-muted">{{arraycomment.owner}}</small>
-                    <div class="container text-right">
-                        <button type="button" class="btn btn-dark" (click)="onReplyComment($event)"
-                            id="{{arraycomment._id}}">
-                            Reply
-                        </button>
-                    </div>
-                </a>
 
+                </a>
+                <reply [replies]="arraycomment.replies" [idComment]="arraycomment._id" [idPost]="comment._id">
+                </reply>
                 <div class="col-xs-12" style="height:30px;"></div>
 
             </div>

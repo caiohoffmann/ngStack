@@ -9,7 +9,7 @@ ngstackauth : {{token}}
 
 
 ### Get Post By Id
-get http://localhost:3000/posts/5dab4c4d56ddc42924e634d7 http/1.1
+get http://localhost:3000/posts/5dad0bdf4ed73e3a6086f4b2 http/1.1
 ngstackauth : {{token}}
 
 

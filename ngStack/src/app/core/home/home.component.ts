@@ -3,6 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import { FormGroup, FormBuilder, Validators, FormControl, FormArray } from '@angular/forms';
 import { environment } from '../../env/environment';
 import { PostsServices } from 'src/app/services/post.service';
+import { UsersStoreFacade } from 'src/app/store/users/users.store-facade';
+import { Observable } from 'rxjs';
+import { User } from '../models/user.model';
 
 
 
@@ -17,17 +20,20 @@ export class HomeComponent implements OnInit {
   mytags = ["Tech", "Food", "Art", "Angular"];
   token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNhaW9AZ21haWwuY29tIiwiaWQiOiI1ZGFhNTcyMWIzNDM4OTdmYzAzMTVmMzkiLCJuYW1lIjoiQ2FpbyIsImlhdCI6MTU3MTUzMTQyMn0.P2fcGZSZfEECtXInuWrBbSAuKFYNTy50Kzl72NzPt4s";
   tagsForm: FormGroup;
+  user: Observable<User>;
 
-  constructor(private http: HttpClient, private fb: FormBuilder, private ps: PostsServices) {
+  constructor(private http: HttpClient, private fb: FormBuilder, private ps: PostsServices, private userFacade: UsersStoreFacade) {
     // this.http.get('http://localhost:3000/homes', { headers: { "ngstackauth": this.token } }).subscribe(res => {
     //   // localStorage.setItem('data', JSON.stringify(res));
     //   this.homes = res;
     // });
-    
+
     //Get All Posts from Service
-    ps.getAll().subscribe(res=>{
+    ps.getAll().subscribe(res => {
       this.homes = res;
-    })
+    });
+
+    this.user = this.userFacade.getUser();
 
     this.myForm = this.fb.group({
       'title': ['', Validators.required],
@@ -61,7 +67,7 @@ export class HomeComponent implements OnInit {
     this.http.post(`${environment.appApi.baseUrl}/posts`, valueToStore, { observe: 'response', headers: { "ngstackauth": this.token } }).subscribe(res => {
       console.log(res)
       //fetch the data from server
-      this.ps.getAll().subscribe(res=>{
+      this.ps.getAll().subscribe(res => {
         this.homes = res;
       })
     })
@@ -69,7 +75,7 @@ export class HomeComponent implements OnInit {
 
   onSubmit2() {
     //fills the tags array with tag name
-    const valueToStore = Object.assign({}, this.tagsForm.value,{
+    const valueToStore = Object.assign({}, this.tagsForm.value, {
       tags: this.convertToValue2('tags')
     });
 

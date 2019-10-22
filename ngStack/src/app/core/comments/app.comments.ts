@@ -39,23 +39,8 @@ export class CommentsComponent implements OnInit {
 
   constructor(private _comment: CommentService, private formBuilder: FormBuilder, private user_facade: UsersStoreFacade, private _commentFacade: CommentsStoreFacade,
     private _route: ActivatedRoute, private _postService: PostsServices) {
-    this.user_facade.login({ email: 'caio@mum.edu', password: '123' });
 
-    this.user_facade.getToken().subscribe(
-      t => {
 
-        this._comment.getComments(this.idPost).subscribe(result => {
-          this.comment = result;
-
-          this.config = {
-            itemsPerPage: 5,
-            currentPage: 1,
-            totalItems: 16
-          };
-
-        });
-      }
-    )
     this.veryfyForm();
   }
 
@@ -74,6 +59,17 @@ export class CommentsComponent implements OnInit {
   ngOnInit() {
     this._route.params.subscribe(params => {
       this.idPost = params['idPost'];
+      this._postService.getPost(this.idPost).subscribe(result => {
+        this.comment = result;
+        console.dir(result);
+
+        this.config = {
+          itemsPerPage: 5,
+          currentPage: 1,
+          totalItems: 16
+        };
+
+      });
     })
   }
 

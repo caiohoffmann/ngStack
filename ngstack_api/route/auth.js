@@ -12,6 +12,9 @@ router.post('/login', async (req, res, next) => {
         next('Not valid');
     }
     const user = await User.findOne({ email: req.body.email, password: req.body.password }).exec();
+    if (!user) {
+        next('User not found');
+    }
     const pay = {
         "email": user.email,
         "id": user._id,
