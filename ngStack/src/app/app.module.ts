@@ -57,7 +57,9 @@ import { CommentEffects } from './store/comments/comments-effects';
 import { CommentsStoreFacade } from './store/comments/comments.store-facade';
 import { commentReducer } from './store/comments/comments-reducer';
 
-import {NgxPaginationModule} from 'ngx-pagination'; 
+import {NgxPaginationModule} from 'ngx-pagination';
+
+import { EditComponent } from './core/editUser/edit/edit.component'; 
 
 
 
@@ -76,7 +78,9 @@ import {NgxPaginationModule} from 'ngx-pagination';
     LoginComponent,
     //LogoutComponent,
     SignUpComponent,
-    DateAgoPipe
+    DateAgoPipe,
+   
+    EditComponent
     ],
   imports: [
     BrowserModule,
