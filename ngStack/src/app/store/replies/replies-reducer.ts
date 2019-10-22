@@ -1,7 +1,7 @@
 import { User } from '../../core/models/user.model';
 import { createReducer, on } from '@ngrx/store';
 import {
-    getAll, gotAll, createReplySuccess,
+    getAll, gotAll, createReplySuccess, likeReplySuccess,
 } from './replies-actions';
 import { Reply } from 'src/app/core/models/reply.model';
 
@@ -23,9 +23,16 @@ export const replyReducer = createReducer<State>(
     on(createReplySuccess, (state, { reply }) =>
         ({ ...state, replies: { ...state.replies, reply } })
     ),
-    // on(updateSuccess, (state, { user }) =>
-    //   usersAdapter.updateOne({ id: user.id, changes: user }, state)
-    // ),
+    on(likeReplySuccess, (state, { reply }) => {
+        for (let rep of state.replies) {
+            if (rep._id === reply._id) {
+                state.replies[state.replies.indexOf(rep)] = reply;
+            }
+        }
+        return ({ ...state, replies: [...state.replies] });
+    }
+
+    ),
     // on(removeSuccess, (state, { id }) =>
     //   usersAdapter.removeOne(id, state)
     // )

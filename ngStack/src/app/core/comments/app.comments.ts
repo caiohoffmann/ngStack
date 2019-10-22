@@ -11,6 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { PostsServices } from 'src/app/services/post.service';
 import { Post } from '../models/post.model';
+import { User } from '../models/user.model';
 
 
 
@@ -32,7 +33,7 @@ export class CommentsComponent implements OnInit {
   comment: Post;
   myForm: FormGroup;
   comment_id: string;
-
+  user: Observable<User>;
 
   p: number = 1;
   public idPost: string;
@@ -40,7 +41,7 @@ export class CommentsComponent implements OnInit {
   constructor(private _comment: CommentService, private formBuilder: FormBuilder, private user_facade: UsersStoreFacade, private _commentFacade: CommentsStoreFacade,
     private _route: ActivatedRoute, private _postService: PostsServices) {
 
-
+    this.user = user_facade.getUser();
     this.veryfyForm();
   }
 

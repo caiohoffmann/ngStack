@@ -29,8 +29,8 @@
                         </small> |
                         <small>
                             <fa-icon [icon]="faClock"></fa-icon> &nbsp; {{arraycomment.updated | dateAgo}}
-                        </small> |
-                        <small>
+                        </small>
+                        <small *ngIf="(user | async)?.token">|
                             <button type="button" (click)="onlikePost($event)" id="{{arraycomment._id}}">
                                 <fa-icon [icon]="faThumbsUp"></fa-icon> &nbsp; {{arraycomment.like}}
                             </button>
@@ -56,7 +56,7 @@
 </div>
 
 <div class="col-xs-12" style="height:20px;"></div>
-<form [formGroup]="myForm" (ngSubmit)="onPostComment()">
+<form [formGroup]="myForm" (ngSubmit)="onPostComment()" *ngIf="(user | async)?.token">
     <div class="form-group">
         <label for="exampleTextarea">Put your comment</label>
         <textarea class="form-control" name="comment" id="exampleTextarea" rows="3"

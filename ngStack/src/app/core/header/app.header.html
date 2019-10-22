@@ -13,19 +13,36 @@
             </li>
 
         </ul>
-        <ul class="navbar-nav">
+        <ul class="navbar-nav" [style.min-width.px]="'350'">
             <li class="nav-item">
                 <a class="nav-link" routerLink="/home" routerLinkActive="active">Home</a>
             </li>
-            <li class="nav-item" *ngIf="!(user | async)?.token; else userDetail"><a class="nav-link" routerLink="/login"
+
+            <li class="nav-item" *ngIf="!(user | async)?.token"><a class="nav-link" routerLink="/login"
                     routerLinkActive="active">Login</a></li>
             <li class="nav-item" *ngIf="!(user | async)?.token; else userlogout"><a class="nav-link"
                     routerLink="/signup" routerLinkActive="active" class="btn btn-link">SignUp</a></li>
-            <ng-template #userDetail> Welcome {{(user|async)?.name}}</ng-template>
+
 
             <ng-template #userlogout>
-                <li class="nav-item" class="nav-link"><button (click)="logout()">Logout</button></li>
-                <li class="nav-item " class="nav-link"><a routerLink="/edit">EditProfile</a></li>
+                <p [style.color]="'white'">Welcome {{(user|async)?.name}}</p>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false" mat-button>
+                        <img src="{{(user | async)?.picture}}" *ngIf="(user | async)?.picture" [style.max-width.px]="35"
+                            [style.max-height.px]="35" />
+                        <mat-icon aria-hidden="false" aria-label="Example home icon">chevron down</mat-icon>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li class="nav-item" class="nav-link" [style.color]="'black'"><button (click)="logout()"
+                                mat-button>Logout
+                            </button></li>
+                        <li class="nav-item " class="nav-link" [style.color]="'black'"><button routerLink="/edit"
+                                mat-button>EditProfile</button></li>
+                    </ul>
+                </div>
+
+
 
             </ng-template>
 

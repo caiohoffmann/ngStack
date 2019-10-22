@@ -1,9 +1,13 @@
 <ul class="list-group list-group-flush">
-    <li class="list-group-item" *ngFor="let reply of replies">{{reply.content}}</li>
-    <li class="list-group-item">
-        <mat-form-field class="example-full-width">
+    <li class="list-group-item" *ngFor="let reply of replies"><button mat-icon-button [style.color]="'black'"
+            *ngIf="(user | async)?.token" (click)="like(reply._id)">
+            <span [style.margin-right.px]="'5'">{{reply.likes}}</span>
+            <fa-icon [icon]="faThumbsUp"></fa-icon>
+        </button>{{reply.content}}</li>
+    <li class="list-group-item" *ngIf="(user | async)?.token">
+        <mat-form-field class="example-full-width" [style.min-width.px]="350">
             <input matInput placeholder="New Reply" value="" #ar>
-            <button (click)="create(ar.value)" mat-icon-button>
+            <button (click)="create(ar.value)" mat-icon-button [style.margin-left.px]="350">
                 <mat-icon aria-hidden="false" aria-label="">add</mat-icon>
             </button>
         </mat-form-field>
