@@ -32,7 +32,7 @@ import { MatSnackBar } from '@angular/material';
             Login
         </button>
         <p>Not a member?
-        <a routerLink="/signup" class="btn btn-link">=>signup</a>
+        <a routerLink="/signup" class="btn btn-link">signup</a>
       </p>
        
   

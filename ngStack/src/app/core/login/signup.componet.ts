@@ -42,6 +42,12 @@ import { Component, OnInit } from '@angular/core';
   SignUp
       </button>
       <a routerLink="/login" class="btn btn-link">login</a>
+
+
+
+      <p>By clicking
+        <em>Sign up</em> you agree to our
+        <a href="" target="_blank">terms of service</a>. </p>
   </div>
   </form>
   
