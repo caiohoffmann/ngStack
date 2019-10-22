@@ -18,7 +18,7 @@ ngstackauth : {{token}}
 Content-Type: application/json
 
 {
-    "content":"Try to Message test Befor Front-End",
+    "content":"Wait Comment on Tuesday 22_5",
     "owner":"John Vallon By Update Guy",
     "like":8
 }

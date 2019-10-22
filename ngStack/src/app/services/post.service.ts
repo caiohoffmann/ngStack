@@ -18,11 +18,8 @@ export class PostsServices {
         return this.http.get(`${environment.appApi.baseUrl}/homes`);
     }
 
-    createPost(post: Post): Observable<any> {
-        return this.http.post<Post>(`${environment.appApi.baseUrl}/posts`, {
-            title: post.title, tags: post.tags, likes: post.likes
-        }
-            , { headers: this.headers });
+    createPost(postContent): Observable<any> {
+        return this.http.post(`${environment.appApi.baseUrl}/posts`, postContent, { headers: this.headers });
     }
 
     updatePost(post: Post): Observable<any> {

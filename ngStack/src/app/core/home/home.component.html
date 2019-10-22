@@ -16,21 +16,22 @@
                                 aria-label="Username" aria-describedby="basic-addon1" formControlName="title">
                         </div>
 
-                        <div class="form-group">
-                            <textarea placeholder="Post content" formControlName="content" class="form-control"
-                                id="exampleTextarea" rows="3" required></textarea>
-                        </div>
+                        
                         <label for="exampleTextarea">Choose tags: &nbsp;&nbsp;</label>
                         <span *ngFor="let tag of mytags; let i = index" formArrayName="tags">
                             <div class="form-check" style="display: inline;">
                                 <label class="form-check-label">
                                     <input type="checkbox" class="form-check-input"
-                                        [formControlName]="i">{{tag}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        [formControlName]="i" >{{tag}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 </label>
                             </div>
                         </span>
+                        <div class="form-group">
+                                <textarea placeholder="Post content" formControlName="content" class="form-control"
+                                    id="exampleTextarea" rows="3" required></textarea>
+                            </div>
                         <fieldset>
-                            <button type="submit" class="btn btn-primary">Post</button>
+                            <button type="submit" class="btn btn-primary" [disabled]="!myForm.valid">Post</button>
                         </fieldset>
                     </form>
                 </div>
