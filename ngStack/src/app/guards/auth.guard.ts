@@ -10,7 +10,7 @@ import { variable } from '@angular/compiler/src/output/output_ast';
 export class AuthGuard implements CanActivate {
   tokenAuth;
   constructor(private _router: Router, private _userFacade: UsersStoreFacade) { }
-  CanActivate(): boolean {
+  canActivate(): boolean {
     this._userFacade.getToken().subscribe(res => {
       this.tokenAuth = res;
     });
