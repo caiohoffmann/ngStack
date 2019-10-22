@@ -15,7 +15,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'signup', component: SignUpComponent },
-  { path: 'edit', component: EditComponent},
- 
+  { path: 'edit', component: EditComponent },
+
 ];
 export const globalroute = RouterModule.forRoot(routes);

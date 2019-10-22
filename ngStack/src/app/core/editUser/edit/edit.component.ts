@@ -67,7 +67,10 @@ export class EditComponent implements OnInit {
       picture: ['', Validators.required, Validators.email],
       password: ['', [Validators.required, Validators.minLength(8)]]
     });
-    this.userFacade.getUser().subscribe(u => this.user = u);
+    this.userFacade.getUser().subscribe(u => {
+      
+      this.user = u.user
+    });
   }
   get fval() { return this.registerForm.controls; }
 

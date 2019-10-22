@@ -76,7 +76,7 @@ router.put('/:id', async (req, res) => {
     let newdata = { $set: { type: newbodytype } };
     const user = await User.updateOne(databd, newdata, (err, success) => {
         if (err) throw err;
-        res.json(response(user))
+        res.json(response(success))
     })
 })
 
