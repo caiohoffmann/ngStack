@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.post('/', verifyReply, async (req, res) => {
     try {
-        const p = await Post.updateOne({ _id: req.body.idPost, "comments._id": req.body.idComment },
+        const p = await Post.findOneAndUpdate({ _id: req.body.idPost, "comments._id": req.body.idComment },
             {
                 $push: {
                     "comments.$.replies": {
@@ -15,8 +15,11 @@ router.post('/', verifyReply, async (req, res) => {
                         owner: req.body.owner
                     }
                 }
-            }).exec();
-        res.json(response(p));
+            }, { new: true }).exec();
+        const reply = p.comments.filter((c, i, arr) => {
+            return c.id === req.body.idComment
+        })[0].replies.slice(-1).pop();
+        res.json(response(reply));
     } catch (err) {
         throw err;
     }
@@ -28,20 +31,32 @@ router.get('/:idReply', async (req, res) => {
         'comments._id': req.body.idComment,
         'comments.replies._id': req.params.idReply
     });
-    res.json(response(reply));
+    const nreply = p.comments.filter((c, i, arr) => {
+        return c.id === req.body.idComment
+    })[0].replies.filter((r, i, arr) => {
+        return r.id === req.params.idReply
+    });
+    res.json(response(nreply));
 });
 
 router.get('/', async (req, res) => {
-    const reply = await Post.findOne({
-        _id: req.body.idPost,
-        'comments._id': req.body.idComment
-    }).exec();
-    res.json(response(reply));
+    try {
+        const reply = await Post.findOne({
+            _id: req.body.idPost,
+            'comments._id': req.body.idComment
+        }).exec();
+        const nreply = p.comments.filter((c, i, arr) => {
+            return c.id === req.body.idComment
+        })[0];
+        res.json(response(nreply));
+    } catch (err) {
+        next(err);
+    })
 });
 
 router.patch('/:idReply', async (req, res) => {
     try {
-        const p = await Post.updateOne({
+        const p = await Post.findOneAndUpdate({
             _id: req.body.idPost,
             'comments.replies._id': req.params.idReply
         },
@@ -50,9 +65,15 @@ router.patch('/:idReply', async (req, res) => {
                 "arrayFilters": [
                     { "comment._id": req.body.idComment },
                     { "reply._id": req.params.idReply }
-                ]
+                ],
+                new: true
             });
-        res.json(response(p));
+        const reply = p.comments.filter((c, i, arr) => {
+            return c.id === req.body.idComment
+        })[0].replies.filter((r, i, arr) => {
+            return r.id === req.params.idReply
+        });
+        res.json(response(reply));
     } catch (err) {
         throw err;
     }
@@ -69,9 +90,14 @@ router.patch('/:idReply/like', async (req, res) => {
                     { "comment._id": req.body.idComment },
                     { "reply._id": req.params.idReply }
                 ],
-                returnNewDocument: true
+                new: true
             });
-        res.json(response(p));
+        const reply = p.comments.filter((c, i, arr) => {
+            return c.id === req.body.idComment
+        })[0].replies.filter((r, i, arr) => {
+            return r.id === req.params.idReply
+        });
+        res.json(response(reply));
     } catch (err) {
         throw err;
     }
@@ -79,11 +105,12 @@ router.patch('/:idReply/like', async (req, res) => {
 
 router.delete('/:idReply', async (req, res) => {
     try {
-        const p = await Post.updateOne({
+        const p = await Post.findOneAndUpdate({
             _id: req.body.idPost,
             "comments._id": req.body.idComment
         },
-            { "$pull": { "comments.$.replies": { _id: req.params.idReply } } }
+            { "$pull": { "comments.$.replies": { _id: req.params.idReply } } },
+            { new: true }
         );
         res.json(response(p));
     } catch (err) {

@@ -8,7 +8,7 @@ ngstackauth : {{token}}
 
 
 ###
-GET http://localhost:3000/posts/5dad0bdf4ed73e3a6086f4b2/comments http/1.1
+GET http://localhost:3000/posts/5dae925424fcf166a0e87e76/comments http/1.1
 ngstackauth : {{token}}
 
 

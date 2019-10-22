@@ -40,14 +40,14 @@ ngstackauth : {{token}}
 
 
 ############
-PUT  http://localhost:3000/users/5daa5721b343897fc0315f39 HTTP/1.1
+PUT  http://localhost:3000/users/5dae26b849405740468f64df HTTP/1.1
 Content-Type: application/json
 ngstackauth : {{token}}
 
 
 {
-    "picture" : "https://s.abcnews.com/images/Lifestyle/ht_pudding_the_fox_03_mt_140821_16x9_1600.jpg",
-    "name":"Caio",
+    "picture" : "https://image.cnbcfm.com/api/v1/image/105992231-1561667465295gettyimages-521697453.jpeg?v=1561667497&w=678&h=381",
+    "name":"Milki",
     "password" : "123"
 }
 

@@ -22,6 +22,9 @@ ngstackauth : {{token}}
 ###
 GET http://localhost:3000/posts/5dad0bdf4ed73e3a6086f4b2/comments/5dad0f92a896688758101a47/replies/ HTTP/1.1
 ngstackauth : {{token}}
+###
+GET http://localhost:3000/posts/5dad0bdf4ed73e3a6086f4b2/comments/5dad0f92a896688758101a47/replies/5daf63f44d3e0e1694c0fc52 HTTP/1.1
+ngstackauth : {{token}}
 
 ###
 PATCH http://localhost:3000/posts/5dad0bdf4ed73e3a6086f4b2/comments/5dad0f92a896688758101a47/replies/5dae5f722f73ff51cc3a2c14/like HTTP/1.1

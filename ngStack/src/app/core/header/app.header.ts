@@ -20,6 +20,7 @@ export class AppHeaderComponent implements OnInit {
     this.user.subscribe(t => {
       if (!t) {
         const token = localStorage.getItem('currUserToken');
+
         const de = this.userService.getUserFromToken({ token: token, email: '', password: '' });
         this.userFacade.logedIn(de);
       }
