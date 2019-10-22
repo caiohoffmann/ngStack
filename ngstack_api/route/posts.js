@@ -20,12 +20,12 @@ function getPost(req, res, next) {
 ///POSTS
 //Getting All Posts
 router.get('/', async (req, res) => {
-    const p = await Post.find({}).exec();
+    const p = await Post.find({}).sort({date:-1}).exec();
     res.json(p);
 })
 
 //Get Post by Id
-router.get('/:id', verifyToken, async (req, res) => {
+router.get('/:id', async (req, res) => {
     const p = await Post.findById({ _id: req.params.id }).exec();
     res.json(p);
 })
@@ -45,10 +45,15 @@ router.post('/', verifyToken, async (req, res) => {
             title: req.body.title,
             tags: req.body.tags,
             owner: req.body.owner,
-            comments: []
+            comments: [{
+                content: req.body.content,
+                likes: 0,
+                replies:[],
+                owner: req.body.owner
+            }]
         })
         const postResult = await post.save();
-        res.json(postResult);
+        res.json(Response(postResult, null));
     } catch (err) {
         res.json(Response(null, err.errmsg));
     }

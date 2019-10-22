@@ -16,7 +16,7 @@ export class CommentEffects {
             pluck('id_post'),
             switchMap(id_post =>
                 this.commentService.getComments(id_post).pipe(
-                    map(comments => gotAllComments({ comments }))
+                    map(comments => gotAllComments({ comments: comments.comments }))
                 )
             )
         ));

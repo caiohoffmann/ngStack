@@ -11,6 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { PostsServices } from 'src/app/services/post.service';
 import { Post } from '../models/post.model';
+import { User } from '../models/user.model';
 
 
 
@@ -32,30 +33,15 @@ export class CommentsComponent implements OnInit {
   comment: Post;
   myForm: FormGroup;
   comment_id: string;
-
+  user: Observable<User>;
 
   p: number = 1;
   public idPost: string;
 
   constructor(private _comment: CommentService, private formBuilder: FormBuilder, private user_facade: UsersStoreFacade, private _commentFacade: CommentsStoreFacade,
     private _route: ActivatedRoute, private _postService: PostsServices) {
-    this.user_facade.login({ email: 'caio@mum.edu', password: '123' });
-    console.log("Inside Constructor");
-    this.user_facade.getToken().subscribe(
-      t => {
-        console.log("Post Value " + this.idPost);
-        this._comment.getComments(this.idPost).subscribe(result => {
-          this.comment = result;
 
-          this.config = {
-            itemsPerPage: 5,
-            currentPage: 1,
-            totalItems: 16
-          };
-
-        });
-      }
-    )
+    this.user = user_facade.getUser();
     this.veryfyForm();
   }
 
@@ -74,6 +60,17 @@ export class CommentsComponent implements OnInit {
   ngOnInit() {
     this._route.params.subscribe(params => {
       this.idPost = params['idPost'];
+      this._postService.getPost(this.idPost).subscribe(result => {
+        this.comment = result;
+        console.dir(result);
+
+        this.config = {
+          itemsPerPage: 5,
+          currentPage: 1,
+          totalItems: 16
+        };
+
+      });
     })
   }
 

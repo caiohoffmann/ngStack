@@ -66,17 +66,22 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.invalid) { return; }
     this.loading = true;
     this.userFacade.login({ email: this.fval.email.value, password: this.fval.password.value });
-    this.loginService.validateLogin(this.fval.email.value, this.fval.password.value).subscribe(data => {
-      this.router.navigate(['/home']);
-    },
-
-      error => {
-
-
-        console.log("Error is");
-
+    this.userFacade.getToken().subscribe(_ => {
+      if (_) {
+        this.router.navigate(['/home']);
       }
-    );
+    })
+    // this.loginService.validateLogin(this.fval.email.value, this.fval.password.value).subscribe(data => {
+    //   this.router.navigate(['/home']);
+    // },
+
+    //   error => {
+
+
+    //     console.log("Error is");
+
+    //   }
+    // );
 
 
 

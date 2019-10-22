@@ -12,7 +12,7 @@ export class ReplyServices {
     headers = { ngstackauth: '' };
     constructor(private http: HttpClient, private userStoreFacade: UsersStoreFacade) {
         this.userStoreFacade.getToken().subscribe(t => {
-            this.headers.ngstackauth = t;
+            this.headers.ngstackauth = (t || '');
         });
     }
 
@@ -26,5 +26,10 @@ export class ReplyServices {
             content: reply.content,
             likes: reply.likes
         }, { headers: this.headers });
+    }
+
+    like(reply: Reply): Observable<Reply> {
+        return this.http.patch<Reply>(`${environment.appApi.baseUrl}/posts/${reply.idPost}/comments/${reply.idComment}/replies/${reply._id}/like`,
+            reply, { headers: this.headers });
     }
 }

@@ -16,7 +16,10 @@ export class UsersStoreFacade {
   }
 
   getUser() {
-    return this.store.pipe(select('user'));
+    return this.store.pipe(
+      select('user'),
+      map(u => u.user)
+    );
   }
 
   getToken() {
@@ -26,6 +29,10 @@ export class UsersStoreFacade {
         return us.token
       })
     )
+  }
+
+  logedIn(user: User) {
+    this.store.dispatch(logedIn({ user: user, token: user.token }));
   }
 
   create(user: User) {
