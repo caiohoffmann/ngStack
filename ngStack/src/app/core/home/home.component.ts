@@ -50,7 +50,7 @@ export class HomeComponent implements OnInit {
     })
 
     // this.tagsForm.valueChanges.subscribe(val => {  })
-      
+  
   }
 
   ngOnInit() {
@@ -61,15 +61,22 @@ export class HomeComponent implements OnInit {
       tags: this.convertToValue('tags')
     });
 
-
-    this.http.post(`${environment.appApi.baseUrl}/posts`, valueToStore, { observe: 'response', headers: { "ngstackauth": this.token } }).subscribe(res => {
-
+    this.ps.createPost(valueToStore).subscribe((res)=>{
       //fetch the data from server
       this.ps.getHomePaged(1).subscribe((res:{error:String, data:any[]})=>{
         this.homes = res.data;
         this.loadmoreButton = true;
       })
     })
+
+    // this.http.post(`${environment.appApi.baseUrl}/posts`, valueToStore, { observe: 'response', headers: { "ngstackauth": this.token } }).subscribe(res => {
+
+    //   //fetch the data from server
+    //   this.ps.getHomePaged(1).subscribe((res:{error:String, data:any[]})=>{
+    //     this.homes = res.data;
+    //     this.loadmoreButton = true;
+    //   })
+    // })
   }
 
   onSubmit2() {
