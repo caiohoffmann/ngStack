@@ -87,7 +87,7 @@ export class EditComponent implements OnInit {
     u.id = this.user.id;
     this.userService.update(u).subscribe(
       (data) => {
-        alert('User Registered successfully!!');
+        alert('Edit successfully!!');
         this.router.navigate(['/home']);
       },
       error => {

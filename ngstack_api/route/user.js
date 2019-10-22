@@ -19,6 +19,13 @@ router.get('/', verifyToken, async (req, res) => {
     //  res.json(response(comment));
 });
 
+router.get('/:id', verifyToken, async (req, res) => {
+    const user = await User.findOne({ _id: req.params.id }).exec();
+    res.json(response(user));
+
+
+    //  res.json(response(comment));
+});
 
 //###########################################################
 
@@ -29,7 +36,8 @@ router.post('/', async (req, res) => {
         const u = new User({
             email: req.body.email,
             password: req.body.password,
-            name: req.body.name
+            name: req.body.name,
+            picture: req.body.picture
         });
 
         const user = await u.save();
@@ -41,22 +49,22 @@ router.post('/', async (req, res) => {
 
 //################################################################
 //edit
-router.patch('/:id', verifyToken, async (req, res) => {
-    let id = req.params.id;
-    let newtype = req.body.name;
-    let myquery = {
-        _id: id
-    };
+// router.patch('/:id', verifyToken, async (req, res) => {
+//     let id = req.params.id;
+//     let newtype = req.body.name;
+//     let myquery = {
+//         _id: id
+//     };
 
-    const newValue = { $set: { name: newtype } };
+//     const newValue = { $set: { name: newtype } };
 
-    const user = await User.updateOne(myquery, newValue, (err, success) => {
-        if (err) throw err;
+//     const user = await User.updateOne(myquery, newValue, (err, success) => {
+//         if (err) throw err;
 
-        res.json(response(user))
-    })
+//         res.json(response(user))
+//     })
 
-})
+// })
 
 //#######################################################################
 
@@ -68,34 +76,29 @@ router.delete('delete/:id', verifyToken, async (req, res) => {
 //########################################
 
 router.put('/:id', async (req, res) => {
-    let userId = req.params.id;
-    let newbodytype = req.body.type;
-    let databd = {
-        'id': userId
+    try {
+        const u = ({
+
+            password: req.body.password,
+            name: req.body.name,
+            picture: req.body.picture
+        });
+
+        let userId = req.params.id;
+
+        let databd = {
+            _id: userId
+        }
+        let newdata = { $set: u };
+
+        const user = await User.updateOne(databd, newdata);
+
+
+
+        res.json(response(user));
+    } catch (err) {
+        throw err;
     }
-    let newdata = { $set: { type: newbodytype } };
-    const user = await User.updateOne(databd, newdata, (err, success) => {
-        if (err) throw err;
-        res.json(response(success))
-    })
-})
-
-
-
-
-
-
-//for login
-// router.post('/login',async(req,res,next )=>{
-// let username=req.body.username;
-// let password=req.body.password;
-// const user=await User.find({
-//     "username":username,
-//     "password":password
-// });
-
-
-
-// })
+});
 
 module.exports = router;
