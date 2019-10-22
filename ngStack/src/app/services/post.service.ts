@@ -15,7 +15,7 @@ export class PostsServices {
     }
 
     getAll(): Observable<any> {
-        return this.http.get<Post[]>(`${environment.appApi.baseUrl}/posts`);
+        return this.http.get(`${environment.appApi.baseUrl}/homes`);
     }
 
     createPost(post: Post): Observable<any> {
@@ -34,5 +34,9 @@ export class PostsServices {
 
     delete(id: string): Observable<any> {
         return this.http.delete<Post>(`${environment.appApi.baseUrl}/posts/${id}`, { headers: this.headers });
+    }
+
+    getHomePaged(page:number){
+        return this.http.get(`${environment.appApi.baseUrl}/homes/${page}`);
     }
 }

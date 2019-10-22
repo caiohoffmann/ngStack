@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { FormGroup, FormBuilder, Validators, FormControl, FormArray } from '@angular/forms';
 import { environment } from '../../env/environment';
 import { PostsServices } from 'src/app/services/post.service';
+import { UsersStoreFacade } from 'src/app/store/users/users.store-facade';
+import { type } from 'os';
 
 
 
@@ -17,15 +19,21 @@ export class HomeComponent implements OnInit {
   mytags = ["Tech", "Food", "Art", "Angular"];
   token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNhaW9AZ21haWwuY29tIiwiaWQiOiI1ZGFhNTcyMWIzNDM4OTdmYzAzMTVmMzkiLCJuYW1lIjoiQ2FpbyIsImlhdCI6MTU3MTUzMTQyMn0.P2fcGZSZfEECtXInuWrBbSAuKFYNTy50Kzl72NzPt4s";
   tagsForm: FormGroup;
+  page = 1;
+  homess;
 
-  constructor(private http: HttpClient, private fb: FormBuilder, private ps: PostsServices) {
+  //constructor
+  constructor(private http: HttpClient, private fb: FormBuilder, private ps: PostsServices,private userFacade : UsersStoreFacade) {
     // this.http.get('http://localhost:3000/homes', { headers: { "ngstackauth": this.token } }).subscribe(res => {
     //   // localStorage.setItem('data', JSON.stringify(res));
     //   this.homes = res;
     // });
-    
+    this.userFacade.login({ email: 'caio@mum.edu', password: '123' });
+    this.userFacade.getToken().subscribe(t => {
+      
+    });
     //Get All Posts from Service
-    ps.getAll().subscribe(res=>{
+    ps.getHomePaged(1).subscribe(res=>{
       this.homes = res;
     })
 
@@ -33,10 +41,10 @@ export class HomeComponent implements OnInit {
       'title': ['', Validators.required],
       'tags': this.fb.array(this.mytags.map(x => !1))
     });
+
     this.myForm.valueChanges.subscribe((val) => {
       console.log(val);
     })
-
 
     //For right sidebar form
     this.tagsForm = this.fb.group({
@@ -87,6 +95,16 @@ export class HomeComponent implements OnInit {
   //fill tags array with value for right sidebar
   convertToValue2(key: string) {
     return this.tagsForm.value[key].map((x, i) => x && this.mytags[i]).filter(x => !!x);
+  }
+
+  loadmore(){
+    this.ps.getHomePaged(3).subscribe(res=>{
+      this.homess = Object.assign({}, res, this.homes);
+      // this.homes = [this.homes, ...res];
+      // console.log(typeof(this.homes))
+    
+      console.log(this.homes)
+    })
   }
 
 }

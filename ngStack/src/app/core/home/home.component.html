@@ -28,17 +28,23 @@
 
             <div *ngFor="let h of homes">
                 <br />
-                <div class="jumbotron">
-                    <h4>{{h.title}}</h4>
-                    <p class="lead"><span *ngFor="let t of h.tags"><span
-                                class="badge badge-danger">{{t}}</span>&nbsp;</span>
-                    </p>
-                    <hr class="my-4">
-                    <p>by {{h.owner}} on {{h.date|date}}</p>
-                    <p class="lead">
-                        <a class="btn btn-primary btn-lg" [routerLink]="['/posts/',h._id]" role="button">See This</a>
-                    </p>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{h.title}}</h5>
+
+                        <p class="lead">
+                            <span *ngFor="let t of h.tags">
+                                <span class="badge badge-danger">{{t}}</span>&nbsp;
+                            </span>
+                        </p>
+                        <p class="card-text">by {{h.owner}} on {{h.date|date}}</p>
+                        <a href="#" class="btn btn-primary ml-auto" [routerLink]="['/posts/',h._id]">See This</a>
+                    </div>
                 </div>
+            </div>
+            <br />
+            <div class="row justify-content-center">
+                <button type="submit" class="btn btn-outline-primary" (click)="loadmore()">Load More</button>
             </div>
         </div>
 
@@ -56,7 +62,7 @@
                             </div>
                         </span>
                         <fieldset>
-                            <button type="submit" class="btn btn-primary">Show</button>
+                            <button type="submit" class="btn btn-success">Show</button>
                         </fieldset>
                     </form>
                 </div>
@@ -66,3 +72,9 @@
         </div>
     </div>
 </div>
+<script>
+    $('#my_modal').on('show.bs.modal', function (e) {
+        var bookId = $(e.relatedTarget).data('book-id');
+        $(e.currentTarget).find('input[name="bookId"]').val(bookId);
+    });
+</script>
