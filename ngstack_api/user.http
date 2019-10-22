@@ -5,7 +5,7 @@ Content-Type: application/json
 ngstackauth : {{token}}
 
 {
-    "email" : "mi@mum.edu",
+    "email" : "mi@muum.edu",
     "name":"miki",
     "password" : "321",
     "picture":"dshajfhf"
@@ -46,7 +46,7 @@ ngstackauth : {{token}}
 
 
 {
-    "picture" : "cdfda",
+    "picture" : "cddfda",
     "name":"Caio",
     "password" : 123
 }
