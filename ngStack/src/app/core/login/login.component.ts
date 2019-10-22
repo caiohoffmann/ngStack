@@ -31,8 +31,11 @@ import { MatSnackBar } from '@angular/material';
             <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
             Login
         </button>
-        
+        <p>Not a member?
         <a routerLink="/signup" class="btn btn-link">=>signup</a>
+      </p>
+       
+  
     </div>
 </form>`,
   styleUrls: ['./login.component.css']
