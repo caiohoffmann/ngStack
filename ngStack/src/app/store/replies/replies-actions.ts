@@ -23,3 +23,13 @@ export const createReplySuccess = createAction(
     ReplyEventTypes.createReplySuccess,
     props<{ reply: Reply }>()
 )
+
+export const likeReply = createAction(
+    ReplyEventTypes.like,
+    props<{ reply: Reply }>()
+)
+
+export const likeReplySuccess = createAction(
+    ReplyEventTypes.likeSuccess,
+    props<{ reply: Reply }>()
+)

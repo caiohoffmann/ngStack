@@ -12,7 +12,7 @@ ngstackauth : {{token}}
 }
 ###
 
-GET http://localhost:3000/users/5dae5f9a8d728c6c6feb01d2 HTTP/1.1
+GET http://localhost:3000/users/5daa5721b343897fc0315f39 HTTP/1.1
 Content-Type: application/json
 ngstackauth : {{token}}
 
@@ -40,15 +40,15 @@ ngstackauth : {{token}}
 
 
 ############
-PUT  http://localhost:3000/users/5dae5f9a8d728c6c6feb01d2 HTTP/1.1
+PUT  http://localhost:3000/users/5daa5721b343897fc0315f39 HTTP/1.1
 Content-Type: application/json
 ngstackauth : {{token}}
 
 
 {
-    "picture" : "cddfda",
+    "picture" : "https://s.abcnews.com/images/Lifestyle/ht_pudding_the_fox_03_mt_140821_16x9_1600.jpg",
     "name":"Caio",
-    "password" : 123
+    "password" : "123"
 }
 
 ###

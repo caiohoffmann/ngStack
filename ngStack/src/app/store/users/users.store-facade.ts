@@ -31,6 +31,10 @@ export class UsersStoreFacade {
     )
   }
 
+  logedIn(user: User) {
+    this.store.dispatch(logedIn({ user: user, token: user.token }));
+  }
+
   create(user: User) {
     this.store.dispatch(create({ user }))
   }

@@ -5,7 +5,7 @@ ngstackauth : {{token}}
 
 ### Get Homes Paged
 get http://localhost:3000/homes/1 http/1.1
-ngstackauth : {{token}}
+
 
 ###Get Homes Taged
 post http://localhost:3000/homes/tags http/1.1
@@ -13,5 +13,5 @@ ngstackauth : {{token}}
 Content-Type: application/json
 
 {
-    "tags":["Art"]
+    "tags":["Tech"]
 }

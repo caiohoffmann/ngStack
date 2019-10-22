@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { select, Store } from '@ngrx/store';
 
 import { AppState } from '../reducer';
-import { getAll, createReply } from './replies-actions';
+import { getAll, createReply, likeReply } from './replies-actions';
 import { Reply } from 'src/app/core/models/reply.model';
 import { Comment } from 'src/app/core/models/comment.model';
 
@@ -20,5 +20,9 @@ export class RepliesStoreFacade {
 
     create(reply: Reply) {
         this.store.dispatch(createReply({ reply }));
+    }
+
+    like(reply: Reply) {
+        this.store.dispatch(likeReply({ reply }));
     }
 }

@@ -20,7 +20,8 @@ Content-Type: application/json
 
 {
     "title":"How to create potato soup",
-    "tags":["Food"]
+    "tags":["Food"],
+    "content":"content of the post"
 }
 
 

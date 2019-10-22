@@ -27,4 +27,9 @@ export class ReplyServices {
             likes: reply.likes
         }, { headers: this.headers });
     }
+
+    like(reply: Reply): Observable<Reply> {
+        return this.http.patch<Reply>(`${environment.appApi.baseUrl}/posts/${reply.idPost}/comments/${reply.idComment}/replies/${reply._id}/like`,
+            reply, { headers: this.headers });
+    }
 }
