@@ -34,9 +34,8 @@ export class HomeComponent implements OnInit {
       this.homes = res.data;
     })
 
-
     this.user = this.userFacade.getUser();
-
+    
     this.myForm = this.fb.group({
       'title': ['', Validators.required],
       'content': ['', Validators.required],
