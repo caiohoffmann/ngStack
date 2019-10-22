@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../env/environment';
 import { Comment } from '../core/models/comment.model';
 import { UsersStoreFacade } from '../store/users/users.store-facade';
+import { Post } from '../core/models/post.model';
 
 @Injectable({
     providedIn: 'root'
@@ -17,13 +18,13 @@ export class CommentService {
         })
     }
 
-    getComments(id_post: string): Observable<any> {
-        return this.http.get(`${environment.appApi.baseUrl}/posts/${id_post}/comments`, {
+    getComments(id_post: string): Observable<Post> {
+        return this.http.get<Post>(`${environment.appApi.baseUrl}/posts/${id_post}/comments`, {
             headers: this.headers
         });
     }
-   
-    
+
+
     sendComment(comment: Comment): Observable<any> {
         return this.http.post<any>(`${environment.appApi.baseUrl}/posts/${comment.idPost}/comments`, {
             content: comment.content
@@ -32,7 +33,8 @@ export class CommentService {
 
 
     likeReply(idPost: string, idComment: string): Observable<any> {
-        return this.http.patch<any>(`${environment.appApi.baseUrl}/posts/${idPost}/comments/${idComment}/like`, {}, { headers: this.headers });
+        return this.http.patch(`${environment.appApi.baseUrl}/posts/${idPost}/comments/${idComment}/like`,
+            {}, { headers: this.headers });
     }
 
 
