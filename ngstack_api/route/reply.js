@@ -58,6 +58,25 @@ router.patch('/:idReply', async (req, res) => {
     }
 });
 
+router.patch('/:idReply/like', async (req, res) => {
+    try {
+        const p = await Post.findOneAndUpdate({
+            _id: req.body.idPost
+        },
+            { $inc: { "comments.$[comment].replies.$[reply].likes": 1 } },
+            {
+                "arrayFilters": [
+                    { "comment._id": req.body.idComment },
+                    { "reply._id": req.params.idReply }
+                ],
+                returnNewDocument: true
+            });
+        res.json(response(p));
+    } catch (err) {
+        throw err;
+    }
+});
+
 router.delete('/:idReply', async (req, res) => {
     try {
         const p = await Post.updateOne({
