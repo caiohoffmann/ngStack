@@ -2,7 +2,7 @@ import { MatSnackBar } from '@angular/material';
 import { UsersService } from './../../services/user.service';
 import { LoginService } from '../../services/login.service';
 import { FormControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ToastrService } from 'ngx-toastr';
+
 
 import { Router } from '@angular/router'
 import { Component, OnInit } from '@angular/core';
@@ -101,11 +101,7 @@ export class SignUpComponent implements OnInit {
         console.log(`Erro : ${error}`);
 
       }
-      // (error)=>{
-      //   //this.toastr.error(error.error.message, 'Error');
-      //   this.loading = false;
-      //   console.log()
-      // }
+      
     )
 
   }
