@@ -16,8 +16,10 @@ export const initialState: State = {
 
 export const userReducer = createReducer<State>(
   initialState,
-  on(logedIn, (state, { user, token }) =>
-    ({ ...state, user: user, token: token })
+  on(logedIn, (state, { user, token }) => {
+    localStorage.setItem('currUserToken', user.token);
+    return ({ ...state, user: user, token: token })
+  }
   ),
   on(createSuccess, (state, { user }) =>
     ({ ...state, user: user, token: user.token })
@@ -28,6 +30,8 @@ export const userReducer = createReducer<State>(
   on(removeSuccess, (state, { id }) =>
     ({ ...state, user: null, token: null })
   ),
-  on(logout, (state) =>
-    ({ ...state, user: null, token: null }))
+  on(logout, (state) => {
+    localStorage.removeItem('currUserToken');
+    return ({ ...state, user: null, token: null });
+  })
 );
