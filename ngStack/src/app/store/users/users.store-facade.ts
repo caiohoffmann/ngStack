@@ -3,7 +3,7 @@ import { AppState } from '../reducer';
 import { select, Store } from '@ngrx/store';
 
 import { User } from '../../core/models/user.model';
-import { logedIn, login, create, update, remove } from './users-actions';
+import { logedIn, login, create, update, remove, logout } from './users-actions';
 import { map } from 'rxjs/operators';
 
 @Injectable()
@@ -37,5 +37,9 @@ export class UsersStoreFacade {
 
   deleteContact(id: number) {
     this.store.dispatch(remove({ id }));
+  }
+
+  logout() {
+    this.store.dispatch(logout());
   }
 }

@@ -36,7 +36,7 @@ Content-Type: application/json
 
 
 ###
-PATCH http://localhost:3000/posts/5dad0bdf4ed73e3a6086f4b2/comments/5dad0f92a896688758101a47/like http/1.1
+PATCH http://localhost:3000/posts/5dad0bdf4ed73e3a6086f4b2/comments/5dae20c2921a3f63b61e80da/like http/1.1
 ngstackauth : {{token}}
 Content-Type: application/json
 

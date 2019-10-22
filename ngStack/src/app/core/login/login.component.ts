@@ -1,3 +1,4 @@
+import { UsersStoreFacade } from './../../store/users/users.store-facade';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from '../../services/login.service';
 import { Component, OnInit, Input } from '@angular/core';
@@ -45,7 +46,7 @@ export class LoginComponent implements OnInit {
   // userAutofilled: boolean;
   //   passwordAutofilled: boolean;
   constructor(private loginService: LoginService, private router: Router, private route: ActivatedRoute,
-    private formBulider: FormBuilder
+    private formBulider: FormBuilder, private userFacade: UsersStoreFacade
 
   ) { }
 
@@ -64,11 +65,13 @@ export class LoginComponent implements OnInit {
     this.submitted = true;
     if (this.loginForm.invalid) { return; }
     this.loading = true;
+    this.userFacade.login({ email: this.fval.email.value, password: this.fval.password.value });
     this.loginService.validateLogin(this.fval.email.value, this.fval.password.value).subscribe(data => {
-      this.router.navigate(['/login']);
+      this.router.navigate(['/home']);
     },
 
       error => {
+
 
         console.log("Error is");
 

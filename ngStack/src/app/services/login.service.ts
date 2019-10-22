@@ -34,7 +34,7 @@ export class LoginService {
       password: password
     }).pipe(map(user => {
       if (user && user.token) {
-        localStorage.setItem('currentUser', JSON.stringify(user.result));
+        //localStorage.setItem('currentUser', JSON.stringify(user.result));
         this.currentUserSubjet.next(user);
 
       }

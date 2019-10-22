@@ -1,3 +1,4 @@
+
 import { Router } from '@angular/router';
 import { SignUpComponent } from './core/login/signup.componet';
 import { BrowserModule } from '@angular/platform-browser';
@@ -49,13 +50,16 @@ import { CommentsComponent } from './core/comments/app.comments';
 import { globalroute } from './app.routes'
 import { CommentService } from './services/comment.service';
 import { LoginComponent } from './core/login/login.component';
+//import{LogoutComponent} from "./core/login/logout.component"
 import { DateAgoPipe } from './pipe/date-ago.pipe';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { CommentEffects } from './store/comments/comments-effects';
 import { CommentsStoreFacade } from './store/comments/comments.store-facade';
 import { commentReducer } from './store/comments/comments-reducer';
 
-import {NgxPaginationModule} from 'ngx-pagination'; 
+import {NgxPaginationModule} from 'ngx-pagination';
+
+import { EditComponent } from './core/editUser/edit/edit.component'; 
 
 
 
@@ -72,8 +76,11 @@ import {NgxPaginationModule} from 'ngx-pagination';
     CommentsComponent,
     HomeComponent,
     LoginComponent,
+    //LogoutComponent,
     SignUpComponent,
-    DateAgoPipe
+    DateAgoPipe,
+   
+    EditComponent
     ],
   imports: [
     BrowserModule,

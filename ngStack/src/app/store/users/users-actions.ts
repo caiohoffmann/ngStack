@@ -67,6 +67,9 @@ export const removeSuccess = createAction(
   props<{ id: number }>()
 );
 
+export const logout = createAction(
+  UserEventTypes.logout
+)
 
 // export const failure = createAction(
 //   '[Users] Failure',

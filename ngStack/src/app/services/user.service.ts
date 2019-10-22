@@ -41,9 +41,7 @@ export class UsersService {
     }
 
     update(user: User): Observable<any> {
-        return this.http.put<User>(`${environment.appApi.baseUrl}/user/:${user.id}`, {
-            user
-        });
+        return this.http.put<User>(`${environment.appApi.baseUrl}/users/${user.id}`, user);
     }
 
     destroy(id: number): Observable<any> {
