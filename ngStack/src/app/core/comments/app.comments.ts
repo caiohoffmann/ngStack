@@ -10,6 +10,7 @@ import { CommentsStoreFacade } from 'src/app/store/comments/comments.store-facad
 import { ActivatedRoute } from '@angular/router';
 import { Router } from '@angular/router';
 import { PostsServices } from 'src/app/services/post.service';
+import { Post } from '../models/post.model';
 
 
 
@@ -27,7 +28,8 @@ export class CommentsComponent implements OnInit {
   faComment = faComment;
   faThumbsUp = faThumbsUp;
   arrayComments: Observable<any>;
-  comments_array: Object;
+  //comments_array: Post;
+  comment: Post;
   myForm: FormGroup;
   comment_id: string;
 
@@ -36,14 +38,14 @@ export class CommentsComponent implements OnInit {
   public idPost: string;
 
   constructor(private _comment: CommentService, private formBuilder: FormBuilder, private user_facade: UsersStoreFacade, private _commentFacade: CommentsStoreFacade,
-    private _route: ActivatedRoute, private _postService:PostsServices) {
+    private _route: ActivatedRoute, private _postService: PostsServices) {
     this.user_facade.login({ email: 'caio@mum.edu', password: '123' });
 
     this.user_facade.getToken().subscribe(
       t => {
 
         this._comment.getComments(this.idPost).subscribe(result => {
-          this.comments_array = result;
+          this.comment = result;
 
           this.config = {
             itemsPerPage: 5,
@@ -72,8 +74,6 @@ export class CommentsComponent implements OnInit {
   ngOnInit() {
     this._route.params.subscribe(params => {
       this.idPost = params['idPost'];
-      // console.log("Info " + this.idPost);
-
     })
   }
 
@@ -82,24 +82,42 @@ export class CommentsComponent implements OnInit {
       content: this.myForm.get("comment").value,
       idPost: this.idPost
     }
-    //this._commentFacade.createComment(postcontent);
+    this._comment.sendComment(postcontent);
+    this.comment.comments = [...this.comment.comments, postcontent];
   }
 
-  //  //    likeReply(idPost: string, idComment:string): Observable<any> {
+
   onlikePost(event: Event) {
     this.comment_id = this.stoPropgation(event);
-    this._comment.likeReply(this.idPost, this.comment_id).subscribe(res=>{
-          console.log("On like Data " + res);
-    });
-   
-   // console.log("Reply Is ok  " + this.comment_id);
+    this._comment.likeReply(this.idPost, this.comment_id).subscribe(t => {
+      var postcontent;
+      let con;
+      for (con of this.comment.comments) {
+
+        if (con._id == this.comment_id) {
+          postcontent = {
+            content: con.content,
+            idPost: this.idPost,
+            like: parseInt(con.like) + 1,
+            owner: con.owner,
+            _id: con._id,
+            date: con.date,
+            replies: con.replies,
+            updated: con.updated
+          }
+          console.dir(con);
+          this.comment.comments[this.comment.comments.indexOf(con)] = postcontent;
+        }
+      }
+      this._comment.likeReply(this.idPost, this.comment_id);
+      this.comment.comments = [...this.comment.comments];
+    })
 
   }
 
 
   onReplyComment(event: Event) {
     this.comment_id = this.stoPropgation(event);
-    console.log("After Method Elem " + this.comment_id);
   }
 
   stoPropgation(event: Event): string {

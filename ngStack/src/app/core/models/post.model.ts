@@ -6,7 +6,8 @@ export interface Post {
     title: string,
     owner?: string,
     likes?: number,
-    comments?: [Comment],
-    tags?: [String],
-    id?: string
+    comments?: Comment[],
+    tags?: String[],
+    id?: string,
+    date?: Date
 }
