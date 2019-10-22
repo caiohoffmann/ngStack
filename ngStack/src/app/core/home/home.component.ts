@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators, FormControl, FormArray } from '@ang
 import { environment } from '../../env/environment';
 import { PostsServices } from 'src/app/services/post.service';
 import { UsersStoreFacade } from 'src/app/store/users/users.store-facade';
-import { type } from 'os';
+import { ConcatSource } from 'webpack-sources';
 
 
 
@@ -14,13 +14,13 @@ import { type } from 'os';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  homes: Object;
+  homes:any[];
   myForm: FormGroup;
   mytags = ["Tech", "Food", "Art", "Angular"];
   token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNhaW9AZ21haWwuY29tIiwiaWQiOiI1ZGFhNTcyMWIzNDM4OTdmYzAzMTVmMzkiLCJuYW1lIjoiQ2FpbyIsImlhdCI6MTU3MTUzMTQyMn0.P2fcGZSZfEECtXInuWrBbSAuKFYNTy50Kzl72NzPt4s";
   tagsForm: FormGroup;
-  page = 1;
-  homess;
+  page = 2;
+  loadmoreButton:Boolean = true;
 
   //constructor
   constructor(private http: HttpClient, private fb: FormBuilder, private ps: PostsServices,private userFacade : UsersStoreFacade) {
@@ -34,7 +34,7 @@ export class HomeComponent implements OnInit {
     });
     //Get All Posts from Service
     ps.getHomePaged(1).subscribe(res=>{
-      this.homes = res;
+      this.homes = res.data;
     })
 
     this.myForm = this.fb.group({
@@ -42,9 +42,7 @@ export class HomeComponent implements OnInit {
       'tags': this.fb.array(this.mytags.map(x => !1))
     });
 
-    this.myForm.valueChanges.subscribe((val) => {
-      console.log(val);
-    })
+    // this.myForm.valueChanges.subscribe((val) => { })
 
     //For right sidebar form
     this.tagsForm = this.fb.group({
@@ -52,9 +50,12 @@ export class HomeComponent implements OnInit {
     })
 
     //Triggered when you choose topic from right sidebar
-    this.tagsForm.valueChanges.subscribe(val => {
-      console.log(val);
-    })
+    // this.tagsForm.valueChanges.subscribe(val => {  })
+
+
+      
+
+      
   }
 
   ngOnInit() {
@@ -64,18 +65,20 @@ export class HomeComponent implements OnInit {
     const valueToStore = Object.assign({}, this.myForm.value, {
       tags: this.convertToValue('tags')
     });
-    console.log(valueToStore);
+
 
     this.http.post(`${environment.appApi.baseUrl}/posts`, valueToStore, { observe: 'response', headers: { "ngstackauth": this.token } }).subscribe(res => {
-      console.log(res)
+
       //fetch the data from server
-      this.ps.getAll().subscribe(res=>{
-        this.homes = res;
+      this.ps.getHomePaged(1).subscribe(res=>{
+        this.homes = res.data;
+        this.loadmoreButton = true;
       })
     })
   }
 
   onSubmit2() {
+    this.loadmoreButton =false;
     //fills the tags array with tag name
     const valueToStore = Object.assign({}, this.tagsForm.value,{
       tags: this.convertToValue2('tags')
@@ -83,8 +86,7 @@ export class HomeComponent implements OnInit {
 
     //Call to API to fetch posts tagged
     this.http.post(`${environment.appApi.baseUrl}/homes/tags`, valueToStore, { observe: 'response', headers: { "ngstackauth": this.token } }).subscribe(res => {
-      console.log(res.body)
-      this.homes = res.body;
+      this.homes = res.body.data;
     })
   }
 
@@ -98,12 +100,10 @@ export class HomeComponent implements OnInit {
   }
 
   loadmore(){
-    this.ps.getHomePaged(3).subscribe(res=>{
-      this.homess = Object.assign({}, res, this.homes);
-      // this.homes = [this.homes, ...res];
-      // console.log(typeof(this.homes))
-    
-      console.log(this.homes)
+    this.ps.getHomePaged(this.page).subscribe(res=>{
+      this.page +=1;
+      this.homes = [...this.homes, ...res.data];
+      if(res.data.length<5) this.loadmoreButton=false;
     })
   }
 

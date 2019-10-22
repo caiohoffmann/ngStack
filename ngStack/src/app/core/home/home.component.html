@@ -11,11 +11,11 @@
                             <textarea placeholder="Title of post" formControlName="title" class="form-control"
                                 id="exampleTextarea" rows="3" required></textarea>
                         </div>
-                        <label for="exampleTextarea">Tags: </label>
+                        <label for="exampleTextarea">Choose tags: &nbsp;&nbsp;</label>
                         <span *ngFor="let tag of mytags; let i = index" formArrayName="tags">
-                            <div class="form-check">
+                            <div class="form-check" style="display: inline;">
                                 <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" [formControlName]="i">{{tag}}
+                                    <input type="checkbox" class="form-check-input" [formControlName]="i">{{tag}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                 </label>
                             </div>
                         </span>
@@ -38,12 +38,12 @@
                             </span>
                         </p>
                         <p class="card-text">by {{h.owner}} on {{h.date|date}}</p>
-                        <a href="#" class="btn btn-primary ml-auto" [routerLink]="['/posts/',h._id]">See This</a>
+                        <a href="#" class="btn btn-outline-primary ml-auto" [routerLink]="['/posts/',h._id]">See This</a>
                     </div>
                 </div>
             </div>
             <br />
-            <div class="row justify-content-center">
+            <div class="row justify-content-center" *ngIf="loadmoreButton">
                 <button type="submit" class="btn btn-outline-primary" (click)="loadmore()">Load More</button>
             </div>
         </div>
