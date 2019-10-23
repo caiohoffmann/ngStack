@@ -9,6 +9,8 @@ import { MatSnackBar } from '@angular/material';
 @Component({
   selector: 'app-login',
   template: `
+  <div class="row justify-content-center">
+<div class="col-md-6 jumbotron">
   <h3>User Login</h3>
 <form [formGroup]="loginForm" (ngSubmit)="onFormSubmit()">
     <div class="form-group">
@@ -37,7 +39,10 @@ import { MatSnackBar } from '@angular/material';
        
   
     </div>
-</form>`,
+</form>
+</div>
+</div>
+`,
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {

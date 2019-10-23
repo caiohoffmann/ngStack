@@ -3,3 +3,10 @@ form-group{
     background: lightgray;
     float: right;
   }
+
+  h3{
+    text-align: center;
+  }
+  .row{
+    margin-top: 20px;
+  }

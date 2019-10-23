@@ -8,7 +8,11 @@ import { Router } from '@angular/router'
 import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-signup',
-  template: `<form [formGroup]="registerForm" (ngSubmit)="onFormSubmit()">
+  template: `
+  <div class="row justify-content-center">
+<div class="col-md-6 jumbotron">
+  <h3>Sign Up</h3>
+  <form [formGroup]="registerForm" (ngSubmit)="onFormSubmit()">
     <div class="form-group">
       <label for="name"> Name</label>
           <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && fval.name.errors }" placeholder="Enter Name here"/>
@@ -50,7 +54,8 @@ import { Component, OnInit } from '@angular/core';
         <a href="" target="_blank">terms of service</a>. </p>
   </div>
   </form>
-  
+  </div>
+  </div>
   `,
   styleUrls: ['./signup.component.css']
 })

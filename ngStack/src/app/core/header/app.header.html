@@ -23,9 +23,9 @@
             <li class="nav-item" *ngIf="!(user | async)?.token; else userlogout"><a class="nav-link"
                     routerLink="/signup" routerLinkActive="active" class="btn btn-link">SignUp</a></li>
 
-
-            <ng-template #userlogout>
-                <p [style.color]="'white'">Welcome {{(user|async)?.name}}</p>
+                
+            <ng-template #userlogout><li>
+                <p [style.color]="'white'">Welcome {{(user|async)?.name}}</p></li>
                 <div class="btn-group">
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false" mat-button>
@@ -44,7 +44,7 @@
                                 mat-button>Edit Profile</button></li>
                     </ul>
                 </div>
-
+            
 
 
             </ng-template>
