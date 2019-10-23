@@ -93,15 +93,12 @@ export class SignUpComponent implements OnInit {
       },
       error => {
         this.loading = false;
-        console.dir(error);
 
         this._snackBar.open("some thing problem with User Name , password and email please checking", "close!!")
 
 
-        console.log(`Erro : ${error}`);
-
       }
-      
+
     )
 
   }

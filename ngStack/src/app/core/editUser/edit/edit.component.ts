@@ -69,7 +69,7 @@ export class EditComponent implements OnInit {
     });
     this.userFacade.getUser().subscribe(u => {
       this.user = u;
-      
+
     });
   }
   get fval() { return this.registerForm.controls; }
@@ -85,21 +85,17 @@ export class EditComponent implements OnInit {
     this.loading = true;
     const u = this.registerForm.value;
     u.id = this.user.id;
-    console.dir(u);
     this.userService.update(u).subscribe(
       (data) => {
         alert('Edit successfully!!');
         this.router.navigate(['/home']);
       },
       error => {
-        console.dir(error)
-        console.log(`Erro : ${error}`);
 
       }
       // (error)=>{
       //   //this.toastr.error(error.error.message, 'Error');
       //   this.loading = false;
-      //   console.log()
       // }
     )
 

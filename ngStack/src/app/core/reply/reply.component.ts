@@ -9,6 +9,7 @@ import { Post } from '../models/post.model';
 import { PostsStoreFacade } from 'src/app/store/posts/posts.store-facade';
 import { CommentsStoreFacade } from 'src/app/store/comments/comments.store-facade';
 import { Comment } from '../models/comment.model';
+import { ReplyServices } from 'src/app/services/reply.service';
 
 @Component({
     selector: 'reply',
@@ -21,18 +22,19 @@ export class ReplyComponent {
     @Input() idComment;
     @Input() idPost;
     faThumbsUp = faThumbsUp;
-    constructor(private userFacade: UsersStoreFacade, private replyFacade: RepliesStoreFacade) {
+    constructor(private userFacade: UsersStoreFacade, private replyFacade: RepliesStoreFacade, private repliesServices: ReplyServices) {
         this.user = this.userFacade.getUser();
     }
     create(reply) {
-        console.log(`hey`)
-        this.replyFacade.create({ content: reply, idPost: this.idPost, idComment: this.idComment });
-        if (this.replies.length > 1) {
-            this.replies = [...this.replies, { content: reply }];
-        }
-        else {
-            this.replies = [this.replies, { content: reply }]
-        }
+        this.repliesServices.create({ content: reply, idPost: this.idPost, idComment: this.idComment }).subscribe(con => {
+            if (this.replies.length > 1) {
+                this.replies = [...this.replies, con.data];
+            }
+            else {
+                this.replies = [this.replies, con.data]
+            }
+        });
+
     }
     like(id) {
         for (let re of this.replies) {
@@ -40,13 +42,16 @@ export class ReplyComponent {
                 const reply = re;
                 reply.idPost = this.idPost;
                 reply.idComment = this.idComment;
-                this.replyFacade.like(reply);
-                if (reply.likes) {
-                    reply.likes = parseInt(reply.likes) + 1;
-                } else {
-                    reply.likes = 1;
-                }
-                this.replies[this.replies.indexOf(re)] = reply;
+                //this.replyFacade.like(reply);
+                this.repliesServices.like(reply).subscribe(rep => {
+                    if (reply.likes) {
+                        reply.likes = parseInt(reply.likes) + 1;
+                    } else {
+                        reply.likes = 1;
+                    }
+                    this.replies[this.replies.indexOf(re)] = reply;
+                })
+
             }
         }
     }

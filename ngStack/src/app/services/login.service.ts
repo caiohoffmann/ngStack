@@ -27,7 +27,6 @@ export class LoginService {
   }
 
   validateLogin(username: string, password: string) {
-    console.log(`username ${username} password ${password}`)
 
     return this.http.post<any>(`${environment.appApi.baseUrl}/auth/login`, {
       email: username,

@@ -24,12 +24,15 @@ export const replyReducer = createReducer<State>(
         ({ ...state, replies: { ...state.replies, reply } })
     ),
     on(likeReplySuccess, (state, { reply }) => {
-        for (let rep of state.replies) {
-            if (rep._id === reply._id) {
-                state.replies[state.replies.indexOf(rep)] = reply;
+        if (state.replies) {
+            for (let rep of state.replies) {
+                if (rep._id === reply._id) {
+                    state.replies[state.replies.indexOf(rep)] = reply;
+                }
             }
+            return ({ ...state, replies: [...state.replies] });
         }
-        return ({ ...state, replies: [...state.replies] });
+        return ({ ...state, replies: null });
     }
 
     ),

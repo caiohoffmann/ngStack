@@ -6,21 +6,21 @@
 
             <a class=" flex-column align-items-start active">
                 <div class="d-flex w-100 justify-content-between card-header">
-                    <h5 class="card-title">{{comment.title}}</h5>
+                    <h5 class="card-title">{{comment?.title}}</h5>
                 </div>
-                <span *ngFor="let t of comment.tags"><span class="badge badge-danger">{{t}}</span>&nbsp;</span>
+                <span *ngFor="let t of comment?.tags"><span class="badge badge-danger">{{t}}</span>&nbsp;</span>
             </a>
 
             <small>
-                <fa-icon [icon]="faCoffee"></fa-icon> {{comment.owner}} &nbsp;
-            </small> | <fa-icon [icon]="faClock"></fa-icon><small>{{comment.date | dateAgo}}</small> | <small>
+                <fa-icon [icon]="faCoffee"></fa-icon> {{comment?.owner}} &nbsp;
+            </small> | <fa-icon [icon]="faClock"></fa-icon><small>{{comment?.date | dateAgo}}</small> | <small>
                 <fa-icon [icon]="faComment"></fa-icon>
-                {{comment.comments.length}}
+                {{comment?.comments?.length}}
             </small>
             <!-- | <small>10</small> -->
 
             <div class="col-xs-12" style="height:20px;"></div>
-            <div *ngFor="let arraycomment of comment.comments">
+            <div *ngFor="let arraycomment of comment?.comments">
                 <a class="list-group-item list-group-item-action flex-column align-items-start">
                     <div class="container text-right">
                         <h5 class="mb-1"></h5>
@@ -31,7 +31,7 @@
                             <fa-icon [icon]="faClock"></fa-icon> &nbsp; {{arraycomment.updated | dateAgo}}
                         </small>
                         <small *ngIf="(user | async)?.token">|
-                            <button type="button" (click)="onlikePost($event)" id="{{arraycomment._id}}">
+                            <button type="button" (click)="onlikePost($event)" id="{{arraycomment?._id}}">
                                 <fa-icon [icon]="faThumbsUp"></fa-icon> &nbsp; {{arraycomment.like}}
                             </button>
                         </small>
@@ -43,7 +43,7 @@
                     <small class="text-muted">{{arraycomment.owner}}</small>
 
                 </a>
-                <reply [replies]="arraycomment.replies" [idComment]="arraycomment._id" [idPost]="comment._id">
+                <reply [replies]="arraycomment?.replies" [idComment]="arraycomment?._id" [idPost]="comment?._id">
                 </reply>
                 <div class="col-xs-12" style="height:30px;"></div>
 

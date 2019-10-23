@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
 
     this.loginForm = this.formBulider.group({
-      email: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
     });
   }
@@ -77,7 +77,6 @@ export class LoginComponent implements OnInit {
       error => {
 
         this.loading = false;
-        console.log("Error is");
         this._snackBar.open("some thing problem with password and email please checking", "close!!")
       }
     );

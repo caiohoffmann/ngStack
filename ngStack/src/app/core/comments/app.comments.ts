@@ -61,7 +61,6 @@ export class CommentsComponent implements OnInit {
       this.idPost = params['idPost'];
       this._postService.getPost(this.idPost).subscribe(result => {
         this.comment = result;
-        console.dir(result);
 
         this.config = {
           itemsPerPage: 5,
@@ -96,14 +95,13 @@ export class CommentsComponent implements OnInit {
           postcontent = {
             content: con.content,
             idPost: this.idPost,
-            like: parseInt(con.like) + 1,
+            like: parseInt(con.like) === NaN ? '1' : parseInt(con.like) + 1,
             owner: con.owner,
             _id: con._id,
             date: con.date,
             replies: con.replies,
             updated: con.updated
           }
-          console.dir(con);
           this.comment.comments[this.comment.comments.indexOf(con)] = postcontent;
         }
       }
